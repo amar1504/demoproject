@@ -106,6 +106,45 @@
         </li>
         <!-- Banner Management nav End-->
 
+        <!-- Category Management nav start-->
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Category Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          <!-- Nav list for Category Management according to role of logged user start -->
+          @if(Gate::check('isAdmin') )
+            <li><a href="{{ url('/admin/category/create') }}"><i class="fa fa-circle-o"></i> Add Category</a></li>
+          @endif
+          <!-- Nav list for Category Management according to role of logged user End -->
+            <li><a href="{{ url('/admin/category') }}"><i class="fa fa-circle-o"></i> List Category</a></li>
+          </ul>
+        </li>
+        <!-- Category Management nav End-->
+
+        <!-- Product Management nav start-->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Product Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          <!-- Nav list for Product Management according to role of logged user start -->
+          @if(Gate::check('isAdmin') )
+            <li><a href="{{ url('/admin/product/create') }}"><i class="fa fa-circle-o"></i> Add Product</a></li>
+          @endif
+          <!-- Nav list for Product Management according to role of logged user End -->
+            <li><a href="{{ url('/admin/product') }}"><i class="fa fa-circle-o"></i> List Product</a></li>
+          </ul>
+        </li>
+        <!-- Product Management nav End-->
+
 
         <!--
         <li class="header">MAIN NAVIGATION</li>

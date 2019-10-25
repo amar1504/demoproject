@@ -1,6 +1,6 @@
 <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
     <label for="title" class="control-label">{{ 'Title' }}</label>
-    <input class="form-control" name="title" type="text" id="title" value="{{ isset($banner->title) ? $banner->title : ''}}" >
+    <input class="form-control" name="title" type="text" id="title" value="{{ isset($banner->title) ? $banner->title : old('title')}}" >
     {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('bannerimage') ? 'has-error' : ''}}">
