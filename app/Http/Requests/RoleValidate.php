@@ -28,6 +28,17 @@ class RoleValidate extends FormRequest
             'role_name'=>'required|alpha',
 
         ];
-        // validation for user form end
+        // validation for role form end
     }
+
+    public function messages()
+    {
+        // validation message for role form start
+        return [
+            'role_name.required' => 'Role name is required.',
+            
+        ];
+        // validation message for role form end
+    }
+
 }

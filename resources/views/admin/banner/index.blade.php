@@ -1,18 +1,18 @@
 @extends('master')
 
 @section('content')
+<h3>Banner<hr></h3>
     <div class="container">
         <div class="row">
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Banner</div>
                     <div class="card-body">
                     <!--Access Control  according to role start -->
                     @if(Gate::check('isAdmin') || Gate::check('isSuperAdmin'))
                         <a href="{{ url('/admin/banner/create') }}" class="btn btn-success btn-sm" title="Add New Banner">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                        </a>
+                        </a><br/><br/>
                     @endif
                     <!--Access Control  according to role End -->
                         <form method="GET" action="{{ url('/admin/banner') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
@@ -37,7 +37,7 @@
                         <!-- Display flash Message in alert End -->
 
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th><th>Title</th><th>Bannerimage</th><th>Actions</th>

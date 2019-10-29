@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', ['as' => 'home' ,'uses' => 'HomeController@index']);
 
 Auth::routes();
 
@@ -40,3 +40,10 @@ Route::get('admin/subcategory/{id?}', 'Admin\\CategoryController@showSubCat');
 Route::get('admin/product/create', 'Admin\\ProductController@index');
 Route::resource('admin/product', 'Admin\\ProductController');
 Route::resource('admin/coupon', 'Admin\\CouponController');
+
+//Route::get('/dropdown', ['as' => 'dropdown' ,'uses' => 'Admin\\ProductController@dropdown']);
+Route::post('/dropdown','Admin\\ProductController@dropdown')->name('dropdown_route');
+
+Route::get('Eshopper1', function(){
+    return view('/Eshopper/master');
+});

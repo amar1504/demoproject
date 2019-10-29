@@ -40,7 +40,12 @@ class StoreUser extends FormRequest
     {
         // validation message for user form start
         return [
-            'firstname.required' => 'firstname is required.'
+            'firstname.required' => 'First name is required.',
+            'lastname.required' => 'Last name is required.',
+            'email.required' => 'Email is required.',
+            'password.required' => 'Password is required.',
+            'confirmpassword.required' => 'Confirm Password is required.',
+            'status.required' => 'Status is required.',
         ];
         // validation message for user form end
     }

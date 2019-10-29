@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CouponValidation;
 
 use App\Coupon;
 use Illuminate\Http\Request;
@@ -51,9 +52,9 @@ class CouponController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(CouponValidation $request)
     {
-        
+        $validated=$request->validated;
         $requestData = $request->all();
         
         Coupon::create($requestData);
@@ -97,9 +98,9 @@ class CouponController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(CouponValidation $request, $id)
     {
-        
+        $validated=$request->validated;
         $requestData = $request->all();
         
         $coupon = Coupon::findOrFail($id);

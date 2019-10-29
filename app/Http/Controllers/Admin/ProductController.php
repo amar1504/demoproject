@@ -9,6 +9,7 @@ use App\Product;
 use App\ProductImage;
 use App\ProductCategory;
 use App\Category;
+use App\Http\Requests\ProductValidation;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -47,9 +48,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $category=Category::get();
+        $category=Category::where('parent_id','=',0)->get();
+        $subcategory=Category::where('parent_id','!=',0)->get();
 
-        return view('admin.product.create',['category'=>$category]  );
+        return view('admin.product.create',['category'=>$category,'subcategory'=>$subcategory]  );
     }
 
     /**
@@ -59,10 +61,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(ProductValidation $request)
     {
-        
+        $validated=$request->validated();
         // $requestData = $request->all();
+        if(isset($request->subcategory_id))
+        {
+            $request->category_id=$request->subcategory_id;
+        }
+
         if ($request->hasFile('product_image')) {
             $requestData['product_image'] = $request->file('product_image')
                 ->store('productimages', 'public');
@@ -98,13 +105,17 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $category=Category::get();
-        
+        $category=Category::where('parent_id','=',0)->get();
+        $subcategory=Category::where('parent_id','!=',0)->get();
         $productCat = ProductCategory::where('product_id','=',$id)->first();
         // dd($productCat->category_id);
+        
+        $parentcat=Category::where('id','=',$productCat->category_id)->first();
+        // dd ($parentcat);
+        
         $product = Product::findOrFail($id);
 
-        return view('admin.product.edit', compact('product'),['category'=>$category,'productCategory'=>$productCat]);
+        return view('admin.product.edit', compact('product'),['category'=>$category,'subcategory'=>$subcategory,'productCategory'=>$productCat, 'parentcat'=>$parentcat]);
     }
 
     /**
@@ -115,11 +126,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(ProductValidation $request, $id)
     {
+        $validated=$request->validated();
         $product = Product::findOrFail($id);
         $requestData = $request->all();
-
+        
+        if(isset($request->subcategory_id))
+        {
+            $request->category_id=$request->subcategory_id;
+        }
         
         $product->update($requestData);
         $productImg = ProductImage::where('product_id','=',$id)->first();
@@ -155,4 +171,16 @@ class ProductController extends Controller
 
         return redirect('admin/product')->with('flash_message', 'Product deleted!');
     }
+
+    public function dropdown(Request $request)
+    {
+        dd($request->all());
+        //echo $request->category_id;
+        /*$subcat=Category::where('parent_id',$request->category_id)->get();
+        dd($subcat);
+        foreach($subcat as $scat){
+            $cat.="<option value='<?=$subcat->$id?>'><?=$subcat->category_name?></option>";
+        }*/
+    }
+
 }

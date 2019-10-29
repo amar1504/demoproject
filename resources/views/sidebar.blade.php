@@ -57,7 +57,7 @@
           </a>
           <ul class="treeview-menu">
           <!-- Nav list for Role Management according to role of logged user Start -->
-          @if(Gate::check('isAdmin') || Gate::check('isSuperAdmin'))
+          @if(Gate::check('isSuperAdmin'))
             <li><a href="{{ url('/admin/roles/create') }}"><i class="fa fa-circle-o"></i> Add Role</a></li>
           @endif
           <!-- Nav list for Role Management according to role of logged user End -->
@@ -77,7 +77,7 @@
           </a>
           <ul class="treeview-menu">
           <!-- Nav list for Configuration Management according to role of logged user start -->
-          @if(Gate::check('isAdmin') || Gate::check('isSuperAdmin'))
+          @if( Gate::check('isSuperAdmin'))
             <li><a href="{{ url('/admin/configuration/create') }}"><i class="fa fa-circle-o"></i> Add Configuration</a></li>
           @endif
           <!-- Nav list for Configuration Management according to role of logged user End -->
@@ -97,7 +97,7 @@
           </a>
           <ul class="treeview-menu">
           <!-- Nav list for Banner Management according to role of logged user start -->
-          @if(Gate::check('isAdmin') || Gate::check('isSuperAdmin'))
+          @if( Gate::check('isSuperAdmin'))
             <li><a href="{{ url('/admin/banner/create') }}"><i class="fa fa-circle-o"></i> Add Banner</a></li>
           @endif
           <!-- Nav list for Banner Management according to role of logged user End -->
@@ -117,7 +117,7 @@
           </a>
           <ul class="treeview-menu">
           <!-- Nav list for Category Management according to role of logged user start -->
-          @if(Gate::check('isAdmin') )
+          @if(Gate::check('isSuperAdmin') )
             <li><a href="{{ url('/admin/category/create') }}"><i class="fa fa-circle-o"></i> Add Category</a></li>
           @endif
           <!-- Nav list for Category Management according to role of logged user End -->
@@ -136,7 +136,7 @@
           </a>
           <ul class="treeview-menu">
           <!-- Nav list for Product Management according to role of logged user start -->
-          @if(Gate::check('isAdmin') )
+          @if(Gate::check('isSuperAdmin') )
             <li><a href="{{ url('/admin/product/create') }}"><i class="fa fa-circle-o"></i> Add Product</a></li>
           @endif
           <!-- Nav list for Product Management according to role of logged user End -->
@@ -145,6 +145,25 @@
         </li>
         <!-- Product Management nav End-->
 
+
+        <!-- Coupon Management nav start-->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Coupon Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          <!-- Nav list for Product Management according to role of logged user start -->
+          @if(Gate::check('isSuperAdmin') )
+            <li><a href="{{ url('/admin/coupon/create') }}"><i class="fa fa-circle-o"></i> Add Coupon</a></li>
+          @endif
+          <!-- Nav list for Product Management according to role of logged user End -->
+            <li><a href="{{ url('/admin/coupon') }}"><i class="fa fa-circle-o"></i> List Coupon</a></li>
+          </ul>
+        </li>
+        <!-- Coupon Management nav End-->
 
         <!--
         <li class="header">MAIN NAVIGATION</li>

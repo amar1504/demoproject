@@ -1,18 +1,18 @@
 @extends('master')
 
 @section('content')
+<h3>Roles <hr></h3>
     <div class="container">
         <div class="row">
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Roles</div>
                     <div class="card-body">
                     <!--Access Control  according to role start -->
                     @if(Gate::check('isAdmin') || Gate::check('isSuperAdmin'))
                         <a href="{{ url('/admin/roles/create') }}" class="btn btn-success btn-sm" title="Add New Role">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                        </a>
+                        </a><br/><br/>
                     @endif  
                     <!--Access Control  according to role End -->
 
@@ -36,7 +36,7 @@
                         <br/>
                         <br/>
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th><th>Role Name</th><th>Actions</th>

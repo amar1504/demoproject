@@ -1,29 +1,29 @@
 <div class="form-group {{ $errors->has('coupon_title') ? 'has-error' : ''}}">
     <label for="coupon_title" class="control-label">{{ 'Coupon Title' }}</label>
-    <input class="form-control" name="coupon_title" type="text" id="coupon_title" value="{{ isset($coupon->coupon_title) ? $coupon->coupon_title : ''}}" >
+    <input class="form-control" name="coupon_title" type="text" id="coupon_title" value="{{ isset($coupon->coupon_title) ? $coupon->coupon_title : old('coupon_title')}}" required="" >
     {!! $errors->first('coupon_title', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('code') ? 'has-error' : ''}}">
     <label for="code" class="control-label">{{ 'Code' }}</label>
-    <input class="form-control" name="code" type="text" id="code" value="{{ isset($coupon->code) ? $coupon->code : ''}}" >
+    <input class="form-control" name="code" type="text" id="code" value="{{ isset($coupon->code) ? $coupon->code : old('code')}}"  required="">
     {!! $errors->first('code', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
     <label for="description" class="control-label">{{ 'Description' }}</label>
-    <textarea class="form-control" rows="5" name="description" type="textarea" id="description" >{{ isset($coupon->description) ? $coupon->description : ''}}</textarea>
+    <textarea class="form-control" rows="5" name="description" type="textarea" id="description" data-parsley-minlength="10" required="">{{ isset($coupon->description) ? $coupon->description : old('description')}}</textarea>
     {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('discount') ? 'has-error' : ''}}">
-    <label for="discount" class="control-label">{{ 'Discount' }}</label>
-    <input class="form-control" name="discount" type="number" id="discount" value="{{ isset($coupon->discount) ? $coupon->discount : ''}}" >
+    <label for="discount" class="control-label">{{ 'Discount/Amount' }}</label>
+    <input class="form-control" name="discount" type="text" id="discount" value="{{ isset($coupon->discount) ? $coupon->discount : old('discount')}}" data-parsley-type="number"  required="" >
     {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
     <label for="type" class="control-label">{{ 'Type' }}</label>
-    <select name="type" class="form-control" id="type" >
-        <option     value="0">Select</option>
+    <select name="type" class="form-control" id="type" required="">
+        <option value=" ">Select</option>
         <option value="1" {{ (isset($coupon->type) && $coupon->type == 1) ? 'selected' : ''}}>{{ 'Discount' }}</option>
-        <option value="1" {{ (isset($coupon->type) && $coupon->type == 2) ? 'selected' : ''}}>{{ 'Amount' }}</option>
+        <option value="2" {{ (isset($coupon->type) && $coupon->type == 2) ? 'selected' : ''}}>{{ 'Amount' }}</option>
 </select>
     {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
 </div>
@@ -31,4 +31,6 @@
 
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
+    <a href="{{ url('/admin/coupon') }}" title="Back"><button type="button" class="btn btn-warning "><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                    
 </div>

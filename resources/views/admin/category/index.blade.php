@@ -1,18 +1,18 @@
 @extends('master')
 
 @section('content')
+<h3>Category<hr/></h3>
     <div class="container">
         <div class="row">
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Category</div>
                     <div class="card-body">
                     <!-- Access Control according to role start-->
-                    @if(Gate::check('isAdmin'))
+                    @if(Gate::check('isSuperAdmin'))
                         <a href="{{ url('/admin/category/create') }}" class="btn btn-success btn-sm" title="Add New Category">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                        </a>
+                        </a><br/><br/>
                     @endif
                     <!-- Access Control according to role start-->
                         <form method="GET" action="{{ url('/admin/category') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
@@ -35,8 +35,8 @@
                             </div>
                         @endif
                         <!--Display flash Message in alert End -->
-                        <div class="table-responsive">
-                            <table class="table">
+                        <div class="table-responsive ">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th><th>Category Name</th><th>Actions</th>
@@ -51,7 +51,7 @@
                                         <td>
                                             <a href="{{ url('/admin/category/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <!-- Access Control according to role start-->
-                                            @if(Gate::check('isAdmin'))
+                                            @if(Gate::check('isSuperAdmin'))
 
                                             <a href="{{ url('/admin/category/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 

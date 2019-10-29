@@ -1,26 +1,24 @@
 @extends('master')
 
 @section('content')
+<h3>Create New Product<hr/></h3>
+
     <div class="container">
         <div class="row">
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">Create New Product</div>
-                    <div class="card-body">
-                        <a href="{{ url('/admin/product') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <br />
-                        <br />
+            <div class="col-md-7">
+                <div class="box box-primary">
+                    <div class="box-body">
 
-                        @if ($errors->any())
+                        <!--@if ($errors->any())
                             <ul class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
-                        @endif
+                        @endif-->
 
-                        <form method="POST" action="{{ url('/admin/product') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/admin/product') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('admin.product.form', ['formMode' => 'create'])
@@ -32,4 +30,33 @@
             </div>
         </div>
     </div>
+
+
+<script>
+$(document).ready(function(){
+    $('#category_id').change(function() {
+      var id=this.value;
+      alert(id);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    
+        $.ajax({
+            type:"POST",
+            url:"{{ route('dropdown_route') }}",
+            data:{category_id:id},
+            success:function(data) {
+                //alert($data);
+                //$("#category_id").html(data);
+            }
+        });
+
+    });
+});
+</script>
+
 @endsection
+

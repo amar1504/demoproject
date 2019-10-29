@@ -1,17 +1,18 @@
 @extends('master')
 
 @section('content')
+<h3>Sub Category #{{ $category->id }}<hr/></h3>
+
     <div class="container">
         <div class="row">
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">Sub Category {{ $category->id }}</div>
-                    <div class="card-body">
+            <div class="col-md-7">
+                <div class="box box-primary">
+                    <div class="box-body">
 
                         <a href="{{ url('/admin/category/'.$category->parent_id) }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <!-- Access Control according to role start-->
-                        @if(Gate::check('isAdmin'))
+                        @if(Gate::check('isSuperAdmin'))
                         <a href="{{ url('/admin/category/' . $category->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
                         <form method="POST" action="{{ url('admin/category' . '/' . $category->id) }}" accept-charset="UTF-8" style="display:inline">

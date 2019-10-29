@@ -31,4 +31,14 @@ class BannerManagementValidation extends FormRequest
         ];
         // validation for banner form end
     }
+
+    public function messages()
+    {
+        // validation message for banner form start
+        return [
+            'title.required' => 'Title is required.',
+            'bannerimage.required' => 'Banner image is required.'
+        ];
+        // validation message for banner form end
+    }
 }

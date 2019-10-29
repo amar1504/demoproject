@@ -1,13 +1,13 @@
 @extends('master')
 
 @section('content')
+<h3>Configuration #{{ $configuration->id }}<hr/></h3>
     <div class="container">
         <div class="row">
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">Configuration {{ $configuration->id }}</div>
-                    <div class="card-body">
+            <div class="col-md-7">
+                <div class="box box-primary">
+                    <div class="box-body">
 
                         <a href="{{ url('/admin/configuration') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <!--Access Control  according to role start -->
