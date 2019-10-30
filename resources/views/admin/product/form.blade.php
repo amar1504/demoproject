@@ -1,5 +1,5 @@
 <div class="form-group {{ $errors->has('category_id') ? 'has-error' : ''}}">
-    <label for="category_id" class="control-label">{{ 'Category' }}</label> 
+    <label for="category_id" class="control-label">{{ 'Category' }} <font color="red">*</font></label> 
     <select name="category_id" class="form-control" id="category_id" required="">
     <option value=" ">SELECT</option>
     @foreach ($category as $cat)
@@ -25,26 +25,35 @@
     {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
-    <label for="product_name" class="control-label">{{ 'Product Name' }}</label>
+    <label for="product_name" class="control-label">{{ 'Product Name' }} <font color="red">*</font></label>
     <input class="form-control" name="product_name" type="text" id="product_name" value="{{ isset($product->product_name) ? $product->product_name : old('product_name')}}" required="" >
     {!! $errors->first('product_name', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('price') ? 'has-error' : ''}}">
-    <label for="price" class="control-label">{{ 'Price' }}</label>
+    <label for="price" class="control-label">{{ 'Price' }} <font color="red">*</font></label>
     <input class="form-control" name="price" type="text" id="price" value="{{ isset($product->price) ? $product->price : old('price')}}" data-parsley-type="number" required="">
     {!! $errors->first('price', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
-    <label for="description" class="control-label">{{ 'Description' }}</label>
+    <label for="description" class="control-label">{{ 'Description' }} <font color="red">*</font></label>
     <textarea class="form-control" rows="5" name="description" type="textarea" id="description" data-parsley-minlength="6" required="" >{{ isset($product->description) ? $product->description : old('description')}}</textarea>
     {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('product_image') ? 'has-error' : ''}}">
     <label for="product_image" class="control-label">{{ 'Product Image' }}</label>
-    <input class="" name="product_image" type="file" id="product_image" value="{{ isset($product->product_image) ? $product->product_image : ''}}" required="" >
+    <input class="" name="product_image" type="file" id="product_image" value="{{ isset($product->product_image) ? $product->product_image : ''}}" >
     {!! $errors->first('product_image', '<p class="help-block">:message</p>') !!}
 </div>
-
+<div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
+    <label for="status" class="control-label">{{ 'Status' }} <font color="red">*</font></label>
+    <div class="radio">
+    <label><input name="status" type="radio" value="1" {{ (isset($product->status) && 1 == $product->status) ? 'checked' : '' }} required=""> Active</label>
+</div>
+<div class="radio">
+    <label><input name="status" type="radio" value="0" {{ (isset($product->status) && 0 == $product->status) ? 'checked' : '' }} > Inactive</label>
+</div>
+    {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
+</div>
 
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">

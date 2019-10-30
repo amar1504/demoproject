@@ -69,17 +69,25 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+              @if(isset(Auth::user()->image) && Auth::user()->image!="")
+              <img src="{{ asset('storage/'.Auth::user()->image) }}" class="user-image" alt="User Image">
+              @else
+              <img src="{{ asset('storage/users/user.jpg') }}" class="user-image" alt="User Image">
+              @endif
               <span class="hidden-xs">{{ Auth::user()->firstname }}</span> <!--- logged user Firstname -->
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
-
+              @if(isset(Auth::user()->image) && Auth::user()->image!="")
+              <img src="{{ asset('storage/'.Auth::user()->image) }}" class="user-image" alt="User Image">
+              @else
+              <img src="{{ asset('storage/users/user.jpg') }}" class="user-image" alt="User Image">
+              @endif
+              
                 <p>
-                {{ Auth::user()->firstname }} - Web Developer <!--- logged user Firstname -->
-                  <small>Member since Nov. 2012</small>
+                {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}  <!--- logged user Firstname -->
+                  
                 </p>
               </li>
               <!-- Menu Footer-->

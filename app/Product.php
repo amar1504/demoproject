@@ -27,7 +27,7 @@ class Product extends Model
      * @var array
      */
     // protected $fillable = ['category_id', 'product_name', 'price', 'description', 'product_image'];
-    protected $fillable = ['product_name', 'price', 'description'];
+    protected $fillable = ['product_name', 'price', 'description','status'];
 
     //Product and ProductImage relationship -start
     public function ProductCategory() {

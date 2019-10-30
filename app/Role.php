@@ -9,7 +9,7 @@ class Role extends Model
     //
     protected $table="roles";
 
-    protected $fillable = ['id','role_name','created_at','updated_at']; //fillable fields in role
+    protected $fillable = ['id','role_name','status','created_at','updated_at']; //fillable fields in role
 
 
 

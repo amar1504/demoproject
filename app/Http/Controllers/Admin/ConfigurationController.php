@@ -18,14 +18,14 @@ class ConfigurationController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = 5;
 
         if (!empty($keyword)) {
             $configuration = Configuration::where('from', 'LIKE', "%$keyword%")
                 ->orWhere('subject', 'LIKE', "%$keyword%")
                 ->orWhere('body', 'LIKE', "%$keyword%")
                 ->orWhere('notification_title', 'LIKE', "%$keyword%")
-                ->orWhere('status', 'LIKE', "%$keyword%")
+                //->orWhere('status', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
             $configuration = Configuration::latest()->paginate($perPage);

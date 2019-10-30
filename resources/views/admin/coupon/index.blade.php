@@ -8,25 +8,29 @@
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
-                    <!-- Access Control according to role start-->
-                    @if(Gate::check('isSuperAdmin') )
-                        <a href="{{ url('/admin/coupon/create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                        </a><br/><br/>
-                    @endif
-                    <!-- Access Control according to role End-->
-
-                        <form method="GET" action="{{ url('/admin/coupon') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
-                                <span class="input-group-append">
-                                    <button class="btn btn-secondary" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
+                        <div class="row ">
+                            <div class="col-md-6 text-center">
+                                <form method="GET" action="{{ url('/admin/coupon') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                                    <div class="row">
+                                        <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
+                                        <span class="input-group-append">
+                                            <button class="btn btn-secondary" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-
+                            <div class="col-md-6 text-right">        
+                                <!-- Access Control according to role start-->
+                                @if(Gate::check('isSuperAdmin') )
+                                    <a href="{{ url('/admin/coupon/create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                                    </a><br/><br/>
+                                @endif
+                                <!-- Access Control according to role End-->
+                            </div>
+                        </div>
                         <br/>
                         <br/>
                         
@@ -37,12 +41,12 @@
                             </div>
                         @endif
                         <!--Display flash Message in alert End -->
-                        
+                        <div class="col-md-12 col-md-offset-1">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Coupon Title</th><th>Code</th><th>Description</th><th>Actions</th>
+                                        <th>#</th><th>Coupon Title</th><th>Code</th><th>Description</th><th>Status</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,6 +55,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->coupon_title }}</td><td>{{ $item->code }}</td><td>{{ $item->description }}</td>
+                                        <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         <td>
                                             <a href="{{ url('/admin/coupon/' . $item->id) }}" title="View Coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             
@@ -74,7 +79,7 @@
                             </table>
                             <div class="pagination-wrapper"> {!! $coupon->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
-
+                        </div>
                     </div>
                 </div>
             </div>

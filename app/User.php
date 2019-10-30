@@ -19,7 +19,7 @@ class User extends Authenticatable
 
     //fillable fields in users -start
     protected $fillable = [
-        'firstname','lastname', 'email', 'password','roles','status'
+        'firstname','lastname', 'email', 'password','roles','status','image'
     ];
     //fillable fields in users -end
 

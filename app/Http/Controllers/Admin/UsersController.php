@@ -21,14 +21,12 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = 5;
 
         if (!empty($keyword)) {
             $users = User::where('firstname', 'LIKE', "%$keyword%")
                 ->orWhere('lastname', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
-                ->orWhere('password', 'LIKE', "%$keyword%")
-                ->orWhere('status', 'LIKE', "%$keyword%")
                 ->orWhere('roles', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
@@ -72,6 +70,10 @@ class UsersController extends Controller
         $validated = $request->validated(); // request for form validation
 
         $requestData = $request->all();
+        if ($request->hasFile('image')) {
+            $requestData['image'] = $request->file('image')
+                ->store('users', 'public');
+        }
         $requestData['password']=bcrypt($request->password);
         
         User::create($requestData);
@@ -124,6 +126,10 @@ class UsersController extends Controller
     {
         $validated = $request->validated();   // request for form validation
         $requestData = $request->all();
+        if ($request->hasFile('image')) {
+            $requestData['image'] = $request->file('image')
+                ->store('users', 'public');
+        }
         $requestData['password']=bcrypt($request->password);
 
         $user = User::findOrFail($id);

@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = 5;
 
         if (!empty($keyword)) {
             $product = Product::where('category_id', 'LIKE', "%$keyword%")
@@ -48,8 +48,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $category=Category::where('parent_id','=',0)->get();
-        $subcategory=Category::where('parent_id','!=',0)->get();
+        $category=Category::where([ ['parent_id','=',0],['status','=','1'] ])->get();
+        $subcategory=Category::where([ ['parent_id','!=',0],['status','=','1'] ])->get();
 
         return view('admin.product.create',['category'=>$category,'subcategory'=>$subcategory]  );
     }
@@ -105,8 +105,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $category=Category::where('parent_id','=',0)->get();
-        $subcategory=Category::where('parent_id','!=',0)->get();
+        $category=Category::where([ ['parent_id','=',0],['status','=','1'] ])->get();
+        $subcategory=Category::where([ ['parent_id','!=',0],['status','=','1'] ])->get();
+
         $productCat = ProductCategory::where('product_id','=',$id)->first();
         // dd($productCat->category_id);
         
@@ -172,15 +173,15 @@ class ProductController extends Controller
         return redirect('admin/product')->with('flash_message', 'Product deleted!');
     }
 
-    public function dropdown(Request $request)
+    public function dropdownCat(Request $request)
     {
-        dd($request->all());
-        //echo $request->category_id;
-        /*$subcat=Category::where('parent_id',$request->category_id)->get();
-        dd($subcat);
-        foreach($subcat as $scat){
-            $cat.="<option value='<?=$subcat->$id?>'><?=$subcat->category_name?></option>";
-        }*/
+        // dd($request->all());
+        $cat=$request->category_id;
+        $subcat=Category::where('parent_id',$cat)->get();
+        return response()->json(['name' => $subcat]);
+
+        //$subcat=Category::where('parent_id',$request->category_id)->get();
+        
     }
 
 }

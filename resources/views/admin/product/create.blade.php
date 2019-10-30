@@ -35,7 +35,9 @@
 <script>
 $(document).ready(function(){
     $('#category_id').change(function() {
-      var id=this.value;
+      var id=$(this).val();
+      var i;
+      var option;
       alert(id);
 
         $.ajaxSetup({
@@ -49,7 +51,19 @@ $(document).ready(function(){
             url:"{{ route('dropdown_route') }}",
             data:{category_id:id},
             success:function(data) {
-                //alert($data);
+                //alert(data);
+                $("#subcategory_id").empty();
+                $("#subcategory_id").append("<option value="+' '+">"+'SELECT'+"</option>");
+                console.log(data.name);
+                for(i=0; i<data.name.length; i++){
+                    console.log( data.name[i].category_name);
+                    console.log( data.name[i].id);
+                    
+                    $("#subcategory_id").append("<option value="+data.name[i].id+">"+data.name[i].category_name+"</option>");
+                }
+
+
+
                 //$("#category_id").html(data);
             }
         });

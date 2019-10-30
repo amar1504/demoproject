@@ -18,7 +18,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = 5;
 
         if (!empty($keyword)) {
             $roles = Role::where('role_name', 'LIKE', "%$keyword%")
