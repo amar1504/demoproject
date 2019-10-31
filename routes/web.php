@@ -44,6 +44,5 @@ Route::resource('admin/coupon', 'Admin\\CouponController');
 //Route::get('/dropdown', ['as' => 'dropdown' ,'uses' => 'Admin\\ProductController@dropdown']);
 Route::post('/dropdown','Admin\\ProductController@dropdownCat')->name('dropdown_route');
 
-Route::get('Eshopper1', function(){
-    return view('/Eshopper/master');
-});
+//Eshopper
+Route::get('eshopper', 'Eshopper\\EshopperController@index');

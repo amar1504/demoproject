@@ -27,5 +27,12 @@ class Category extends Model
      */
     protected $fillable = ['parent_id','category_name','status'];
 
-    
+    // catgeory and subcategory relationship -start
+    public function subCategories() {
+        //return $this->hasMany('App\Category','id','parent_id');
+        return $this->hasMany('App\Category','parent_id','id');
+
+    }
+    // catgeory and subcategory relationship -End
+
 }

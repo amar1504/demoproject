@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use App\Role;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -27,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -44,5 +46,25 @@ class LoginController extends Controller
         Auth::logout();
         
         return view('auth.login');
-    } 
+    }
+
+    public function redirectTo() 
+    {
+        $roleId=auth()->user()->roles; 
+        $role=Role::findOrFail($roleId);
+        echo $role->role_name;  //dd($role);
+        if ($role->role_name == 'superadmin') {
+            return('/home');
+        }elseif($role->role_name == 'admin') {
+            return('/home');
+        }elseif($role->role_name == 'inventory_manager') {
+            return('/home');
+        }elseif($role->role_name == 'order_manager') {
+            return('/home');
+        }else{
+            return('/Eshopper/home');
+        }
+    }
+
+    
 }

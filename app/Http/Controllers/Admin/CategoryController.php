@@ -129,4 +129,6 @@ class CategoryController extends Controller
 
         return redirect('admin/category')->with('flash_message', 'Category deleted!');
     }
+
+
 }

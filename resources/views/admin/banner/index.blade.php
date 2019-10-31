@@ -54,7 +54,7 @@
                                 @foreach($banner as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->title }}</td><td><img src="{{ asset('storage/'.$item->bannerimage) }}" /></td>
+                                        <td>{{ $item->title }}</td><td><img src="{{ asset('storage/'.$item->bannerimage) }}" class="imgsize" /></td>
                                         <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         <td>
                                             <a href="{{ url('/admin/banner/' . $item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
@@ -84,4 +84,11 @@
             </div>
         </div>
     </div>
+<style>
+.imgsize{
+    height:100px;
+    width:100px;
+}
+</style>
 @endsection
+
