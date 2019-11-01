@@ -34,5 +34,4 @@ class Category extends Model
 
     }
     // catgeory and subcategory relationship -End
-
 }

@@ -11,7 +11,8 @@
                     </div>
                 </div>
                 
-                @include('Eshopper.recomended')                
+                @include('Eshopper.featuresitems')                
+                @include('Eshopper.footerslider')                
             </div>
         </div>
 </section>

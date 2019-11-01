@@ -62,7 +62,7 @@ class LoginController extends Controller
         }elseif($role->role_name == 'order_manager') {
             return('/home');
         }else{
-            return('/Eshopper/home');
+            return('/Eshopper');
         }
     }
 

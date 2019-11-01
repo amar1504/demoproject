@@ -46,3 +46,4 @@ Route::post('/dropdown','Admin\\ProductController@dropdownCat')->name('dropdown_
 
 //Eshopper
 Route::get('eshopper', 'Eshopper\\EshopperController@index');
+Route::any('/getproduct','Eshopper\\EshopperController@featuresItem')->name('getproducts');

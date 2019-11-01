@@ -38,7 +38,7 @@ $(document).ready(function(){
       var id=$(this).val();
       var i;
       var option;
-      alert(id);
+      //alert(id);
 
         $.ajaxSetup({
             headers: {

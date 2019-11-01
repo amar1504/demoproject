@@ -16,9 +16,16 @@ class ProductCategory extends Model
 
     }
 
+    public function ProductImages() {
+        return $this->hasOne('App\ProductImage', 'product_id','id' );
+
+    }
+
     public function Category() {
         return $this->belongsTo('App\Category', 'category_id', 'id');
 
     }
+
+ 
     
 }
