@@ -54,7 +54,6 @@ class CouponController extends Controller
      */
     public function store(CouponValidation $request)
     {
-        $validated=$request->validated;
         $requestData = $request->all();
         
         Coupon::create($requestData);
@@ -83,9 +82,9 @@ class CouponController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Coupon $coupon)
     {
-        $coupon = Coupon::findOrFail($id);
+        //$coupon = Coupon::findOrFail($id);
 
         return view('admin.coupon.edit', compact('coupon'));
     }
@@ -100,7 +99,6 @@ class CouponController extends Controller
      */
     public function update(CouponValidation $request, $id)
     {
-        $validated=$request->validated;
         $requestData = $request->all();
         
         $coupon = Coupon::findOrFail($id);
@@ -116,10 +114,9 @@ class CouponController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Coupon $coupon)
     {
-        Coupon::destroy($id);
-
+        $coupon->delete();
         return redirect('admin/coupon')->with('flash_message', 'Coupon deleted!');
     }
 }

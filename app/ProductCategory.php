@@ -17,7 +17,7 @@ class ProductCategory extends Model
     }
 
     public function ProductImages() {
-        return $this->hasOne('App\ProductImage', 'product_id','id' );
+        return $this->hasOne('App\ProductImage', 'product_id','product_id' );
 
     }
 

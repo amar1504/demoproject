@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class BigintUserKeys extends Migration
+class AddConstraintinusersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +13,9 @@ class BigintUserKeys extends Migration
      */
     public function up()
     {
-        Schema::table('role_user', function (Blueprint $table) {
-            $table->bigInteger("user_id")->unsigned()->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('roles')->unsigned();
+        
         });
     }
 
@@ -24,8 +26,6 @@ class BigintUserKeys extends Migration
      */
     public function down()
     {
-        Schema::table('role_user', function (Blueprint $table) {
-            $table->integer("user_id")->unsigned()->change();
-        });
+        //
     }
 }

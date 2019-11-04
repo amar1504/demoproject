@@ -1,5 +1,5 @@
-@include('Eshopper.header')
-@include('Eshopper.slider')
+@include('Eshopper.header')<!-- include header blade -->
+@include('Eshopper.slider')<!-- include slider blade -->
 	
 <section>
 		<div class="container">
@@ -19,4 +19,4 @@
 @yield('content') <!-- include Content -->
 
 					
-@include('Eshopper.footer')
+@include('Eshopper.footer') <!-- include footer blade -->

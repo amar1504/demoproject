@@ -25,11 +25,9 @@ class ProductController extends Controller
         $perPage = 5;
 
         if (!empty($keyword)) {
-            $product = Product::where('category_id', 'LIKE', "%$keyword%")
-                ->orWhere('product_name', 'LIKE', "%$keyword%")
+            $product = Product::Where('product_name', 'LIKE', "%$keyword%")
                 ->orWhere('price', 'LIKE', "%$keyword%")
                 ->orWhere('description', 'LIKE', "%$keyword%")
-                ->orWhere('product_image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
             $product = Product::with('ProductCategory','ProductCategory.Category','ProductImage')->latest()->paginate($perPage);

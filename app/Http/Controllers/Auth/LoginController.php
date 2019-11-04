@@ -43,16 +43,22 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $roleId=auth()->user()->roles; 
+        $role=Role::findOrFail($roleId);
         Auth::logout();
-        
-        return view('auth.login');
+        if ($role->role_name == 'customer') {
+            return redirect('eshopper');
+        }
+        else{
+            return view('auth.login');
+        }
     }
 
     public function redirectTo() 
     {
         $roleId=auth()->user()->roles; 
         $role=Role::findOrFail($roleId);
-        echo $role->role_name;  //dd($role);
+        //echo $role->role_name;  //dd($role);
         if ($role->role_name == 'superadmin') {
             return('/home');
         }elseif($role->role_name == 'admin') {
@@ -61,8 +67,11 @@ class LoginController extends Controller
             return('/home');
         }elseif($role->role_name == 'order_manager') {
             return('/home');
-        }else{
-            return('/Eshopper');
+        }elseif($role->role_name == 'customer'){
+            return('/eshopper');
+        }
+        else{
+            return('/eshopper/login');
         }
     }
 

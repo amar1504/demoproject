@@ -1,4 +1,4 @@
-<div class="col-sm-9 padding-right">
+<div class="col-sm-9 padding-right" id="features_items">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
 						@foreach($product as $prod)
@@ -35,7 +35,7 @@
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
 								@foreach($randomsubcategory as $mcat)
-								<li class="{{ $loop->first ? 'active' : '' }}"><a href="" name="{{$mcat->id}}" id="subcategories" data-toggle="tab" onClick="getproducts({{$mcat->id}})"; >{{$mcat->category_name}}</a></li>
+								<li class="{{ $loop->first ? 'active' : '' }}" value="{{$mcat->id}}" id="subcategories{{$loop->iteration}}"><a href="" name="{{$mcat->id}}"  id="subcategories" data-toggle="tab" onClick="getproducts({{$mcat->id}})"; >{{$mcat->category_name}}</a></li>
 								
 								@endforeach
 								
@@ -67,9 +67,26 @@
 .imgsize{
 	height:268px;
 }
+#img{
+	height:210px;
+	width:183px;
+}
 </style>				
 
 <script>
+
+$(document).ready(function() {
+	// console.log($('#subcategories1').val());
+	// 	alert($('#subcategories1').val());
+	id=$('#subcategories1').val();
+	
+	getproducts(id);
+	
+});
+</script>
+
+<script>
+
 
 function getproducts(id)
 {
@@ -86,6 +103,7 @@ function getproducts(id)
 		url:"{{ route('getproducts') }}",
 		data:{category_id:id},
 		success:function(data) {
+			$("#tshirt").empty();
 			//alert(data);
 			//console.log(data.name);
 			//console.log(data.product);

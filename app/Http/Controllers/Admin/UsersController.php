@@ -74,11 +74,21 @@ class UsersController extends Controller
             $requestData['image'] = $request->file('image')
                 ->store('users', 'public');
         }
+        else{
+            $requestData['image']="";
+        }
         $requestData['password']=bcrypt($request->password);
         
-        User::create($requestData);
+        $user=User::create($requestData);
+        //dd($user);
+        $role=Role::findOrFail($user->roles);
+        if ($role->role_name == 'customer') {
+            return redirect('eshopper')->with('flash_message', 'customer added!');            
+        }
+        else{
+            return redirect('admin/users')->with('flash_message', 'User added!');
+        }
 
-        return redirect('admin/users')->with('flash_message', 'User added!');
     }
 
     /**
