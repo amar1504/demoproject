@@ -16,6 +16,7 @@
 											<div class="overlay-content">
 											<h2>${{$prod->price}}</h2>
 											<p>{{$prod->product_name}}</p>
+												<a href="{{ route('product-details', ['id'=>$prod->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
@@ -119,6 +120,7 @@ function getproducts(id)
 							<img src="{{ asset('storage')}}/`+data.product[i].product_images[0].product_image+`" id="img" alt="" />
 							<h2>`+data.product[i].product.price+`</h2>
 							<p>`+data.product[i].product.product_name+`</p>
+							<a href="{{ route('product-details') }}/`+data.product[i].product.id+`" class="btn btn-default add-to-cart"></i>View Product</a>
 							<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 						</div>
 						

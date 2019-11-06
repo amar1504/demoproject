@@ -47,4 +47,15 @@ class Category extends Model
 
     }
     // catgeory and subcategory relationship -End
+
+     /**
+     * Get category record assocated with products 
+     */
+
+    // catgeory and products relationship -start
+    public function products() {
+        return $this->hasMany('App\ProductCategory','category_id','id');
+
+    }
+    // catgeory and products relationship -End
 }

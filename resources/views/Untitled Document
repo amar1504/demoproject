@@ -1,0 +1,4 @@
+<html>
+<h1>Eshopper- Forgot Password</h1><br/>
+<small>Your Password has been reset.<br/> Your new password for Eshopper is <b> {{ $data['msg'] }}</b> <br>Use this passowrd for more shopping at Eshopper</small>
+</html>

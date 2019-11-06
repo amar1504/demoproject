@@ -4,10 +4,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<h2>Category</h2>
-                        @include('Eshopper.category')
-                    </div>
+					@include('Eshopper.category')
                 </div>
                 <div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
@@ -28,6 +25,7 @@
 											<div class="overlay-content">
 											<h2>${{$prod->Product->price}}</h2>
 											<p>{{$prod->Product->product_name}}</p>
+												<a href="{{ route('product-details', ['id'=>$prod->Product->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>

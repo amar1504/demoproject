@@ -10,12 +10,15 @@ use App\ProductImage;
 use App\ProductCategory;
 use App\Banner;
 use App\Role;
+use App\User;
+use App\Mail\Mailtrap;
+use Mail;
+
 class EshopperController extends Controller
 {
     
     public function index(){
         $category=Category::with('subCategories')->where([['parent_id','=',0],['status','=','1']])->get();
-        //dd($category);     
         $banner=Banner::where([['status','=','1']])->get();
         $product=Product::with('ProductCategory','ProductCategory.Category','ProductImage')->where([['status','=','1']])->orderBy('id','DESC')->take(9)->get();        
         $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')->where([['status','=','1']])->orderBy('id','DESC')->get()->random(9);        
@@ -25,7 +28,9 @@ class EshopperController extends Controller
   
         if(request()->dev==1){ dd($randomsubcategory->toArray()); }
         //dd($mencategory);
-        return view('Eshopper/master',['category'=>$category,'banner'=>$banner,'product'=>$product,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct]);  
+        $subcategorycount=Category::with('products')->where([['parent_id','!=',0],['status','=','1']])->get();        
+        //dd($subcategorycount);
+        return view('Eshopper/master',['category'=>$category,'banner'=>$banner,'product'=>$product,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'subcategorycount'=>$subcategorycount]);  
      }
     
     public function featuresItem(Request $request){
@@ -51,14 +56,51 @@ class EshopperController extends Controller
 
         $givencategory=Category::where([['id','=',$id],['status','=','1']])->first();
         
+        $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')->where([['status','=','1']])->orderBy('id','DESC')->get()->random(9);        
+        $recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
+        
+        $randomsubcategory=Category::where([['parent_id','!=',0],['status','=','1']])->get()->random(7);        
+        $subcategorycount=Category::with('products')->where([['parent_id','!=',0],['status','=','1']])->get();        
+
+        return view('Eshopper/product',['category'=>$category,'product'=>$product,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'givencategory'=>$givencategory,'subcategorycount'=>$subcategorycount]);  
+
+    }
+    
+    public function forgotPasswordview()
+    {
+        return view('Eshopper/forgotpassword');
+    } 
+
+    public function forgotpassword(Request $request)
+    {
+        //echo $request->email; 
+        $password=str_random(8,12);
+        $data=array(
+            'email'=>$request->email,
+            'password'=> $password
+        );
+        Mail::to($request->email)->send(new Mailtrap($data));
+ 
+        $updatePassword=User::where('email','=',$request->email)->update(['password'=>bcrypt($password)]);
+        return redirect('eshopper/forgotpassword')->with('flash_message', 'We will shortly notify you by mail. Thank You -Eshopper !');
+    }
+
+
+    public function productDetails($id){
+        $category=Category::with('subCategories')->where([['parent_id','=',0],['status','=','1']])->get();
+        $givencategory=Category::where([['id','=',$id],['status','=','1']])->first();
+        
         // dd($givencategory);     
 
         $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')->where([['status','=','1']])->orderBy('id','DESC')->get()->random(9);        
         $recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
         
         $randomsubcategory=Category::where([['parent_id','!=',0],['status','=','1']])->get()->random(7);        
-  
-        return view('Eshopper/product',['category'=>$category,'product'=>$product,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'givencategory'=>$givencategory]);  
+        $subcategorycount=Category::with('products')->where([['parent_id','!=',0],['status','=','1']])->get();        
+
+        $productdetails=Product::with('ProductCategory','ProductCategory.Category','ProductImage')->where([['id','=',$id]])->orderBy('id','DESC')->first();        
+    
+        return view('Eshopper/product-details',['category'=>$category,'productdetails'=>$productdetails,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'givencategory'=>$givencategory,'subcategorycount'=>$subcategorycount]);  
 
     }
 

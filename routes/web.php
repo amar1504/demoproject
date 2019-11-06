@@ -50,7 +50,9 @@ Route::any('/getproduct','Eshopper\\EshopperController@featuresItem')->name('get
 Route::get('eshopper/login','Eshopper\\EshopperController@userLogin')->name('userlogin');
 Route::get('eshopper/product/{id?}','Eshopper\\EshopperController@product')->name('product');
 
-
+Route::get('eshopper/forgotpassword/','Eshopper\\EshopperController@forgotPasswordview')->name('forgot.passwordview');
+Route::post('eshopper/forgot-password/','Eshopper\\EshopperController@forgotPassword')->name('forgot.password');
+Route::get('eshopper/product-details/{id?}','Eshopper\\EshopperController@productDetails')->name('product-details');
 
 
 
