@@ -22,9 +22,11 @@ class RolesController extends Controller
 
         if (!empty($keyword)) {
             $roles = Role::where('role_name', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                    ->latest()
+                    ->paginate($perPage);
         } else {
-            $roles = Role::latest()->paginate($perPage);
+            $roles = Role::latest()
+                    ->paginate($perPage);
         }
 
         return view('admin.roles.index', compact('roles'));
@@ -49,12 +51,8 @@ class RolesController extends Controller
      */
     public function store(RoleValidate $request)
     {
-        $validated = $request->validated();   // request for form validation
-   
         $requestData = $request->all();
-        
         Role::create($requestData);
-
         return redirect('admin/roles')->with('flash_message', 'Role added!');
     }
 
@@ -65,10 +63,8 @@ class RolesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        $role = Role::findOrFail($id);
-
         return view('admin.roles.show', compact('role'));
     }
 
@@ -79,10 +75,8 @@ class RolesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        $role = Role::findOrFail($id);
-
         return view('admin.roles.edit', compact('role'));
     }
 
@@ -94,15 +88,10 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(RoleValidate $request, $id)
-    {
-        $validated = $request->validated();   // request for form validation
-   
+    public function update(RoleValidate $request, Role $role)
+    {  
         $requestData = $request->all();
-        
-        $role = Role::findOrFail($id);
         $role->update($requestData);
-
         return redirect('admin/roles')->with('flash_message', 'Role updated!');
     }
 
@@ -113,12 +102,11 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        $cnt=User::where('roles','=',$id)->count();
+        $cnt=User::where('roles','=',$role)->count();
         if($cnt==0){
-            Role::destroy($id);
-
+            $role->delete();
             return redirect('admin/roles')->with('flash_message', 'Role deleted!');
         }
         else{

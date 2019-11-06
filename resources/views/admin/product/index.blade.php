@@ -54,7 +54,10 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->ProductCategory->category->category_name }}</td>
-                                        <td><img src="{{ asset('/storage/'.$item->ProductImage->product_image) }}" style="width:80px; height:auto;"></td>
+                                        <td>
+                                            <img src="{{ asset('/storage/'.$item->ProductImage->first()->product_image) }}" style="width:80px; height:auto;"> 
+                                            
+                                        </td>
                                         <td>{{ $item->product_name }}</td>
                                         <td>{{ $item->price }}</td>
                                         <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>

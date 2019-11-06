@@ -3,10 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\productCategory;
 use App\productImage;
 class Product extends Model
 {
+    use SoftDeletes;
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+    
     /**
      * The database table used by the model.
      *
@@ -26,9 +35,12 @@ class Product extends Model
      *
      * @var array
      */
-    // protected $fillable = ['category_id', 'product_name', 'price', 'description', 'product_image'];
     protected $fillable = ['product_name', 'price', 'description','status'];
 
+    /**
+     * Get product category record assocated with product 
+     */
+    
     //Product and ProductImage relationship -start
     public function ProductCategory() {
         return $this->hasOne('App\ProductCategory' );
@@ -36,8 +48,11 @@ class Product extends Model
     }
     //Product and ProductImage relationship -End
     
+    /**
+     * Get product image assocated with product 
+     */
     public function ProductImage() {
-        return $this->hasOne('App\ProductImage');
+        return $this->hasMany('App\ProductImage');
 
     }
 }

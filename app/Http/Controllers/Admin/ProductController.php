@@ -26,14 +26,16 @@ class ProductController extends Controller
 
         if (!empty($keyword)) {
             $product = Product::Where('product_name', 'LIKE', "%$keyword%")
-                ->orWhere('price', 'LIKE', "%$keyword%")
-                ->orWhere('description', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                    ->orWhere('price', 'LIKE', "%$keyword%")
+                    ->orWhere('description', 'LIKE', "%$keyword%")
+                    ->latest()
+                    ->paginate($perPage);
         } else {
-            $product = Product::with('ProductCategory','ProductCategory.Category','ProductImage')->latest()->paginate($perPage);
-            
+            $product = Product::with('ProductCategory','ProductCategory.Category','ProductImage')
+                        ->latest()
+                        ->paginate($perPage);
+           // dd($product->toArray());
         }
-        //dd($product);
         $category=Category::get();
 
         return view('admin.product.index', compact('product'),['category'=>$category]);
@@ -61,19 +63,26 @@ class ProductController extends Controller
      */
     public function store(ProductValidation $request)
     {
-        $validated=$request->validated();
-        // $requestData = $request->all();
         if(isset($request->subcategory_id))
         {
             $request->category_id=$request->subcategory_id;
         }
+        $product=Product::create($request->toArray());
 
+        $files = $request->file('product_image');
         if ($request->hasFile('product_image')) {
-            $requestData['product_image'] = $request->file('product_image')
-                ->store('productimages', 'public');
+
+            foreach ($files as $image) {
+                $requestData['product_image'] = $image->store('productimages', 'public');
+                ProductImage::create(['product_id'=>$product->id,'product_image'=>$requestData['product_image']]);
+            }
+
         } 
-        $product=Product::create(['product_name'=>$request->product_name,'price'=>$request->price,'description'=>$request->description]);
-        ProductImage::create(['product_id'=>$product->id,'product_image'=>$requestData['product_image']]);
+        else
+        {
+            ProductImage::create(['product_id'=>$product->id,'product_image'=>$requestData['product_image']]);
+        }    
+        // $product=Product::create(['product_name'=>$request->product_name,'price'=>$request->price,'description'=>$request->description]);
         ProductCategory::create(['category_id'=>$request->category_id,'product_id'=>$product->id]);
         
 
@@ -87,9 +96,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::findOrFail($id);
+       // $product = Product::findOrFail($id);
 
         return view('admin.product.show', compact('product'));
     }
@@ -107,11 +116,7 @@ class ProductController extends Controller
         $subcategory=Category::where([ ['parent_id','!=',0],['status','=','1'] ])->get();
 
         $productCat = ProductCategory::where('product_id','=',$id)->first();
-        // dd($productCat->category_id);
-        
         $parentcat=Category::where('id','=',$productCat->category_id)->first();
-        // dd ($parentcat);
-        
         $product = Product::findOrFail($id);
 
         return view('admin.product.edit', compact('product'),['category'=>$category,'subcategory'=>$subcategory,'productCategory'=>$productCat, 'parentcat'=>$parentcat]);
@@ -127,7 +132,6 @@ class ProductController extends Controller
      */
     public function update(ProductValidation $request, $id)
     {
-        $validated=$request->validated();
         $product = Product::findOrFail($id);
         $requestData = $request->all();
         
@@ -138,16 +142,29 @@ class ProductController extends Controller
         
         $product->update($requestData);
         $productImg = ProductImage::where('product_id','=',$id)->first();
+        $productImg1 = ProductImage::where('product_id','=',$id)->get();
         $productCat = ProductCategory::where('product_id','=',$id)->first();
 
+        $files = $request->file('product_image');
         if ($request->hasFile('product_image')) {
-            $requestData['product_image'] = $request->file('product_image')
-            ->store('productimages', 'public');
 
-        }
+            foreach ($files as $image) {
+                $requestData['product_image'] = $image->store('productimages', 'public');
+                //ProductImage::create(['product_id'=>$product->id,'product_image'=>$requestData['product_image']]);
+                ProductImage::whereId($productImg->id)->update(['product_id'=>$product->id,'product_image'=>$requestData['product_image'] ]);
+            }
+
+        } 
         else{
-            $requestData['product_image']=$productImg->product_image;
+            foreach ($productImg1 as $image) {
+                $requestData['product_image']=$image->product_image;                
+            
+                ProductImage::whereId($image->id)->update(['product_id'=>$product->id,'product_image'=>$requestData['product_image'] ]);
+            }
         }
+
+
+        
         //echo $requestData['product_image'];
         
         ProductImage::whereId($productImg->id)->update(['product_id'=>$product->id,'product_image'=>$requestData['product_image'] ]);

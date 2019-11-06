@@ -21,10 +21,10 @@ class CategoryController extends Controller
         $perPage = 5;
 
         if (!empty($keyword)) {
-            $category = Category::where('parent_id', 'LIKE', "%$keyword%")
-                ->orWhere('category_name', 'LIKE', "%$keyword%")
-                ->where('parent_id','=',0)
-                ->latest()->paginate($perPage);
+            $category = Category::Where('category_name', 'LIKE', "%$keyword%")
+                                ->where('parent_id','=',0)
+                                ->latest()
+                                ->paginate($perPage);
         } else {
             $category = Category::where('parent_id','=',0)->latest()->paginate($perPage);
         }
@@ -52,11 +52,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryValidation $request)
     {
-        $validated=$request->validated();
         $requestData = $request->all();
-        
         Category::create($requestData);
-
         return redirect('admin/category')->with('flash_message', 'Category added!');
     }
 
@@ -78,7 +75,6 @@ class CategoryController extends Controller
     public function showSubCat($id)
     {
         $category = Category::findOrFail($id);
-        //$subcat=Category::where('parent_id','=',$id)->get();
         return view('admin.category.showSubCat', compact('category'));
     }
 
@@ -89,11 +85,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
         $parentCategory=Category::where('parent_id','=',0)->get();
-        $category = Category::findOrFail($id);
-
+      
         return view('admin.category.edit', compact('category'),['parentCategory'=>$parentCategory]);
     }
 
@@ -105,12 +100,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(CategoryValidation $request, $id)
+    public function update(CategoryValidation $request, Category $category)
     {
-        $validated=$request->validated();
         $requestData = $request->all();
-        
-        $category = Category::findOrFail($id);
         $category->update($requestData);
 
         return redirect('admin/category')->with('flash_message', 'Category updated!');
@@ -123,10 +115,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        Category::destroy($id);
-
+        $category->delete();
         return redirect('admin/category')->with('flash_message', 'Category deleted!');
     }
 

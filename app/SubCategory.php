@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubCategory extends Model
 {
-    // catgeory and subcategory relationship -start
 
+    /**
+     * Get category record assocated with subcatgeory 
+     */
+    
+    // catgeory and subcategory relationship -start
     public function category() {
-       // return $this->belongsTo('App\Category');
-        return $this->belongsTo('App\Category', 'parent_id', 'id');
-      
+       return $this->belongsTo('App\Category', 'parent_id', 'id');
     }
     // catgeory and subcategory relationship -start
 

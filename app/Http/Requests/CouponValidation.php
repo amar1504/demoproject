@@ -26,7 +26,7 @@ class CouponValidation extends FormRequest
         // validation rules for Coupon -start
         return [
             'coupon_title'=>'required',
-            'code'=>'required',
+            'code'=>'required|unique:coupons',
             'description'=>'required',
             'discount'=>'required',
             'type'=>'required',

@@ -35,7 +35,7 @@
                                     <tr><th> Category Id </th>  <td>{{ $product->ProductCategory->category->category_name }}</td></tr>
                                     <tr><th> Product Name </th><td> {{ $product->product_name }} </td></tr>
                                     <tr><th> Price </th><td> {{ $product->price }} </td></tr>
-                                    <tr><th> Product Image </th><td> <img src="{{ asset('/storage/'.$product->ProductImage->product_image) }}" style="width:80px; height:auto;"> </td></tr>
+                                    <tr><th> Product Image </th><td> <img src="{{ asset('/storage/'.$product->ProductImage->first()->product_image) }}" style="width:80px; height:auto;"> </td></tr>
                                     <tr><th> Status </th><td> @if($product->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif </td></tr>
                                     <!-- fetch Product Details End -->
                                 </tbody>

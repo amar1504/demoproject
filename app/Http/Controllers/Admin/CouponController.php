@@ -23,11 +23,11 @@ class CouponController extends Controller
 
         if (!empty($keyword)) {
             $coupon = Coupon::where('coupon_title', 'LIKE', "%$keyword%")
-                ->orWhere('code', 'LIKE', "%$keyword%")
-                ->orWhere('description', 'LIKE', "%$keyword%")
-                ->orWhere('discount', 'LIKE', "%$keyword%")
-                ->orWhere('type', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                            ->orWhere('code', 'LIKE', "%$keyword%")
+                            ->orWhere('description', 'LIKE', "%$keyword%")
+                            ->orWhere('discount', 'LIKE', "%$keyword%")
+                            ->latest()
+                            ->paginate($perPage);
         } else {
             $coupon = Coupon::latest()->paginate($perPage);
         }
@@ -55,9 +55,7 @@ class CouponController extends Controller
     public function store(CouponValidation $request)
     {
         $requestData = $request->all();
-        
         Coupon::create($requestData);
-
         return redirect('admin/coupon')->with('flash_message', 'Coupon added!');
     }
 
@@ -68,10 +66,8 @@ class CouponController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Coupon $coupon)
     {
-        $coupon = Coupon::findOrFail($id);
-
         return view('admin.coupon.show', compact('coupon'));
     }
 
@@ -84,8 +80,6 @@ class CouponController extends Controller
      */
     public function edit(Coupon $coupon)
     {
-        //$coupon = Coupon::findOrFail($id);
-
         return view('admin.coupon.edit', compact('coupon'));
     }
 
@@ -97,11 +91,9 @@ class CouponController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(CouponValidation $request, $id)
+    public function update(CouponValidation $request, Coupon $coupon)
     {
-        $requestData = $request->all();
-        
-        $coupon = Coupon::findOrFail($id);
+        $requestData = $request->all();    
         $coupon->update($requestData);
 
         return redirect('admin/coupon')->with('flash_message', 'Coupon updated!');

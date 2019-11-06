@@ -28,7 +28,7 @@ class CategoryValidation extends FormRequest
 
         // validation rules for Catgory form start
         return [
-            'category_name'=>'required'
+            'category_name'=>'required|unique:categories'
         ];
 
         // validation rules for Catgory form start

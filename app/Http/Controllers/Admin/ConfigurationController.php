@@ -22,11 +22,11 @@ class ConfigurationController extends Controller
 
         if (!empty($keyword)) {
             $configuration = Configuration::where('from', 'LIKE', "%$keyword%")
-                ->orWhere('subject', 'LIKE', "%$keyword%")
-                ->orWhere('body', 'LIKE', "%$keyword%")
-                ->orWhere('notification_title', 'LIKE', "%$keyword%")
-                //->orWhere('status', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                        ->orWhere('subject', 'LIKE', "%$keyword%")
+                        ->orWhere('body', 'LIKE', "%$keyword%")
+                        ->orWhere('notification_title', 'LIKE', "%$keyword%")
+                        ->latest()
+                        ->paginate($perPage);
         } else {
             $configuration = Configuration::latest()->paginate($perPage);
         }
@@ -53,11 +53,8 @@ class ConfigurationController extends Controller
      */
     public function store(ConfigurationManagementValidation $request)
     {
-        $validated=$request->validated(); // request for form validation
         $requestData = $request->all();
-        
         Configuration::create($requestData);
-
         return redirect('admin/configuration')->with('flash_message', 'Configuration added!');
     }
 
@@ -68,10 +65,8 @@ class ConfigurationController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Configuration $configuration)
     {
-        $configuration = Configuration::findOrFail($id);
-
         return view('admin.configuration.show', compact('configuration'));
     }
 
@@ -82,10 +77,8 @@ class ConfigurationController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Configuration $configuration)
     {
-        $configuration = Configuration::findOrFail($id);
-
         return view('admin.configuration.edit', compact('configuration'));
     }
 
@@ -97,12 +90,9 @@ class ConfigurationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(ConfigurationManagementValidation $request, $id)
+    public function update(ConfigurationManagementValidation $request,Configuration $configuration)
     {
-        $validated = $request->validated(); // request for form validation
         $requestData = $request->all();
-        
-        $configuration = Configuration::findOrFail($id);
         $configuration->update($requestData);
 
         return redirect('admin/configuration')->with('flash_message', 'Configuration updated!');
@@ -115,10 +105,9 @@ class ConfigurationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Configuration $configuration)
     {
-        Configuration::destroy($id);
-
+        $configuration->delete();
         return redirect('admin/configuration')->with('flash_message', 'Configuration deleted!');
     }
 

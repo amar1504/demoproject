@@ -10,18 +10,21 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+     /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table="users";
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $table="users";
-
-    //fillable fields in users -start
     protected $fillable = [
         'firstname','lastname', 'email', 'password','roles','status','image'
     ];
-    //fillable fields in users -end
 
     /**
      * The attributes that should be hidden for arrays.
@@ -32,6 +35,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    /**
+     * Get role record assocated with user 
+     */
+    
     //User and role relationship -start
     public function userRole() {
         return $this->hasOne('App\Role', 'id', 'roles' );

@@ -41,7 +41,7 @@
 </div>
 <div class="form-group {{ $errors->has('product_image') ? 'has-error' : ''}}">
     <label for="product_image" class="control-label">{{ 'Product Image' }}</label>
-    <input class="" name="product_image" type="file" id="product_image" value="{{ isset($product->product_image) ? $product->product_image : ''}}" >
+    <input class="" name="product_image[]" type="file" id="product_image" multiple value="{{ isset($product->product_image) ? $product->product_image : ''}}" >
     {!! $errors->first('product_image', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">

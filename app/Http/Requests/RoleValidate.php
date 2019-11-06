@@ -25,7 +25,7 @@ class RoleValidate extends FormRequest
     {
         // validation for role form start
         return [
-            'role_name'=>'required',
+            'role_name'=>'required|unique:roles',
 
         ];
         // validation for role form end

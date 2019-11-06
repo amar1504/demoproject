@@ -22,8 +22,9 @@ class BannerController extends Controller
 
         if (!empty($keyword)) {
             $banner = Banner::where('title', 'LIKE', "%$keyword%")
-                ->orWhere('bannerimage', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                            ->orWhere('bannerimage', 'LIKE', "%$keyword%")
+                            ->latest()
+                            ->paginate($perPage);
         } else {
             $banner = Banner::latest()->paginate($perPage);
         }
@@ -50,11 +51,10 @@ class BannerController extends Controller
      */
     public function store(BannerManagementValidation $request)
     {
-        $validated=$request->validated(); // request for form validation
         $requestData = $request->all();
-                if ($request->hasFile('bannerimage')) {
+        if ($request->hasFile('bannerimage')) {
             $requestData['bannerimage'] = $request->file('bannerimage')
-                ->store('uploads', 'public');
+                        ->store('uploads', 'public');
         }
 
         Banner::create($requestData);
@@ -69,10 +69,8 @@ class BannerController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Banner $banner)
     {
-        $banner = Banner::findOrFail($id);
-
         return view('admin.banner.show', compact('banner'));
     }
 
@@ -83,10 +81,8 @@ class BannerController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Banner $banner)
     {
-        $banner = Banner::findOrFail($id);
-
         return view('admin.banner.edit', compact('banner'));
     }
 
@@ -98,17 +94,14 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(BannerManagementValidation $request, $id)
+    public function update(BannerManagementValidation $request,Banner $banner)
     {
-        $validated=$request->validated(); // request for form validation
-
         $requestData = $request->all();
-                if ($request->hasFile('bannerimage')) {
+        if ($request->hasFile('bannerimage')) {
             $requestData['bannerimage'] = $request->file('bannerimage')
-                ->store('uploads', 'public');
+                        ->store('uploads', 'public');
         }
 
-        $banner = Banner::findOrFail($id);
         $banner->update($requestData);
 
         return redirect('admin/banner')->with('flash_message', 'Banner updated!');
@@ -121,9 +114,9 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Banner $banner)
     {
-        Banner::destroy($id);
+        $banner->delete();
 
         return redirect('admin/banner')->with('flash_message', 'Banner deleted!');
     }

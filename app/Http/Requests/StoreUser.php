@@ -27,7 +27,7 @@ class StoreUser extends FormRequest
         return [
             'firstname'=>'required|alpha',
             'lastname'=>'required|alpha',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users',
             'password'=>'required|alpha_num|between:8,12',
             'confirmpassword'=>'required|alpha_num|between:8,12|same:password',
             'status'=>'required',

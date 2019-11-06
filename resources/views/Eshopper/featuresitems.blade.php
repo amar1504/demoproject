@@ -7,7 +7,7 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
-											<img src="{{asset('storage/'.$prod->ProductImage->product_image)}}" class="imgsize" alt="" />
+											<img src="{{asset('storage/'.$prod->ProductImage->first()->product_image)}}" class="imgsize" alt="" />
 											<h2>${{$prod->price}}</h2>
 											<p>{{$prod->product_name}}</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -116,7 +116,7 @@ function getproducts(id)
 				<div class="product-image-wrapper">
 					<div class="single-products">
 						<div class="productinfo text-center">
-							<img src="{{ asset('storage')}}/`+data.product[i].product_images.product_image+`" id="img" alt="" />
+							<img src="{{ asset('storage')}}/`+data.product[i].product_images[0].product_image+`" id="img" alt="" />
 							<h2>`+data.product[i].product.price+`</h2>
 							<p>`+data.product[i].product.product_name+`</p>
 							<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

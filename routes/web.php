@@ -50,3 +50,15 @@ Route::any('/getproduct','Eshopper\\EshopperController@featuresItem')->name('get
 Route::get('eshopper/login','Eshopper\\EshopperController@userLogin')->name('userlogin');
 Route::get('eshopper/product/{id?}','Eshopper\\EshopperController@product')->name('product');
 
+
+
+
+
+
+
+
+/*
+Route::get('admin/banner','Admin\BannerController@index')->name('banner.index');
+Route::POST('admin/banner','Admin\BannerController@store')->name('banner.store');
+Route::GET('admin/banner/create','Admin\BannerController@create')->name('banner.create');
+*/

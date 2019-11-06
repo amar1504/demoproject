@@ -24,9 +24,7 @@ class Configuration extends Model
      * Attributes that should be mass-assignable.
      *
      * @var array
-     */
-
-    
+     */ 
     protected $fillable = ['from', 'subject', 'body', 'notification_title', 'status']; //fillable fields in configuration 
     
 }

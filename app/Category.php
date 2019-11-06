@@ -3,9 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\ProductCategory;
+
 class Category extends Model
 {
+    use SoftDeletes;
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
     /**
      * The database table used by the model.
      *
@@ -27,9 +36,13 @@ class Category extends Model
      */
     protected $fillable = ['parent_id','category_name','status'];
 
+
+    /**
+     * Get category record assocated with subcategories 
+     */
+
     // catgeory and subcategory relationship -start
     public function subCategories() {
-        //return $this->hasMany('App\Category','id','parent_id');
         return $this->hasMany('App\Category','parent_id','id');
 
     }
