@@ -208,6 +208,16 @@ a#scrollUp i{
   margin-top: 10px;
 }
 
+.shop-menu1 ul li a {
+  color: #696763;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding:0;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-top: 10px;
+}
 
 .shop-menu ul li a i{
 	margin-right:3px;

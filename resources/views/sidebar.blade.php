@@ -118,7 +118,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('/admin/category') }}"><i class="fa fa-circle-o"></i> List Category</a></li>
+          <li><a href="{{ url('/admin/category') }}"><i class="fa fa-circle-o"></i> List Category</a></li>
+            <li><a href="{{ route('subcateory.list')  }}"><i class="fa fa-circle-o"></i> List Subcategory</a></li>
             <!-- Nav list for Category Management according to role of logged user start -->
             @if(Gate::check('isSuperAdmin') )
               <li><a href="{{ url('/admin/category/create') }}"><i class="fa fa-circle-o"></i> Add Category</a></li>

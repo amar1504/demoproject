@@ -83,11 +83,19 @@
 						</div>-->
 					</div>
 					<div class="col-sm-8">
-						<div class="shop-menu pull-right">
+						<div class="shop-menu1 pull-right">
 							<ul class="nav navbar-nav">
 								@if (Auth::user())  
-								<li><a href="#"><i class="fa fa-user"></i>{{ ucfirst(Auth::user()->firstname.'\'s') }} Account</a></li>
+								<!-- <li><a href="#"><i class="fa fa-user"></i>My Account</a></li> -->
+								<li class="dropdown"><a href="#"><i class="fa fa-user"></i> My Account<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="blog.html">My Shipping Address</a></li>
+										<li><a href="blog-single.html">Blog Single</a></li>
+                                    </ul>
+                                </li> 
+								
 								@endif
+								
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>

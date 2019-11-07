@@ -41,6 +41,12 @@ Route::get('admin/product/create', 'Admin\\ProductController@index');
 Route::resource('admin/product', 'Admin\\ProductController');
 Route::resource('admin/coupon', 'Admin\\CouponController');
 
+//subcategoey route
+Route::get('admin/subcategorylist', 'Admin\\CategoryController@SubCategoryList')->name('subcateory.list');
+Route::get('admin/subcategorydetail/{id?}', 'Admin\\CategoryController@showSubcategory')->name('subcategory.show');
+Route::get('admin/subcategoryedit/{id}', 'Admin\\CategoryController@editSubcategory')->name('subcategory.edit');
+
+
 //Route::get('/dropdown', ['as' => 'dropdown' ,'uses' => 'Admin\\ProductController@dropdown']);
 Route::post('/dropdown','Admin\\ProductController@dropdownCat')->name('dropdown_route');
 
@@ -56,11 +62,17 @@ Route::get('eshopper/product-details/{id?}','Eshopper\\EshopperController@produc
 
 
 
-
-
-
 /*
 Route::get('admin/banner','Admin\BannerController@index')->name('banner.index');
 Route::POST('admin/banner','Admin\BannerController@store')->name('banner.store');
 Route::GET('admin/banner/create','Admin\BannerController@create')->name('banner.create');
 */
+
+Route::resource('eshopper/address', 'Eshoppeer\\AddressController');
+Route::post('eshopper/address', 'Eshoppeer\\AddressController@store')->name('address.store');
+Route::get('eshopper/address', 'Eshoppeer\\AddressController@index')->name('address.index');
+Route::get('eshopper/address/create', 'Eshoppeer\\AddressController@create')->name('address.create');
+Route::delete('eshopper/address/{address}', 'Eshoppeer\\AddressController@destroy')->name('address.destroy');
+Route::put('eshopper/address/{address}', 'Eshoppeer\\AddressController@update')->name('address.update');
+Route::get('eshopper/address/{address}', 'Eshoppeer\\AddressController@show')->name('address.show');
+Route::get('eshopper/address/{address}/edit', 'Eshoppeer\\AddressController@edit')->name('address.edit');

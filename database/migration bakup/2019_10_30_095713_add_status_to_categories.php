@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddcolumnsToUsers extends Migration
+class AddStatusToCategories extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class AddcolumnsToUsers extends Migration
      */
     public function up()
     {
-        
-        Schema::table('users', function (Blueprint $table) {
-
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('roles');
-            $table->dropColumn('name');
+        Schema::table('categories', function($table) {
+            $table->enum('status',[0,1]);
         });
     }
 

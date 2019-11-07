@@ -75,6 +75,7 @@ class CategoryController extends Controller
     public function showSubCat($id)
     {
         $category = Category::findOrFail($id);
+        
         return view('admin.category.showSubCat', compact('category'));
     }
 
@@ -121,5 +122,33 @@ class CategoryController extends Controller
         return redirect('admin/category')->with('flash_message', 'Category deleted!');
     }
 
+    public function SubCategoryList(Request $request){
+        $keyword = $request->get('search');
+        $perPage = 5;
 
+        if (!empty($keyword)) {
+            $category = Category::Where('category_name', 'LIKE', "%$keyword%")
+                                ->where('parent_id','!=',0)
+                                ->latest()
+                                ->paginate($perPage);
+        } else {
+            $category = Category::where('parent_id','!=',0)->latest()->paginate($perPage);
+        }
+
+       return view('admin/category/subcategory',['category'=>$category]);
+    }
+
+    public function showSubcategory($id){
+        $category = Category::findOrFail($id);
+        return view('admin.category.showscat', compact('category'));
+    }
+
+    public function editSubcategory($id){
+        
+        $category = Category::findOrFail($id);
+        $parentCategory=Category::where('parent_id','=',0)->get();
+        return view('admin.category.editscat', compact('category'),['parentCategory'=>$parentCategory]);
+    }
+
+    
 }

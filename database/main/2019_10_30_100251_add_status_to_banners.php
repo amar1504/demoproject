@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddConstraintinusersTable extends Migration
+class AddStatusToBanners extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddConstraintinusersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('roles')->unsigned();
-        
+        Schema::table('banners', function($table) {
+            $table->enum('status',[0,1]);
         });
     }
 

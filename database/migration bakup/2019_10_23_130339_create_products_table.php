@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCouponsTable extends Migration
+class CreateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateCouponsTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupons', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('coupon_title')->nullable();
-            $table->string('code')->nullable();
+            $table->string('category_id');
+            $table->string('product_name')->nullable();
+            $table->float('price')->nullable();
             $table->text('description')->nullable();
-            $table->double('discount')->nullable();
-            $table->string('type');
+            $table->string('product_image')->nullable();
             });
     }
 
@@ -30,6 +30,6 @@ class CreateCouponsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('coupons');
+        Schema::drop('products');
     }
 }
