@@ -24,7 +24,7 @@
                             <div class="col-md-6 text-right ">
                                 <!-- Access Control according to role start-->
                                 @if(Gate::check('isSuperAdmin'))
-                                    <a href="{{ url('/admin/category/create') }}" class="btn btn-success btn-sm" title="Add New Category">
+                                    <a href="{{ route('subcategory.create') }}" class="btn btn-success btn-sm" title="Add New Category">
                                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                                     </a><br/><br/>
                                 @endif
