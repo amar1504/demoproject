@@ -164,9 +164,9 @@ class CategoryController extends Controller
      */
     public function createSubcategory()
     {
-        echo "hello";
-        //$parentCategory=Category::where('parent_id','=',0)->get();
-        //return view('admin.category.createscat',['parentCategory'=>$parentCategory]);
+        //echo "hello";
+        $parentCategory=Category::where('parent_id','=',0)->get();
+        return view('admin.category.createscat',['parentCategory'=>$parentCategory]);
     }
 
     /**
@@ -179,5 +179,21 @@ class CategoryController extends Controller
         
         return redirect('admin/subcategorylist')->with('flash_message', 'Subcategory updated!');
     }
-    
+ 
+    /**
+     * Store the subcategory
+     */
+    public function storeSubcategory(CategoryValidation $request)
+    {
+        $requestData = $request->all();
+        Category::create($requestData);
+        return redirect('admin/subcategorylist')->with('flash_message', 'Subcategory added!');
+    }
+
+    public function destroySubcategory(Category $category)
+    {
+        $category->delete();
+        return redirect('admin/subcategorylist')->with('flash_message', 'Subcategory deleted!');
+    }
+
 }

@@ -30,6 +30,6 @@ class Mailtrap extends Mailable
      */
     public function build()
     {
-        return $this->view('Eshopper/mailbody')->with('data', $this->data);;
+        return $this->view('Eshopper/mailbody')->with('data', $this->data);
     }
 }

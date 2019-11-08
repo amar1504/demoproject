@@ -24,7 +24,10 @@
         <option value=" ">Select</option>
         @if(isset($coupon->type) && $coupon->type==1) 
         <option value="1" {{ (isset($coupon->type) && $coupon->type == 1) ? 'selected' : ''}}>{{ 'Discount' }}</option>
+        @elseif(isset($coupon->type) && $coupon->type==2) 
+        <option value="2" {{ (isset($coupon->type) && $coupon->type == 2) ? 'selected' : ''}}>{{ 'Amount' }}</option>
         @else
+        <option value="1" {{ (isset($coupon->type) && $coupon->type == 1) ? 'selected' : ''}}>{{ 'Discount' }}</option>    
         <option value="2" {{ (isset($coupon->type) && $coupon->type == 2) ? 'selected' : ''}}>{{ 'Amount' }}</option>
         @endif
 </select>

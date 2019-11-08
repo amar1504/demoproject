@@ -18,10 +18,10 @@
                             </ul>
                         @endif-->
 
-                        <form method="POST" action="{{ url('/admin/category') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('subcateory.store') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include ('admin.category.formscat', ['formMode' => 'create'])
+                            @include ('admin.category.scatform', ['formMode' => 'create'])
 
                         </form>
 

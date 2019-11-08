@@ -33,6 +33,7 @@
                         </div>
                         <br/>
                         <br/>
+                        <div class="col-md-12 col-md-offset-1">
                         <!-- Display flash Message in alert start -->
                         @if (session('flash_message'))
                             <div class="alert alert-warning">
@@ -40,6 +41,7 @@
                             </div>
                         @endif
                         <!--Display flash Message in alert End -->
+                        </div>
                         <div class="col-md-12 col-md-offset-1">
                         <div class="table-responsive ">
                             <table class="table table-bordered">

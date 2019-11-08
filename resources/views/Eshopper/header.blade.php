@@ -89,8 +89,8 @@
 								<!-- <li><a href="#"><i class="fa fa-user"></i>My Account</a></li> -->
 								<li class="dropdown"><a href="#"><i class="fa fa-user"></i> My Account<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">My Shipping Address</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
+                                        <li><a href="{{ route('address.index') }}">My Shipping Address</a></li>
+										<li><a href="">My Profile</a></li>
                                     </ul>
                                 </li> 
 								
@@ -98,7 +98,7 @@
 								
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Cart({{ Cart::count() }})</a></li>
 								@if (Auth::user())  
 								<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-lock"></i> Logout</a></li>
 
@@ -135,7 +135,7 @@
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{ route('eshopper') }}#features_items">Products</a></li>
 										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
+										<li><a href="{{ route('cart') }}">Cart</a></li> 
 										@if (Auth::user())
 										<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</a></li>
 										<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
