@@ -122,6 +122,9 @@ class CategoryController extends Controller
         return redirect('admin/category')->with('flash_message', 'Category deleted!');
     }
 
+    /**
+     * Display listing of subcatgeory
+     */
     public function SubCategoryList(Request $request){
         $keyword = $request->get('search');
         $perPage = 5;
@@ -138,11 +141,17 @@ class CategoryController extends Controller
        return view('admin/category/subcategory',['category'=>$category]);
     }
 
+    /**
+     * Display Specified Subcategory
+     */
     public function showSubcategory($id){
         $category = Category::findOrFail($id);
         return view('admin.category.showscat', compact('category'));
     }
 
+    /**
+     * Edit Specified Subcatgory
+     */
     public function editSubcategory($id){
         
         $category = Category::findOrFail($id);
@@ -150,5 +159,25 @@ class CategoryController extends Controller
         return view('admin.category.editscat', compact('category'),['parentCategory'=>$parentCategory]);
     }
 
+    /**
+     * create subcategory
+     */
+    public function createSubcategory()
+    {
+        echo "hello";
+        //$parentCategory=Category::where('parent_id','=',0)->get();
+        //return view('admin.category.createscat',['parentCategory'=>$parentCategory]);
+    }
+
+    /**
+     * Update Specified subcategory
+     */
+    public function updateSubcategory(CategoryValidation $request, Category $category)
+    {
+        $requestData = $request->all();
+        $a=$category->update($requestData);
+        
+        return redirect('admin/subcategorylist')->with('flash_message', 'Subcategory updated!');
+    }
     
 }
