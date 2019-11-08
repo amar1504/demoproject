@@ -43,12 +43,15 @@ Route::resource('admin/coupon', 'Admin\\CouponController');
 
 //subcategoey route
 Route::get('admin/subcategorylist', 'Admin\\CategoryController@SubCategoryList')->name('subcateory.list');
+Route::get('admin/subcategory/create','Admin\\CategoryController@createSubcategory')->name('subcategory.create');
+
 Route::get('admin/subcategorydetail/{id?}', 'Admin\\CategoryController@showSubcategory')->name('subcategory.show');
 Route::get('admin/subcategoryedit/{id}', 'Admin\\CategoryController@editSubcategory')->name('subcategory.edit');
-
+Route::post('admin/subcategoryup/{category}', 'Admin\\CategoryController@updateSubcategory')->name('subcategory.update');
 
 //Route::get('/dropdown', ['as' => 'dropdown' ,'uses' => 'Admin\\ProductController@dropdown']);
 Route::post('/dropdown','Admin\\ProductController@dropdownCat')->name('dropdown_route');
+
 
 //Eshopper
 Route::get('eshopper', 'Eshopper\\EshopperController@index')->name('eshopper');
