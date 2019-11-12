@@ -27,7 +27,7 @@
 								<a href=""><img src="{{ asset('storage/'.$content->options->product_image) }} " class="imgsize" alt=""></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href=""> {{ $content->name }}</a></h4>
+								<h4><a href=""> {{ ucwords($content->name) }}</a></h4>
 								<p>Web ID: #{{ $content->id }}</p>
 							</td>
 							<td class="cart_price">
@@ -35,13 +35,15 @@
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href="{{ route('cart.add',$content->id) }}"> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="{{ $content->qty }}" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href="{{ route('cart.update',$content->rowId) }}"> - </a>
+									<!-- <a class="cart_quantity_up" href="{{ route('cart.add',$content->id) }}">+</a> -->
+									<a class="cart_quantity_up"  href="javascript:void(0);"><p  onClick="additems('{{$content->rowId }}',{{$content->id }});"> + </p></a>
+									<input  type="text" class="cart_quantity_input" id="cartqty{{$content->id}}" name="quantity" value="{{ $content->qty }}" autocomplete="off" size="2">
+									<!-- <a class="cart_quantity_down" href="{{ route('cart.update',$content->rowId) }}">-</a> -->
+									<a class="cart_quantity_down" href="javascript:void(0);"><p  onClick="removeitems('{{$content->rowId }}',{{$content->id }});"> - </p></a>
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">${{ $content->subtotal }}</p>
+								<p class="cart_total_price" id="cart_total_price{{$content->id}}">${{ $content->subtotal }}</p>
 							</td>
 							<td class="cart_delete">
 								<a class="cart_quantity_delete" href="{{ route('cart.remove', $content->rowId) }}"><i class="fa fa-times"></i></a>
@@ -50,26 +52,6 @@
 						
 						@endforeach
 
-						@if(isset($subtotal) && $subtotal!=0 )
-						<tr>
-							<td colspan=4 class="text-right"><h4> Subtotal : </h4></td>
-							<td><p class="cart_total_price">${{ $subtotal }}</p></td>
-						</tr>
-						@endif
-
-						@if(isset($tax) && $tax!=0 )
-						<tr>
-							<td colspan=4 class="text-right"><h4> Tax : </h4></td>
-							<td><p class="cart_total_price">${{ $tax }}</p></td>
-						</tr>
-						@endif
-
-						@if(isset($total) && $total!=0 )
-						<tr>
-							<td colspan=4 class="text-right"><h4> Total : </h4></td>
-							<td><p class="cart_total_price">${{ $total }}</p></td>
-						</tr>
-						@endif
 					@else
 						<tr class="alert alert-warning">
 							<td colspan=6 class="text-center"><h4> Your Cart is Empty </h4></td>
@@ -90,65 +72,39 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="chose_area">
-						<ul class="user_option">
+						<ul class="user_info">
 							<li>
-								<input type="checkbox">
 								<label>Use Coupon Code</label>
 							</li>
-							<li>
-								<input type="checkbox">
-								<label>Use Gift Voucher</label>
-							</li>
-							<li>
-								<input type="checkbox">
-								<label>Estimate Shipping & Taxes</label>
-							</li>
+							
 						</ul>
 						<ul class="user_info">
 							<li class="single_field">
-								<label>Country:</label>
-								<select>
-									<option>United States</option>
-									<option>Bangladesh</option>
-									<option>UK</option>
-									<option>India</option>
-									<option>Pakistan</option>
-									<option>Ucrane</option>
-									<option>Canada</option>
-									<option>Dubai</option>
-								</select>
-								
+								<label>Enter Coupon Code:</label>
+								<p id="coupon_msg"></p>
 							</li>
 							<li class="single_field">
-								<label>Region / State:</label>
-								<select>
-									<option>Select</option>
-									<option>Dhaka</option>
-									<option>London</option>
-									<option>Dillih</option>
-									<option>Lahore</option>
-									<option>Alaska</option>
-									<option>Canada</option>
-									<option>Dubai</option>
-								</select>
+								<input type="text" name="coupon_code" id="coupon_code">
+								
+							</li>
 							
-							</li>
-							<li class="single_field zip-field">
-								<label>Zip Code:</label>
-								<input type="text">
-							</li>
 						</ul>
-						<a class="btn btn-default update" href="">Get Quotes</a>
-						<a class="btn btn-default check_out" href="">Continue</a>
+						<!-- <a class="btn btn-default update" href="">Get Quotes</a> -->
+						&emsp; <button class="btn btn-default check_out" onclick="applyCoupon();">Apply Coupon</button>
+						&emsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-default check_out" onclick="couponCancel();">Cancel Coupon</button>
+
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<li>Cart Sub Total <span>${{ $subtotal }}</span></li>
-							<li>Eco Tax <span>${{ $tax }}</span></li>
-							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>${{ $total }}</span></li>
+							<li>Cart Sub Total <span id="subtotal" >${{ $subtotal }}</span></li>
+							<li>Eco Tax <span id="tax">${{ $tax }}</span></li>
+							<li>Shipping Cost <span id="shippingcost">@if($total >500) {{ 'Free' }} @else ${{ 50 }} @endif</span></li>
+							<li>Total <span id="total">@if($total >500) ${{ $total }} @else ${{ $total+50 }} @endif </span></li>
+							<li>Discount Cost <span id="discount"> - </span></li>
+							<li>Grand Total <span id="grandtotal">@if($total >500) ${{ $total }} @else ${{ $total+50 }} @endif</span></li>
+
 						</ul>
 							<a class="btn btn-default update" href="">Update</a>
 							<a class="btn btn-default check_out" href="">Check Out</a>
@@ -157,5 +113,146 @@
 			</div>
 		</div>
 	</section><!--/#do_action-->
+
+<script>
+$(document).ready(function(){
+	
+});
+
+/**
+ * function to add item using ajax
+ */
+function additems(id, selector){
+	//alert(selector);
+
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+    
+	$.ajax({
+		type:"POST",
+		url:"{{ route('cart.additems') }}",
+		data:{id:id},
+		success:function(data) {
+			// alert(data.itemsubtotal);
+			console.log(data.qty);
+			$('#cart_total_price'+selector).text('$'+data.itemsubtotal);
+			$('#cartqty'+selector).val(data.qty);
+			if(data.total<500){
+				data.total=parseFloat(data.total)+50;
+				//alert(data.total);
+				$('#total').text('$'+data.total);
+				$('#shippingcost').text('$'+50);
+			}
+			else{
+				$('#total').text('$'+data.total);
+				$('#shippingcost').text('Free');
+			}
+			$('#subtotal').text('$'+data.subtotal);
+			$('#tax').text('$'+data.tax);
+			$('#grandtotal').text('$'+data.total);
+
+		},
+		
+	});
+	
+}
+
+
+/**
+ * function to remove item using ajax
+ */
+function removeitems(id, selector){
+	//alert(id);
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+    
+	$.ajax({
+		type:"POST",
+		url:"{{ route('cart.removeitems') }}",
+		data:{id:id},
+		success:function(data) {
+			// alert(data.itemsubtotal);
+			console.log(data.qty);
+			$('#cartqty'+selector).val(data.qty);
+			$('#cart_total_price'+selector).text('$'+data.itemsubtotal);
+			if(data.total<500){
+				data.total=parseFloat(data.total)+50;
+				//alert(data.total);
+				$('#total').text('$'+data.total);
+				$('#shippingcost').text('$'+50);
+			}
+			else{
+				$('#total').text('$'+data.total);
+				$('#shippingcost').text('Free');
+			}
+			$('#subtotal').text('$'+data.subtotal);
+			$('#tax').text('$'+data.tax);
+			$('#grandtotal').text('$'+data.total);
+		},
+		
+	});
+	
+}
+
+</script>
+
+<script>
+
+
+/**
+ * function to apply coupon using ajax
+ */
+function applyCoupon(){
+	code=$("#coupon_code").val();
+	//alert(code);
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+    
+	$.ajax({
+		type:"POST",
+		url:"{{ route('cart.coupon') }}",
+		data:{code:code},
+		success:function(data) {
+			// alert("hii");
+			console.log(data.discount);
+			if(data.error_msg =="Invalid Coupon")
+			{
+				$("#coupon_msg").html(`<br/><font color="red">`+data.error_msg+`</font>`);
+				//console.log(data.error_msg);
+			}
+			else{
+				$("#coupon_msg").html(`<br/><font color="red"> Valid Coupon </font>`);
+				$("#discount").html('-$'+data.discount);
+				grandtotal=data.total-data.discount;
+				$("#grandtotal").html('$'+grandtotal.toFixed(2));
+			}
+			
+		},
+		
+	});
+}
+
+
+/**
+ * function to remove coupon
+ */
+function couponCancel(){
+	total=$("#total").text();
+	// alert(total);	
+	$("#discount").html('-');
+	$("#grandtotal").html(total);
+
+}
+
+</script>
 
 @include('Eshopper.footer')
