@@ -71,14 +71,14 @@
 						<div class="shopper-info">
 							<p>To Billing</p>
 
-									<input type="text" name="billingname" id="compnayname" placeholder="Company Name">
-									<input type="text" name="billingaddress1" placeholder="Address 1 *"  id="address1">
-									<input type="text" name="billingaddress2" placeholder="Address 2" id="address2">
-									<input type="text" name="billingcountry" placeholder="Country" id="country">
-									<input type="text" name="billingstate" placeholder="State" id="state">
-									<input type="text" name="billingcity" placeholder="City" id="city">
-									<input type="text" name="billingzipcode" placeholder="Zipcode" id="zipcode">
-									<input type="text" name="billingmobileno" placeholder="Mobile No." id="mobileno">
+									<input type="text" name="billingname" id="compnayname" placeholder="Company Name" required="">
+									<input type="text" name="billingaddress1" placeholder="Address 1 *"  id="address1" required="">
+									<input type="text" name="billingaddress2" placeholder="Address 2" id="address2" required="">
+									<input type="text" name="billingcountry" placeholder="Country" id="country" required="">
+									<input type="text" name="billingstate" placeholder="State" id="state" required="">
+									<input type="text" name="billingcity" placeholder="City" id="city" required="">
+									<input type="text" name="billingzipcode" placeholder="Zipcode" id="zipcode" required="">
+									<input type="text" name="billingmobileno" placeholder="Mobile No." id="mobileno" required="">
 									<input type="hidden" name="billingaddressid" id="billingaddressid" value="" >
 
 								
@@ -91,14 +91,14 @@
 						<div class="shopper-info order ">
 							<p>To Shipping</p>
 							
-									<input type="text" name="shippingname" id="shippingcompnayname" placeholder="Company Name">
-									<input type="text" name="shippingaddress1" placeholder="Address 1 *"  id="shippingaddress1">
+									<input type="text" name="shippingname" id="shippingcompnayname" placeholder="Company Name" required="">
+									<input type="text" name="shippingaddress1" placeholder="Address 1 *"  id="shippingaddress1" required="">
 									<input type="text" name="shippingaddress2" placeholder="Address 2" id="shippingaddress2">
-									<input type="text" name="shippingcountry" placeholder="Country" id="shippingcountry">
-									<input type="text" name="shippingstate" placeholder="State" id="shippingstate">
-									<input type="text" name="shippingcity" placeholder="City" id="shippingcity">
-									<input type="text" name="shippingzipcode" placeholder="Zipcode" id="shippingzipcode">
-									<input type="text" name="shippingmobileno" placeholder="Mobile No." id="shippingmobileno">
+									<input type="text" name="shippingcountry" placeholder="Country" id="shippingcountry" required="">
+									<input type="text" name="shippingstate" placeholder="State" id="shippingstate" required="">
+									<input type="text" name="shippingcity" placeholder="City" id="shippingcity" required="">
+									<input type="text" name="shippingzipcode" placeholder="Zipcode" id="shippingzipcode" required="">
+									<input type="text" name="shippingmobileno" placeholder="Mobile No." id="shippingmobileno" required="">
 									<label><input type="checkbox" name="sameaddress" id="sameaddress" value="1" onclick="getsameAddress(this.id);"> Shipping to bill address</lable>
 									<input type="hidden" name="shippingaddressid" id="shippingaddressid" value="" >
 									
@@ -154,7 +154,6 @@
 							<td class="cart_total">
 								<p class="cart_total_price" id="cart_total_price{{$content->id}}">${{ $content->subtotal }}</p>
 							</td>
-							
 						</tr>
 						
 						@endforeach
@@ -174,10 +173,18 @@
 										<td>Shipping Cost</td>
 										<td>@if($total >500) {{ 'Free' }} @else ${{ 50 }} @endif</td>										
 									</tr>
-									<tr>
-										<td>Total</td>
-										<td><span>@if($total >500) ${{ $total }} @else ${{ $total+50 }} @endif</span></td>
+									<tr class="shipping-cost">
+										<td>Discount Cost</td>
+										<td>-{{ $couponDiscount }}</td>										
 									</tr>
+									@if($total >500) ${{ $total=$total }} @else ${{ $total=$total+50 }} @endif
+									<tr>
+										<td>Total</td> 
+										<td><span>@if($couponDiscount > 0) {{ $total-$couponDiscount }} @else{{ $total }} @endif</span></td>
+									</tr>
+
+									<input type="hidden" name="couponDiscount" value="{{ $couponDiscount }}">
+									<input type="hidden" name="coupon_id" value="{{ $coupon_id }}">
 								</table>
 							</td>
 						</tr>
@@ -190,10 +197,10 @@
 						<label><b>Payment : </b></label>
 					</span>
 					<span>
-						&emsp;<label><input type="checkbox" value="cod"> Cash On Delivery</label> &emsp;
+						&emsp;<label><input name="paymentMode" type="radio" value="0" required=""> Cash On Delivery</label> &emsp;
 					</span>
 					<span>
-						<label><input type="checkbox" value="paypal"> Paypal</label>
+						<label><input name="paymentMode" type="radio" value="1" required=""> Paypal</label>
 					</span>
 					
 			</div>

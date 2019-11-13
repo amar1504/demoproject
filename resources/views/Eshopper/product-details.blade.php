@@ -20,7 +20,7 @@
 								    <div class="carousel-inner"> 
 										@foreach($productdetails->ProductImage as $pimg)
 										<div class="item {{$loop->first ? 'active' : '' }}">
-										  <a href=""><img src="{{ asset('storage/'.$pimg->product_image)  }}" alt=""></a>
+										  <a href=""><img src="{{ asset('storage/'.$pimg->product_image)  }}" class="imgsize" alt=""></a>
 										</div>
 										@endforeach
 									</div>

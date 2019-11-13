@@ -13,7 +13,7 @@
 					<div class="product-image-wrapper">
 						<div class="single-products">
 							<div class="productinfo text-center">
-								<img src="{{asset('storage/'.$item['product_image'][0]['product_image'])}}" class="imgsize" alt="" />
+								<img src="{{asset('storage/'.$item['product_image'][0]['product_image'])}}" class="productimg" alt="" />
 								<h2>$ {{ $item['price'] }} </h2>
 								<p>{{ $item['product_name'] }}</p>
 								<a href="{{ route('product-details', ['id'=>$item['id']] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>

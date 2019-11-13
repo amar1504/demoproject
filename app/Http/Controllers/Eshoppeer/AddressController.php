@@ -85,9 +85,9 @@ class AddressController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Address $address)
     {
-        $address = Address::findOrFail($id);
+        //$address = Address::findOrFail($id);
         $category=Category::with('subCategories')->where([['parent_id','=',0],['status','=','1']])->get();
         $subcategorycount=Category::with('products')->where([['parent_id','!=',0],['status','=','1']])->get();        
         return view('Eshopper.address.show', compact('address'),['category'=>$category,'subcategorycount'=>$subcategorycount]);

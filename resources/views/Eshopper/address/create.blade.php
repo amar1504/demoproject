@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Create New Address</div>
+                    <div class="card-header left-sidebar"><h2>Create New Address</h2></div>
                     <div class="card-body">
                         <a href="{{ url('/eshopper/address') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
@@ -21,7 +21,7 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/eshopper/address') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/eshopper/address') }}" data-parsley-validate="" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('Eshopper.address.form', ['formMode' => 'create'])

@@ -107,11 +107,17 @@
 
 						</ul>
 							<!-- <a class="btn btn-default update" href="">Update</a> -->
-							@if(Auth::check())
-							&emsp;&nbsp;&nbsp;<a class="btn btn-default check_out" href="{{ route('cart.checkout') }} ">Check Out</a>
+							@if(Auth::check() && $count >=1) 
+							<form method="POST" action="{{ route('cart.checkout') }}">
+								{{ csrf_field() }}
+								<input type="hidden" name="coupon_id" id="couponid" value="">
+								<input type="hidden" name="coupondiscount" id="coupondiscount" value="">
+								&emsp;&nbsp;&nbsp;<input type="submit" @if($count < 1) {{ 'disabled="disabled' }} @endif class="btn btn-default check_out" value="Check Out">
+							</form>
 							@else
-							&emsp;&nbsp;&nbsp;<a class="btn btn-default check_out" href="{{ route('userlogin') }}">Check Out</a>
+							&emsp;&nbsp;&nbsp;<a   class="btn btn-default check_out" href="{{ route('userlogin') }}"  >Check Out</a>
 							@endif
+							
 					</div>
 				</div>
 			</div>
@@ -141,7 +147,7 @@ function additems(id, selector){
 		data:{id:id},
 		success:function(data) {
 			// alert(data.itemsubtotal);
-			console.log(data.qty);
+			//console.log(data.qty);
 			$('#cart_total_price'+selector).text('$'+data.itemsubtotal);
 			$('#cartqty'+selector).val(data.qty);
 			if(data.total<500){
@@ -182,7 +188,7 @@ function removeitems(id, selector){
 		data:{id:id},
 		success:function(data) {
 			// alert(data.itemsubtotal);
-			console.log(data.qty);
+			//console.log(data.qty);
 			$('#cartqty'+selector).val(data.qty);
 			$('#cart_total_price'+selector).text('$'+data.itemsubtotal);
 			if(data.total<500){
@@ -236,7 +242,10 @@ function applyCoupon(){
 			else{
 				$("#coupon_msg").html(`<br/><font color="red"> Valid Coupon </font>`);
 				$("#discount").html('-$'+data.discount);
+				$("#coupondiscount").val(data.discount);
+				$("#couponid").val(data.couponid);
 				grandtotal=data.total-data.discount;
+				//alert(grandtotal+' '+data.total);
 				$("#grandtotal").html('$'+grandtotal.toFixed(2));
 			}
 			

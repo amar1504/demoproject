@@ -12,6 +12,9 @@ use App\ProductImage;
 use App\ProductCategory;
 use App\Coupon;
 use App\Address;
+use App\Order;
+use App\ProductOrder;
+use App\OrderDetails;
 use Auth;
 class CartController extends Controller
 {
@@ -41,7 +44,7 @@ class CartController extends Controller
     /**
      * function to increase quantity
      */
-    public function addItems(Request $request){
+    public function addQuantity(Request $request){
 
         $rowId=$request->id;
         $getproduct=Cart::get($rowId);
@@ -54,7 +57,7 @@ class CartController extends Controller
      /**
      * function to decrease quantity
      */
-    public function removeItems(Request $request){
+    public function removeQuantity(Request $request){
 
         $rowId=$request->id;
         $getproduct=Cart::get($rowId);
@@ -98,26 +101,26 @@ class CartController extends Controller
         }
 
         if(count($coupon)>=1){
-            return response()->json(['name'=>$request->code,'discount'=>$discount,'total'=>Cart::total()]);
+            return response()->json(['couponid'=>$coupon->id, 'name'=>$request->code,'discount'=>$discount,'total'=>Cart::total()]);
         }
         else{
             return response()->json(['error_msg'=>'Invalid Coupon']);
         }
-        //return response()->json(['name'=>$request->code,'count'=>count($coupon)]);
 
     }    
 
     /**
      * function for checkout cart item
      */
-    public function checkout(){
+    public function checkout(Request $request){
+        $couponDiscount=$request->coupondiscount;
         $user_id=Auth::user()->id;
         $addresses=Address::where('user_id','=',$user_id)->get();
-        return view('Eshopper/checkout',['addresses'=>$addresses,'cartcontent'=>Cart::content(),'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal(),'count'=>Cart::count()]);
+        return view('Eshopper/checkout',['coupon_id'=>$request->coupon_id, 'addresses'=>$addresses,'cartcontent'=>Cart::content(),'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal(),'count'=>Cart::count(),'couponDiscount'=>$couponDiscount]);
     }
 
     /**
-     * function to store order
+     * function to store address if new , order details
      */
     public function storeOrder(Request $request){
        
@@ -140,8 +143,9 @@ class CartController extends Controller
             $requestData1['zipcode']=$request->billingzipcode;
             $requestData1['mobileno']=$request->billingmobileno;
             $requestData1['user_id']=Auth::user()->id;
-            //dd($requestData);
-            //dd($r);            
+            Address::create($requestData1);
+
+            //dd($requestData1);  
         }
         if(count($shippingaddress)<1){
             //echo "<br/>insert shipping address";        
@@ -154,26 +158,68 @@ class CartController extends Controller
             $requestData2['zipcode']=$request->shippingzipcode;
             $requestData2['mobileno']=$request->shippingmobileno;
             $requestData2['user_id']=Auth::user()->id;
-            //dd($requestData);
-
-        }
-        
-        if(count($shippingaddress)<1 && count($billingaddress)<1){
-            if($requestData1==$requestData2){
-                Address::create($requestData1);
-            }
-        } 
-
-        if(count($billingaddress)<1){
             Address::create($requestData2);
-        }
 
-        if(count($shippingaddress)<1){
-            Address::create($requestData1);
+            //dd($requestData2);
         }
+       
 
-          //dd($r);
+        //dd($r);
+       
+        if(Cart::total() >=500)
+        {
+            $shippingCharge=0;
+        }else{
+            $shippingCharge=50;
+        }
+        if($request->coupon_id==null)
+        {
+            $request->couponDiscount=0;
+            $request->coupon_id=0;
+        }
+        $total=Cart::total()+$shippingCharge;
+
+        $orderData['user_id']=Auth::user()->id;
+        $orderData['address_id']=$request->shippingaddressid;
+        $orderData['subtotal']=Cart::subtotal();
+        $orderData['tax']=Cart::tax();
+        $orderData['discount']=$request->couponDiscount;
+        $orderData['total']=$total;
+        $orderData['shipping_charge']=$shippingCharge;
+        $orderData['coupon_id']=$request->coupon_id;
+       // echo Cart::total();
+        //dd($orderData);
+        $orderSubmit=Order::create($orderData);
+
         
+        if($orderSubmit)
+        {
+            foreach(Cart::content() as $item)
+            {   
+                $order['order_id']=$orderSubmit->id;
+                $order['user_id']=Auth::user()->id;
+                $order['product_id']=$item->id;
+                $order['name']=$item->name;
+                $order['price']=$item->subtotal;
+                $order['product_image']=$item->options->product_image;
+                $order['quantity']=$item->qty;
+                ProductOrder::create($order);
+            }
+
+            $orderdeatils['order_id']=$orderSubmit->id;
+            $orderdeatils['transaction_id']=str_random(8,12);
+            $orderdeatils['transaction_status']='pending';
+            $orderdeatils['payment_mode']=$request->paymentMode;
+            $orderdeatils['status']='pending';
+            OrderDetails::create($orderdeatils);
+
+
+            Cart::destroy();
+
+           return view('Eshopper.ordersubmit');
+        }
+        
+
     }
 
 }

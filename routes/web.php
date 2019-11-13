@@ -78,13 +78,13 @@ Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
 
     #cart Route
     Route::get('/cart/add/{id?}','CartController@addItem')->name('cart.add');
-    Route::post('/cart/additem/','CartController@addItems')->name('cart.additems');
-    Route::post('/cart/removeitem/','CartController@removeItems')->name('cart.removeitems');
+    Route::post('/cart/additem/','CartController@addQuantity')->name('cart.additems');
+    Route::post('/cart/removeitem/','CartController@removeQuantity')->name('cart.removeitems');
     Route::get('/cart','CartController@index')->name('cart');
     Route::get('/cart/remove/{rowId}','CartController@removeItem')->name('cart.remove');
     Route::get('/cart/update/{rowId}','CartController@updateQty')->name('cart.update');
     Route::post('/cart/coupon','CartController@coupon')->name('cart.coupon');
-    Route::get('/cart/checkout/items','CartController@checkout')->name('cart.checkout');
+    Route::post('/cart/checkout/items','CartController@checkout')->name('cart.checkout');
     Route::post('/cart/store/order','CartController@storeOrder')->name('cart.storeorder');
 
 });

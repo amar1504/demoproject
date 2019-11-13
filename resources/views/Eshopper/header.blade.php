@@ -14,6 +14,10 @@
     <link href="{{ asset('Eshopper/css/animate.css')}}" rel="stylesheet">
 	<link href="{{ asset('Eshopper/css/main.css')}}" rel="stylesheet">
 	<link href="{{ asset('Eshopper/css/responsive.css')}}" rel="stylesheet">
+
+	<script src="{{ asset('Eshopper/js/parsley.min.js')}}"></script> <!-- parsley min js -->
+	<link href="{{ asset('Eshopper/css/parsley.css')}}" rel="stylesheet" type="text/css"> <!--parsley css-->
+
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
