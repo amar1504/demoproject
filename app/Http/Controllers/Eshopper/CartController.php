@@ -11,6 +11,8 @@ use App\Product;
 use App\ProductImage;
 use App\ProductCategory;
 use App\Coupon;
+use App\Address;
+use Auth;
 class CartController extends Controller
 {
     /**
@@ -104,5 +106,74 @@ class CartController extends Controller
         //return response()->json(['name'=>$request->code,'count'=>count($coupon)]);
 
     }    
+
+    /**
+     * function for checkout cart item
+     */
+    public function checkout(){
+        $user_id=Auth::user()->id;
+        $addresses=Address::where('user_id','=',$user_id)->get();
+        return view('Eshopper/checkout',['addresses'=>$addresses,'cartcontent'=>Cart::content(),'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal(),'count'=>Cart::count()]);
+    }
+
+    /**
+     * function to store order
+     */
+    public function storeOrder(Request $request){
+       
+        $r=$request->all();
+        $billingaddressid=$request->billingaddressid."<br/>";
+        $shippingaddressid=$request->shippingaddressid."<br/>";
+        $billingaddress=Address::where('id','=',$billingaddressid)->first();
+        $shippingaddress=Address::where('id','=',$shippingaddressid)->first();
+        // echo "<br/><br/>".count($billingaddress);
+        // echo "<br/><br/>".count($shippingaddress);
+
+        if(count($billingaddress)<1){
+            //echo "<br/>insert billing address";
+            $requestData1['name']=$request->billingname;
+            $requestData1['address1']=$request->billingaddress1;
+            $requestData1['address2']=$request->billingaddress2;
+            $requestData1['country']=$request->billingcountry;
+            $requestData1['state']=$request->billingstate;
+            $requestData1['city']=$request->billingcity;
+            $requestData1['zipcode']=$request->billingzipcode;
+            $requestData1['mobileno']=$request->billingmobileno;
+            $requestData1['user_id']=Auth::user()->id;
+            //dd($requestData);
+            //dd($r);            
+        }
+        if(count($shippingaddress)<1){
+            //echo "<br/>insert shipping address";        
+            $requestData2['name']=$request->shippingname;
+            $requestData2['address1']=$request->shippingaddress1;
+            $requestData2['address2']=$request->shippingaddress2;
+            $requestData2['country']=$request->shippingcountry;
+            $requestData2['state']=$request->shippingstate;
+            $requestData2['city']=$request->shippingcity;
+            $requestData2['zipcode']=$request->shippingzipcode;
+            $requestData2['mobileno']=$request->shippingmobileno;
+            $requestData2['user_id']=Auth::user()->id;
+            //dd($requestData);
+
+        }
+        
+        if(count($shippingaddress)<1 && count($billingaddress)<1){
+            if($requestData1==$requestData2){
+                Address::create($requestData1);
+            }
+        } 
+
+        if(count($billingaddress)<1){
+            Address::create($requestData2);
+        }
+
+        if(count($shippingaddress)<1){
+            Address::create($requestData1);
+        }
+
+          //dd($r);
+        
+    }
 
 }

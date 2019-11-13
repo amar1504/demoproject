@@ -106,8 +106,12 @@
 							<li>Grand Total <span id="grandtotal">@if($total >500) ${{ $total }} @else ${{ $total+50 }} @endif</span></li>
 
 						</ul>
-							<a class="btn btn-default update" href="">Update</a>
-							<a class="btn btn-default check_out" href="">Check Out</a>
+							<!-- <a class="btn btn-default update" href="">Update</a> -->
+							@if(Auth::check())
+							&emsp;&nbsp;&nbsp;<a class="btn btn-default check_out" href="{{ route('cart.checkout') }} ">Check Out</a>
+							@else
+							&emsp;&nbsp;&nbsp;<a class="btn btn-default check_out" href="{{ route('userlogin') }}">Check Out</a>
+							@endif
 					</div>
 				</div>
 			</div>

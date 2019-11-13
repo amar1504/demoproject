@@ -41,7 +41,7 @@ Route::resource('admin/product', 'Admin\\ProductController');
 Route::resource('admin/coupon', 'Admin\\CouponController');
 
 Route::prefix('/admin')->namespace('Admin\\')->group(function(){
-    //subcategoey route
+    #subcategoey Route
     Route::get('/subcategorylist', 'CategoryController@SubCategoryList')->name('subcateory.list');
     Route::get('/subcategory/create','CategoryController@createSubcategory')->name('subcategory.create');
     Route::get('/subcategorydetail/{id?}', 'CategoryController@showSubcategory')->name('subcategory.show');
@@ -64,12 +64,11 @@ Route::GET('admin/banner/create','Admin\BannerController@create')->name('banner.
 */
 
 
-//Eshopper forgot password
+//Eshopper forgot password Route
 Route::get('eshopper', 'Eshopper\\EshopperController@index')->name('eshopper');
 Route::any('/getproduct','Eshopper\\EshopperController@featuresItem')->name('getproducts');
 Route::get('eshopper/login','Eshopper\\EshopperController@userLogin')->name('userlogin');
 Route::get('eshopper/product/{id?}','Eshopper\\EshopperController@product')->name('product');
-
 Route::get('eshopper/forgotpassword/','Eshopper\\EshopperController@forgotPasswordview')->name('forgot.passwordview');
 Route::post('eshopper/forgot-password/','Eshopper\\EshopperController@forgotPassword')->name('forgot.password');
 Route::get('eshopper/product-details/{id?}','Eshopper\\EshopperController@productDetails')->name('product-details');
@@ -77,7 +76,7 @@ Route::get('eshopper/product-details/{id?}','Eshopper\\EshopperController@produc
 
 Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
 
-    //cart
+    #cart Route
     Route::get('/cart/add/{id?}','CartController@addItem')->name('cart.add');
     Route::post('/cart/additem/','CartController@addItems')->name('cart.additems');
     Route::post('/cart/removeitem/','CartController@removeItems')->name('cart.removeitems');
@@ -85,13 +84,15 @@ Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
     Route::get('/cart/remove/{rowId}','CartController@removeItem')->name('cart.remove');
     Route::get('/cart/update/{rowId}','CartController@updateQty')->name('cart.update');
     Route::post('/cart/coupon','CartController@coupon')->name('cart.coupon');
+    Route::get('/cart/checkout/items','CartController@checkout')->name('cart.checkout');
+    Route::post('/cart/store/order','CartController@storeOrder')->name('cart.storeorder');
 
 });
 
 
 Route::prefix('/eshopper')->namespace('Eshoppeer\\')->group(function(){
 
-    //shipping address
+    #shipping address Route
     Route::resource('/address', 'AddressController');
     Route::post('/address', 'AddressController@store')->name('address.store');
     Route::get('/address', 'AddressController@index')->name('address.index');
@@ -101,3 +102,4 @@ Route::prefix('/eshopper')->namespace('Eshoppeer\\')->group(function(){
     Route::get('/address/{address}', 'AddressController@show')->name('address.show');
     Route::get('/address/{address}/edit', 'AddressController@edit')->name('address.edit');
 });
+
