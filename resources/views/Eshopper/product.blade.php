@@ -26,13 +26,18 @@
 											<h2>${{$prod->Product->price}}</h2>
 											<p>{{$prod->Product->product_name}}</p>
 												<a href="{{ route('product-details', ['id'=>$prod->Product->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="{{ route('cart.add',$prod->Product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
-										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										
+									@if (Auth::user())  
+										<li><a href="{{ route('wishlist.add',$prod->Product->id) }}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+									@else
+										<li><a href="{{ route('userlogin') }}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+									@endif
 										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
 									</ul>
 								</div>

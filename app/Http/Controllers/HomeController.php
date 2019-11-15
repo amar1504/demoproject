@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Product;
+use App\User;
+use App\Role;
+
 
 class HomeController extends Controller
 {
@@ -24,7 +28,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('master');
+        $productCount=Product::get()->count();
+        $role=Role::where('role_name','=','customer')->first();
+        $userCount=User::where('roles','=',$role->id)->get()->count();
+        // return view('master');
+
+        return view('admin/home',['productCount'=>$productCount,'userCount'=>$userCount]);
+
     }
     
     

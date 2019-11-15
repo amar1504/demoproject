@@ -72,6 +72,15 @@ Route::get('eshopper/product/{id?}','Eshopper\\EshopperController@product')->nam
 Route::get('eshopper/forgotpassword/','Eshopper\\EshopperController@forgotPasswordview')->name('forgot.passwordview');
 Route::post('eshopper/forgot-password/','Eshopper\\EshopperController@forgotPassword')->name('forgot.password');
 Route::get('eshopper/product-details/{id?}','Eshopper\\EshopperController@productDetails')->name('product-details');
+//wishlist
+Route::get('eshopper/product/wishlist/{id?}','Eshopper\\EshopperController@wishList')->name('wishlist.add');
+//user Profile
+Route::get('eshopper/user-profile','Eshopper\\EshopperController@userProfile')->name('user.profile');
+Route::post('eshopper/profile/update','Eshopper\\EshopperController@userProfileUpdate')->name('user.update');
+Route::get('eshopper/profile/change-password','Eshopper\\EshopperController@changePassword')->name('user.changepassword');
+Route::post('eshopper/profile/update-password','Eshopper\\EshopperController@updatePassword')->name('user.updatepassword');
+Route::get('eshopper/profile/my-orders','Eshopper\\EshopperController@myOrders')->name('user.myorders');
+Route::get('eshopper/profile/my-order-details/{id}','Eshopper\\EshopperController@myOrderDetails')->name('user.myorderdetails');
 
 
 Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
@@ -103,3 +112,7 @@ Route::prefix('/eshopper')->namespace('Eshoppeer\\')->group(function(){
     Route::get('/address/{address}/edit', 'AddressController@edit')->name('address.edit');
 });
 
+// Paypal Route
+Route::get('paywithpaypal', array('as' => 'addmoney.paywithpaypal','uses' => 'AddMoneyController@payWithPaypal',));
+Route::post('paypal', array('as' => 'addmoney.paypal','uses' => 'AddMoneyController@postPaymentWithpaypal',));
+Route::get('paypal', array('as' => 'payment.status','uses' => 'AddMoneyController@getPaymentStatus',));

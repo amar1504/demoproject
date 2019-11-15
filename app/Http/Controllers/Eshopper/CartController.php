@@ -95,6 +95,7 @@ class CartController extends Controller
 
         if($coupon->type=="1"){
             $discount=(Cart::total()*$coupon->discount)/100;
+            $discount=number_format($discount,2);
         }
         else{
             $discount=$coupon->discount;
@@ -184,11 +185,11 @@ class CartController extends Controller
         $orderData['subtotal']=Cart::subtotal();
         $orderData['tax']=Cart::tax();
         $orderData['discount']=$request->couponDiscount;
-        $orderData['total']=$total;
+        $orderData['total']=$total-$orderData['discount'];
         $orderData['shipping_charge']=$shippingCharge;
         $orderData['coupon_id']=$request->coupon_id;
-       // echo Cart::total();
-        //dd($orderData);
+        // echo $orderData['total'];
+        // dd($orderData);
         $orderSubmit=Order::create($orderData);
 
         
@@ -212,7 +213,6 @@ class CartController extends Controller
             $orderdeatils['payment_mode']=$request->paymentMode;
             $orderdeatils['status']='pending';
             OrderDetails::create($orderdeatils);
-
 
             Cart::destroy();
 

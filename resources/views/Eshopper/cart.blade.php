@@ -108,12 +108,14 @@
 						</ul>
 							<!-- <a class="btn btn-default update" href="">Update</a> -->
 							@if(Auth::check() && $count >=1) 
-							<form method="POST" action="{{ route('cart.checkout') }}">
-								{{ csrf_field() }}
-								<input type="hidden" name="coupon_id" id="couponid" value="">
-								<input type="hidden" name="coupondiscount" id="coupondiscount" value="">
-								&emsp;&nbsp;&nbsp;<input type="submit" @if($count < 1) {{ 'disabled="disabled' }} @endif class="btn btn-default check_out" value="Check Out">
-							</form>
+								<form method="POST" action="{{ route('cart.checkout') }}">
+									{{ csrf_field() }}
+									<input type="hidden" name="coupon_id" id="couponid" value="">
+									<input type="hidden" name="coupondiscount" id="coupondiscount" value="">
+									&emsp;&nbsp;&nbsp;<input type="submit"  class="btn btn-default check_out" value="Check Out">
+								</form>
+							@elseif(Auth::check() && $count <=1)
+								&emsp;&nbsp;&nbsp;<input type="submit" @if($count < 1) {{ 'disabled="disabled' }} @endif  class="btn btn-default check_out" value="Check Out">
 							@else
 							&emsp;&nbsp;&nbsp;<a   class="btn btn-default check_out" href="{{ route('userlogin') }}"  >Check Out</a>
 							@endif
@@ -244,8 +246,17 @@ function applyCoupon(){
 				$("#discount").html('-$'+data.discount);
 				$("#coupondiscount").val(data.discount);
 				$("#couponid").val(data.couponid);
-				grandtotal=data.total-data.discount;
-				//alert(grandtotal+' '+data.total);
+				if(data.total >= 500){
+					grandtotal=data.total-data.discount;
+					//alert("1: "+grandtotal);
+				}
+				else{
+					grandtotal=data.total-data.discount;
+					grandtotal=grandtotal+50;
+					//alert("2: "+grandtotal);
+				}
+
+				
 				$("#grandtotal").html('$'+grandtotal.toFixed(2));
 			}
 			

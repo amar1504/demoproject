@@ -177,7 +177,7 @@
 										<td>Discount Cost</td>
 										<td>-{{ $couponDiscount }}</td>										
 									</tr>
-									@if($total >500) ${{ $total=$total }} @else ${{ $total=$total+50 }} @endif
+									<!-- @if($total >500) ${{ $total=$total }} @else ${{ $total=$total+50 }} @endif -->
 									<tr>
 										<td>Total</td> 
 										<td><span>@if($couponDiscount > 0) {{ $total-$couponDiscount }} @else{{ $total }} @endif</span></td>

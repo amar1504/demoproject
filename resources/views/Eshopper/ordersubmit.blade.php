@@ -7,7 +7,7 @@
 $(document).ready(function() {
 	window.setTimeout(function() {
 	    window.location.href = '{{ route('eshopper') }}';
-	}, 5000);
+	}, 4000);
 });
 </script>
 @include('Eshopper.footer')

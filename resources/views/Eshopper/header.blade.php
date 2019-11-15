@@ -25,6 +25,13 @@
     <link rel="shortcut icon" href="imagesico/favicon.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+	<script>
+    var msg = '{{Session::get('alert')}}';
+    var exist = '{{Session::has('alert')}}';
+    if(exist){
+      alert(msg);
+    }
+  </script>
 </head><!--/head-->
 
 <body>
@@ -94,7 +101,7 @@
 								<li class="dropdown"><a href="#"><i class="fa fa-user"></i> My Account<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{ route('address.index') }}">My Shipping Address</a></li>
-										<li><a href="">My Profile</a></li>
+										<li><a href="{{ route('user.profile')  }}">My Profile</a></li>
                                     </ul>
                                 </li> 
 								
