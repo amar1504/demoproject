@@ -33,7 +33,7 @@
                                         <th>ID</th><td>{{ $banner->id }}</td>
                                     </tr>
                                     <tr><th> Title </th><td> {{ $banner->title }} </td></tr>
-                                    <tr><th> Bannerimage </th><td> <img src="{{ asset('storage/'.$banner->bannerimage) }}" /> </td></tr>
+                                    <tr><th> Bannerimage </th><td> <img src="{{ asset('storage/'.$banner->bannerimage) }}" class="imgsize" /> </td></tr>
                                     <tr><th> Status </th><td>@if($banner->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         </tr>
                                     <!-- fetch the banner detail End-->

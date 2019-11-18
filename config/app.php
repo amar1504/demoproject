@@ -164,6 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Skovmand\Mailchimp\MailchimpServiceProvider::class,
         /*
          * Package Service Providers...
          */

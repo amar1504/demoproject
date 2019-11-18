@@ -208,6 +208,7 @@ class CartController extends Controller
             }
 
             $orderdeatils['order_id']=$orderSubmit->id;
+            $orderdeatils['user_id']=Auth::user()->id;
             $orderdeatils['transaction_id']=str_random(8,12);
             $orderdeatils['transaction_status']='pending';
             $orderdeatils['payment_mode']=$request->paymentMode;

@@ -86,11 +86,5 @@
             </div>
         </div>
     </div>
-<style>
-.imgsize{
-    height:100px;
-    width:100px;
-}
-</style>
 @endsection
 

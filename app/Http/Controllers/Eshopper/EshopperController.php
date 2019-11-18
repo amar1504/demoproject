@@ -12,6 +12,8 @@ use App\Banner;
 use App\Role;
 use App\User;
 use App\Order;
+use App\OrderDetails;
+use App\ContactUs;
 use App\ProductOrder;
 use App\Mail\Mailtrap;
 use Auth;
@@ -268,5 +270,57 @@ class EshopperController extends Controller
         return view('Eshopper.myorderdetails',['orders'=>$orders]);
 
     }
+
+     /**
+     * function to load track order view
+     */
+    public function trackOrderView(){
+        return view('Eshopper.trackorderview');
+     }
+
+    /**
+     * function to track order
+     */
+    public function trackOrder(Request $request){
+        $email=$request->email;
+        $orderId=$request->order_id;
+        $user=User::where('email','=',$email)
+                    ->first();
+        if($user==""){
+            return redirect()->back()->with('flash_message','Invalid Email or Order Id !');
+        }
+        $userId=$user->id;
+        $orderStatus=OrderDetails::where([['order_id','=',$orderId],['user_id','=',$userId]])
+                    ->first();
+
+        if($orderStatus==""){
+            return redirect()->back()->with('flash_message','Invalid Email or Order Id !');
+        }
+        return view('Eshopper.trackorder',['status'=>$orderStatus->status,'orderId'=>$orderId]);
+       
+    }
+    
+    /**
+     * function to load contact us view
+     */
+    public function contactUsView(){
+        return view('Eshopper.contact-us');
+    }
+
+     /**
+     * function to store contact us data
+     */
+    public function contactUs(Request $request){
+       //dd($request->all());
+       $contactData['name']=$request->name;
+       $contactData['email']=$request->email;
+       $contactData['subject']=$request->subject;
+       $contactData['message']=$request->message;
+       ContactUs::create($contactData);
+       return redirect()->back()->with('flash_message','Thank You for contacting us. we will be in touch soon !');
+
+    }
+
+   
 
 }

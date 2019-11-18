@@ -168,6 +168,21 @@
         </li>
         <!-- Coupon Management nav End-->
 
+        <!-- Contact Us  nav start-->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-phone"></i> <span>Contact Us</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('contactus.list') }}"><i class="fa fa-circle-o"></i> List Contact Us</a></li>
+          </ul>
+        </li>
+        <!-- Contact Us nav End-->
+
+
         <!--
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">

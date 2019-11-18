@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryValidation;
 use App\Category;
+use App\ProductCategory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -72,10 +73,12 @@ class CategoryController extends Controller
     }
 
 
+    /**
+     * Function to show particular subcategory 
+     */
     public function showSubCat($id)
     {
         $category = Category::findOrFail($id);
-        
         return view('admin.category.showSubCat', compact('category'));
     }
 
@@ -118,8 +121,18 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect('admin/category')->with('flash_message', 'Category deleted!');
+        // echo $category->id;
+        $catCount=Category::where('parent_id','=',$category->id)->get()->count();
+        //dd($catCount);
+        if($catCount >= 1){
+            return redirect('admin/category')->with('flash_message', 'You can\'t delete this category. beacuse it contains subcategories !');
+        }
+        else{
+            //echo "delete";
+            $category->delete();
+            return redirect('admin/category')->with('flash_message', 'Category deleted!');
+        }
+        
     }
 
     /**
@@ -190,10 +203,21 @@ class CategoryController extends Controller
         return redirect('admin/subcategorylist')->with('flash_message', 'Subcategory added!');
     }
 
+    /**
+     * function to deleete subcategory
+     */
     public function destroySubcategory(Category $category)
     {
-        $category->delete();
-        return redirect('admin/subcategorylist')->with('flash_message', 'Subcategory deleted!');
+        $productCount=ProductCategory::where('category_id','=',$category->id)->get()->count();
+        
+        if($productCount >=1 ){
+            return redirect('admin/subcategorylist')->with('flash_message', 'You Can\'t delete this Subcategory. beacause it contains products !');
+ 
+        }
+        else{
+            $category->delete();
+            return redirect('admin/subcategorylist')->with('flash_message', 'Subcategory deleted!');
+        }
     }
 
 }

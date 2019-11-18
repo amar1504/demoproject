@@ -40,6 +40,9 @@ Route::get('admin/product/create', 'Admin\\ProductController@index');
 Route::resource('admin/product', 'Admin\\ProductController');
 Route::resource('admin/coupon', 'Admin\\CouponController');
 
+Route::get('admin/contact-us','HomeController@contactUsList')->name('contactus.list');
+Route::get('admin/contact-us/{id?}','HomeController@contactUsShow')->name('contactus.show');
+
 Route::prefix('/admin')->namespace('Admin\\')->group(function(){
     #subcategoey Route
     Route::get('/subcategorylist', 'CategoryController@SubCategoryList')->name('subcateory.list');
@@ -81,6 +84,10 @@ Route::get('eshopper/profile/change-password','Eshopper\\EshopperController@chan
 Route::post('eshopper/profile/update-password','Eshopper\\EshopperController@updatePassword')->name('user.updatepassword');
 Route::get('eshopper/profile/my-orders','Eshopper\\EshopperController@myOrders')->name('user.myorders');
 Route::get('eshopper/profile/my-order-details/{id}','Eshopper\\EshopperController@myOrderDetails')->name('user.myorderdetails');
+Route::get('eshopper/profile/track-my-order','Eshopper\\EshopperController@trackOrderView')->name('user.trackorderview');
+Route::post('eshopper/profile/track-my-order/your-order','Eshopper\\EshopperController@trackOrder')->name('user.trackorder');
+Route::get('eshopper/contact-us','Eshopper\\EshopperController@contactUsView')->name('view.contactus');
+Route::post('eshopper/contact-us/contact','Eshopper\\EshopperController@contactUs')->name('contactus.add');
 
 
 Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
@@ -116,3 +123,8 @@ Route::prefix('/eshopper')->namespace('Eshoppeer\\')->group(function(){
 Route::get('paywithpaypal', array('as' => 'addmoney.paywithpaypal','uses' => 'AddMoneyController@payWithPaypal',));
 Route::post('paypal', array('as' => 'addmoney.paypal','uses' => 'AddMoneyController@postPaymentWithpaypal',));
 Route::get('paypal', array('as' => 'payment.status','uses' => 'AddMoneyController@getPaymentStatus',));
+
+//subscription Route
+Route::get('manageMailChimp', 'MailChimpController@manageMailChimp');
+Route::post('subscribe',['as'=>'subscribe','uses'=>'MailChimpController@subscribe']);
+Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'MailChimpController@sendCompaign']);

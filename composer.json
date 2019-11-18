@@ -9,12 +9,12 @@
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
         "gloudemans/shoppingcart": "^2.6",
+        "guzzlehttp/guzzle": "~5.2",
         "kodeine/laravel-acl": "^1.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-	"guzzlehttp/guzzle": "~5.2",
-	"paypal/rest-api-sdk-php": "*"
-
+        "paypal/rest-api-sdk-php": "*",
+        "skovmand/mailchimp-laravel": "^1.0"
     },
     "require-dev": {
         "appzcoder/crud-generator": "^3.1",

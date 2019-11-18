@@ -45,3 +45,52 @@
 	padding:2%2%2%2%;
 }
 
+.bg-aqua {
+    background-color: #00c0ef !important;
+}
+
+.bg-green {
+ background-color: #00a65a !important;
+}
+
+.mg{
+	margin-left:100px;
+}
+
+.circle{
+	border-right: 1px solid #f4f4f4;
+}
+
+.ordercircle{
+	display:inline;
+	width: 60px;
+	height: 60px;
+}
+
+.ordercirclecount{
+	width: 34px; 
+	height: 20px; 
+	position: absolute; 
+	vertical-align: middle; 
+	margin-top: 20px; 
+	margin-left: -47px; border: 0px; 
+	background: none; 
+	font: bold 12px Arial; 
+	text-align: center; 
+	color: rgb(57, 204, 204); 
+	padding: 0px; -webkit-appearance: none;
+}
+
+.adminlabel {
+    text-align: center;
+    color: #333;
+    font-weight: 100;
+    font-size: 12px;
+	margin-bottom: .3em;
+	margin-left: 61px;
+}
+
+.imgsize{
+    height:100px;
+    width:100px;
+}

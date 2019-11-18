@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3" >
-            @include('Eshopper.myaccount')
+            @include('Eshopper.myaccount') <!-- include my account blade -->
             </div>
             <div class="col-md-9">
                 <div class="card ">

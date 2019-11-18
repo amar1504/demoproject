@@ -5,6 +5,7 @@
             <li><a href="{{ route('user.profile') }}"> My Profile</a></li>
             <li><a href="{{ route('user.changepassword') }}"> Change Password</a></li>
             <li><a href="{{ route('user.myorders') }}"> My Orders</a></li>
+            <li><a href="{{ route('user.trackorderview') }}"> Track Order</a></li>
             <li><a href="{{ route('address.index') }}"> My Shipping Address</a></li>
         </ul>
     </div>

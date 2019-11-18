@@ -4,7 +4,7 @@
 		<div class="container">
 			<div class="row">
                 <div class="col-sm-3 features_items">
-                    @include('Eshopper.myaccount')
+                    @include('Eshopper.myaccount') <!-- include my account blade -->
                 </div>
                 <div class="col-md-9">
                     <div class="col-md-10 col-md-offset-1">

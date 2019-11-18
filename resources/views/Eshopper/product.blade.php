@@ -4,7 +4,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
-					@include('Eshopper.category')
+					@include('Eshopper.category') <!-- include category blade -->
                 </div>
                 <div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->

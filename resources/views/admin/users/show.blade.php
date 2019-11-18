@@ -37,10 +37,11 @@
                                     <tr><th> Lastname </th><td> {{ $user->lastname }} </td></tr>
                                     <tr><th> Email </th><td> {{ $user->email }} </td></tr>
                                     <tr><th> Role </th><td> {{ $user->userRole->role_name }} </td></tr>
+                                    <tr><th>Status</th><td>@if($user->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td></tr>
+                                    
                                     @if(isset($user->image) && $user->image!="")
-                                        <tr><th> Image </th><td><img src="{{ asset('storage/'.$user->image) }}"> </td></tr>
+                                        <tr><th> Image </th><td><img src="{{ asset('storage/'.$user->image) }}" class="imgsize"> </td></tr>
                                     @endif
-                                    <tr>Status<th></th><td>@if($user->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td></tr>
                                 <!-- fetch the user detail End-->
                                 </tbody>
                             </table>
