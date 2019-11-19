@@ -10,7 +10,8 @@ use App\Role;
 use App\Order;
 use App\Coupon;
 use App\ContactUs;
-
+use App\Mail\Mailtrap;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -57,6 +58,35 @@ class HomeController extends Controller
         $contact=ContactUs::findOrFail($id);
         return view('admin/contactusshow',['contact'=>$contact]);
     }
+
+    /**
+     * function for view of contact us reply to customer
+     */
+    public function contactUsReply($id){
+        $contact=ContactUs::findOrFail($id);
+        return view('admin/contactusreply',['contact'=>$contact]);
+    }
     
-    
+    /**
+     * function for contact us reply to customer
+     */
+    public function contactUsReplyUpdate(Request $request){
+        //dd($request->all());
+        $contact=ContactUs::where('id', $request->contact_id)->update(['reply'=>$request->reply]);
+        if($contact){
+            $id=$request->contact_id;
+            $contactus=ContactUs::findOrFail($id)->first();
+            $contactUsData['name']=$contactus->name;
+            $contactUsData['subject']=$contactus->subject;
+            $contactUsData['email']=$contactus->email;
+            $contactUsData['message']=$contactus->message;
+            $contactUsData['reply']=$request->reply;
+            $contactUsData['flag']='contact us for user';
+            Mail::to($contactUsData['email'])->send(new Mailtrap($contactUsData));
+            return redirect()->route('contactus.list')->with('flash_message','Reply Sent!');
+             
+        }
+            
+       
+    }
 }

@@ -40,8 +40,11 @@ Route::get('admin/product/create', 'Admin\\ProductController@index');
 Route::resource('admin/product', 'Admin\\ProductController');
 Route::resource('admin/coupon', 'Admin\\CouponController');
 
+//contact us admin -Route
 Route::get('admin/contact-us','HomeController@contactUsList')->name('contactus.list');
 Route::get('admin/contact-us/{id?}','HomeController@contactUsShow')->name('contactus.show');
+Route::get('admin/contact-us/reply/{id?}','HomeController@contactUsReply')->name('contactus.reply');
+Route::post('admin/contact-us/reply/send/to-customer','HomeController@contactUsReplyUpdate')->name('contactus.replyupdate');
 
 Route::prefix('/admin')->namespace('Admin\\')->group(function(){
     #subcategoey Route
@@ -77,7 +80,7 @@ Route::post('eshopper/forgot-password/','Eshopper\\EshopperController@forgotPass
 Route::get('eshopper/product-details/{id?}','Eshopper\\EshopperController@productDetails')->name('product-details');
 //wishlist
 Route::get('eshopper/product/wishlist/{id?}','Eshopper\\EshopperController@wishList')->name('wishlist.add');
-//user Profile
+//Account 
 Route::get('eshopper/user-profile','Eshopper\\EshopperController@userProfile')->name('user.profile');
 Route::post('eshopper/profile/update','Eshopper\\EshopperController@userProfileUpdate')->name('user.update');
 Route::get('eshopper/profile/change-password','Eshopper\\EshopperController@changePassword')->name('user.changepassword');
@@ -86,6 +89,7 @@ Route::get('eshopper/profile/my-orders','Eshopper\\EshopperController@myOrders')
 Route::get('eshopper/profile/my-order-details/{id}','Eshopper\\EshopperController@myOrderDetails')->name('user.myorderdetails');
 Route::get('eshopper/profile/track-my-order','Eshopper\\EshopperController@trackOrderView')->name('user.trackorderview');
 Route::post('eshopper/profile/track-my-order/your-order','Eshopper\\EshopperController@trackOrder')->name('user.trackorder');
+//contact us cutomer -Route
 Route::get('eshopper/contact-us','Eshopper\\EshopperController@contactUsView')->name('view.contactus');
 Route::post('eshopper/contact-us/contact','Eshopper\\EshopperController@contactUs')->name('contactus.add');
 

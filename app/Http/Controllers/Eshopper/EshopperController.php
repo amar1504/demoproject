@@ -316,8 +316,12 @@ class EshopperController extends Controller
        $contactData['email']=$request->email;
        $contactData['subject']=$request->subject;
        $contactData['message']=$request->message;
-       ContactUs::create($contactData);
-       return redirect()->back()->with('flash_message','Thank You for contacting us. we will be in touch soon !');
+       $contact=ContactUs::create($contactData);
+       if($contact){
+            $contactData['flag']='contact us for admin';
+            Mail::to($request->email)->send(new Mailtrap($contactData));
+            return redirect()->back()->with('flash_message','Thank You for contacting us. we will be in touch soon !');
+       }
 
     }
 

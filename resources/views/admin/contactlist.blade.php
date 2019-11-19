@@ -7,9 +7,17 @@
     <div class="row">
         <div class="col-md-9">
             <div class="card">
+                
                 <div class="card-body">
                     <div class="row ">
                     <div class="col-md-12 col-md-offset-1">
+                        <!-- Display flash Message in alert start -->
+                        @if (session('flash_message'))
+                            <div class="alert alert-warning">
+                                {{ session('flash_message') }}
+                            </div>
+                        @endif
+                        <!-- Display flash Message in alert End -->
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -30,9 +38,15 @@
                                         <td>{{ $contact->name }}</td>
                                         <td>{{ $contact->email }}</td>
                                         <td>{{ $contact->subject }}</td>
-                                        <td>{{ $contact->message }}<td>
-                                        <a href="{{ route('contactus.show',$contact->id) }}" class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-
+                                        <td>{{ $contact->message }}</td>
+                                        <td class="col-md-2">
+                                        <a href="{{ route('contactus.show',$contact->id) }}" class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                        @if($contact->reply=="")
+                                            <a href="{{ route('contactus.reply',$contact->id) }}" class="btn btn-danger btn-xs"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                        
+                                        @endif
+                                        </td> 
+                                       
                                     </tr>
                                 @endforeach
                                 <!-- fetch All contact us data -end-->

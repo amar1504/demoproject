@@ -208,6 +208,9 @@
 				<div class="col-md-12">
 						&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;<input type="submit" class="btn btn-default check_out" value="Place Order">
 				</div>
+				<div class="col-md-12">
+					<button  id="showpaypal" class="btn btn-primary btn-md" value="0" formaction="{{route('addmoney.paypal')}}" id="formButton" name="submit" style="margin-left:50px;margin-bottom:10px;" formmethod="POST">Pay with Paypal</button>	
+				</div>
 			</div><br/>
 			
 		</div>

@@ -29,7 +29,19 @@ class Mailtrap extends Mailable
      * @return $this
      */
     public function build()
-    {
-        return $this->view('Eshopper/mailbody')->with('data', $this->data);
+    {   
+        //dd($this->data);
+
+        if($this->data['flag']=='contact us for user')
+        {
+            return $this->view('mail/contactuscustomermail')->with('data', $this->data);
+        }
+        if($this->data['flag']=='contact us for admin')
+        {
+            return $this->view('mail/contactusadminmail')->with('data', $this->data);
+        }
+        else{
+            return $this->view('Eshopper/mailbody')->with('data', $this->data);
+        }
     }
 }
