@@ -1,16 +1,17 @@
-@include('Eshopper.header')
+@extends('master')
+
+@section('content')
+<h3>Order Details<hr></h3>
+
     <div class="container">
         <div class="row">
-            <div class="col-md-3" >
-            @include('Eshopper.myaccount')
-            </div>
-            <div class="col-md-9">
+            
+            <div class="col-md-10">
                 <div class="card ">
-                    <div class="card-header left-sidebar"><h2>My Orders</h2></div>
                         <div class="card-body">
                         <br/>
                         <br/>
-                        <div class="col-md-4 left-sidebar"> <h2>Details</h2></div>
+                        <h4>Shipping Details</h4>
                         <div class="table-responsive ">
                             <table class="table table-bordered">
                                 <thead>
@@ -33,7 +34,7 @@
                                         <td>{{ $orderdetails->Addresses->name }}</td>
                                         <td>{{ $orderdetails->created_at }}</td>
                                         <td>{{ $orderdetails->OrderDetails->status }}</td>
-                                        <td>@if($orderdetails->OrderDetails->payment_mode==0){{ 'COD' }} @else {{ 'Paypal' }} @endif</td>
+                                        <td>@if($orderdetails->OrderDetails->payment_mode==0){{ 'COD'}} <br/>{{'Transaction Id:'.$orderdetails->OrderDetails->transaction_id }} @else {{ 'Paypal'.' Transaction Id:'.$orderdetails->OrderDetails->transaction_id }} @endif</td>
                                         <td>{{ $orderdetails->Addresses->address1.' '.$orderdetails->Addresses->address2.' '.$orderdetails->Addresses->city.' ,'.$orderdetails->Addresses->state.' ,'.$orderdetails->Addresses->country.' -'.$orderdetails->Addresses->zipcode }}</td>
 
                                     @endforeach
@@ -41,8 +42,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-4 left-sidebar"> <h2> Products </h2></div>
-                        <br/><br/>
+                        <br/>
+                        <h4>Product Details</h4>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -59,7 +60,7 @@
                                     @foreach($item->Orders as $product)
                                     <tr>
                                         <td>{{ $loop->index+1 }}</td>
-                                        <td><img src="{{ asset('storage/'.$product->product_image)}}" class="imgsm"></td>
+                                        <td><img src="{{ asset('storage/'.$product->product_image)}}" class="imgsize"></td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->quantity }}</td>
                                         <td>&#x20b9;{{ $product->price }}</td>
@@ -90,8 +91,8 @@
                                                 <td>- &#x20b9;{{ $item->discount }}</td>										
                                             </tr>
                                             <tr>
-                                                <td>Total</td> 
-                                                <td><span>&#x20b9;{{ $item->total }}</span></td>
+                                                <td><b>Total</b></td> 
+                                                <td><span><b>&#x20b9;{{ $item->total }}</b></span></td>
                                             </tr>
 
                                            
@@ -109,4 +110,4 @@
             </div>
         </div>
     </div>
-@include('Eshopper.footer')
+@endsection

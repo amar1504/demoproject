@@ -130,13 +130,11 @@
 $(document).ready(function(){
 	
 });
-
 /**
  * function to add item using ajax
  */
 function additems(id, selector){
 	//alert(selector);
-
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -165,14 +163,11 @@ function additems(id, selector){
 			$('#subtotal').text('$'+data.subtotal);
 			$('#tax').text('$'+data.tax);
 			$('#grandtotal').text('$'+data.total);
-
 		},
 		
 	});
 	
 }
-
-
 /**
  * function to remove item using ajax
  */
@@ -211,12 +206,9 @@ function removeitems(id, selector){
 	});
 	
 }
-
 </script>
 
 <script>
-
-
 /**
  * function to apply coupon using ajax
  */
@@ -255,7 +247,6 @@ function applyCoupon(){
 					grandtotal=grandtotal+50;
 					//alert("2: "+grandtotal);
 				}
-
 				
 				$("#grandtotal").html('$'+grandtotal.toFixed(2));
 			}
@@ -264,8 +255,6 @@ function applyCoupon(){
 		
 	});
 }
-
-
 /**
  * function to remove coupon
  */
@@ -274,9 +263,7 @@ function couponCancel(){
 	// alert(total);	
 	$("#discount").html('-');
 	$("#grandtotal").html(total);
-
 }
-
 </script>
 
 @include('Eshopper.footer')

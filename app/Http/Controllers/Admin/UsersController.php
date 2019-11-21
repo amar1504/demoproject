@@ -62,8 +62,6 @@ class UsersController extends Controller
      */
     public function store(StoreUser $request)
     {
-        $validated = $request->validated(); // request for form validation
-
         $requestData = $request->all();
         if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')

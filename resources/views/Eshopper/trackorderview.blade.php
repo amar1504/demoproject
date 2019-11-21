@@ -16,16 +16,16 @@
                             </div>
                         @endif
                         <!-- Display flash Message in alert End -->
-                        <form method="POST"  action="{{ route('user.trackorder') }}">
+                        <form method="POST"  action="{{ route('user.trackorder') }}" data-parsley-validate="">
                             {{ csrf_field() }}
                             <div class="form-group {{ $errors->has('order_id') ? 'has-error' : ''}}">
-                                <label for="order_id" class="control-label">{{ 'Order Id' }}</label>
-                                <input class="form-control" name="order_id" type="text" id="order_id" value="{{ old('order_id') }} " required="">
+                                <label for="order_id" class="control-label">{{ 'Order Id' }} <font color="red">*</font></label>
+                                <input type="text" class="form-control" name="order_id"  id="order_id" value="{{ old('order_id') }}"  required="">
                                 {!! $errors->first('order_id', '<p class="help-block">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
-                                <label for="email" class="control-label">{{ 'Email Id' }}</label>
-                                <input class="form-control" name="email" type="text" id="email" value="{{ old('email') }}" required="">
+                                <label for="email" class="control-label">{{ 'Email Id' }} <font color="red">*</font></label>
+                                <input type="email" class="form-control" name="email"  id="email" value="{{ old('email') }}"  required="">
                                 {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                             </div>
                             

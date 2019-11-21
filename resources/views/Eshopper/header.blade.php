@@ -14,7 +14,7 @@
     <link href="{{ asset('Eshopper/css/animate.css')}}" rel="stylesheet">
 	<link href="{{ asset('Eshopper/css/main.css')}}" rel="stylesheet">
 	<link href="{{ asset('Eshopper/css/responsive.css')}}" rel="stylesheet">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="{{ asset('Eshopper/js/parsley.min.js')}}"></script> <!-- parsley min js -->
 	<link href="{{ asset('Eshopper/css/parsley.css')}}" rel="stylesheet" type="text/css"> <!--parsley css-->
 
@@ -109,7 +109,7 @@
 								
 								<li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Cart({{ Cart::count() }})</a></li>
 								@if (Auth::user())  
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+								<!-- <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li> -->
 
 								<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-lock"></i> Logout</a></li>
 
@@ -169,11 +169,11 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<!-- <div class="col-sm-3">
 						<div class="search_box pull-right">
 							<input type="text" placeholder="Search"/>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div><!--/header-bottom-->

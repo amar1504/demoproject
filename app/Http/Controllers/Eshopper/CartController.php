@@ -15,7 +15,12 @@ use App\Address;
 use App\Order;
 use App\ProductOrder;
 use App\OrderDetails;
+use App\Role;
+use App\User;
 use Auth;
+use App\Mail\Mailtrap;
+use App\Mail\Mailorder;
+use Mail;
 class CartController extends Controller
 {
     /**
@@ -216,6 +221,18 @@ class CartController extends Controller
             OrderDetails::create($orderdeatils);
 
             Cart::destroy();
+
+            $orders=Order::with('Orders','OrderDetails','Addresses')
+                    ->where('id','=',$orderSubmit->id)
+                    ->first();
+           
+            
+            $role=Role::where('role_name','=','superadmin')->first();
+            $user=User::where('roles','=',$role->id)->first();
+           // $orders['flag']='order mail for user';
+            //dd($orders);
+            Mail::to(Auth::user()->email)->send(new Mailorder($orders));
+            Mail::to($user->email)->send(new Mailorder($orders));
 
            return view('Eshopper.ordersubmit');
         }

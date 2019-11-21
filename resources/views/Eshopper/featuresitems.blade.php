@@ -122,7 +122,7 @@ function getproducts(id)
 					<div class="single-products">
 						<div class="productinfo text-center">
 							<img src="{{ asset('storage')}}/`+data.product[i].product_images[0].product_image+`" id="img" alt="" />
-							<h2>`+data.product[i].product.price+`</h2>
+							<h2>$`+data.product[i].product.price+`</h2>
 							<p>`+data.product[i].product.product_name+`</p>
 							<a href="{{ route('product-details') }}/`+data.product[i].product.id+`" class="btn btn-default add-to-cart"></i>View Product</a>
 							<a href="{{ route('cart.add') }}/`+data.product[i].product.id+`" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

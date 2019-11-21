@@ -152,7 +152,7 @@
         <!-- Coupon Management nav start-->
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-percent"></i> <span>Coupon Management</span>
+            <i class="fa fa-gift"></i> <span>Coupon Management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -178,6 +178,20 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ route('contactus.list') }}"><i class="fa fa-circle-o"></i> List Contact Us</a></li>
+          </ul>
+        </li>
+        <!-- Contact Us nav End-->
+
+        <!-- Contact Us  nav start-->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-shopping-bag"></i> <span>Order</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('order.list') }}"><i class="fa fa-circle-o"></i> List Order</a></li>
           </ul>
         </li>
         <!-- Contact Us nav End-->

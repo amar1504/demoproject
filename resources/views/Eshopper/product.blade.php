@@ -17,13 +17,13 @@
 								<div class="single-products">
 										<div class="productinfo text-center">
 											<img src="{{asset('storage/'.$prod->ProductImages->first()->product_image)}}" class="productimg" alt="" />
-											<h2>${{$prod->Product->price}}</h2>
+											<h2>$ {{$prod->Product->price}}</h2>
 											<p>{{$prod->Product->product_name}}</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
-											<h2>${{$prod->Product->price}}</h2>
+											<h2>$ {{$prod->Product->price}}</h2>
 											<p>{{$prod->Product->product_name}}</p>
 												<a href="{{ route('product-details', ['id'=>$prod->Product->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
 												<a href="{{ route('cart.add',$prod->Product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

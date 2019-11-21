@@ -43,7 +43,7 @@
 								<p>{{$productdetails->description}}</P>
 								<img src="images/product-details/rating.png" alt="" />
 								<span>
-									<span>US ${{$productdetails->price}}</span>
+									<span> ${{$productdetails->price}}</span>
 									<label>Quantity:</label>
 									<input type="text" value="3" />
 									<a href="{{ route('cart.add',$productdetails->id ) }}" class="btn btn-fefault cart">

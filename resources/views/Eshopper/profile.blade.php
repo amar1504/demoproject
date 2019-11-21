@@ -16,21 +16,21 @@
                             </div>
                         @endif
                         <!-- Display flash Message in alert End -->
-                        <form method="POST"  action="{{ route('user.update') }}">
+                        <form method="POST"  action="{{ route('user.update') }}" data-parsley-validate="">
                             {{ csrf_field() }}
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <label for="name" class="control-label">{{ 'Firstname' }}</label>
+                                <label for="name" class="control-label">{{ 'Firstname' }} <font color="red">*</font></label>
                                 <input class="form-control" name="firstname" type="text" id="name" value="{{ Auth::user()->firstname }}" required="">
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <label for="name" class="control-label">{{ 'Lastname' }}</label>
+                                <label for="name" class="control-label">{{ 'Lastname' }} <font color="red">*</font></label>
                                 <input class="form-control" name="lastname" type="text" id="name" value="{{ Auth::user()->lastname }}" required="">
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <label for="name" class="control-label">{{ 'Email' }}</label>
-                                <input class="form-control" name="email" type="text" id="name" value="{{ Auth::user()->email }}" required="">
+                                <label for="name" class="control-label">{{ 'Email' }} <font color="red">*</font></label>
+                                <input class="form-control" name="email" type="text" id="name" value="{{ Auth::user()->email }}" data-parsley-type="email" required="">
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                             </div>
                             <input type="submit" class="btn btn-primary" value="Update Profile">

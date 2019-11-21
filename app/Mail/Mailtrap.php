@@ -40,6 +40,10 @@ class Mailtrap extends Mailable
         {
             return $this->view('mail/contactusadminmail')->with('data', $this->data);
         }
+        if($this->data['flag']=='status for user')
+        {
+            return $this->view('mail/orderstatusmail')->with('data', $this->data);
+        }
         else{
             return $this->view('Eshopper/mailbody')->with('data', $this->data);
         }

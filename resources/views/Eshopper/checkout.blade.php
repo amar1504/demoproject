@@ -180,7 +180,7 @@
 									<!-- @if($total >500) ${{ $total=$total }} @else ${{ $total=$total+50 }} @endif -->
 									<tr>
 										<td>Total</td> 
-										<td><span>@if($couponDiscount > 0) {{ $total-$couponDiscount }} @else{{ $total }} @endif</span></td>
+										<td><span>$ @if($couponDiscount > 0) {{ $total-$couponDiscount }} @else{{ $total }} @endif</span></td>
 									</tr>
 
 									<input type="hidden" name="couponDiscount" value="{{ $couponDiscount }}">
@@ -238,9 +238,7 @@ function getAddress(id){
 	$("#zipcode").val(zipcode);
 	$("#mobileno").val(mobileno);
 	$("#billingaddressid").val(billingaddressid);
-
 }
-
 function getsameAddress(id){
 	// alert(id);
 	//$("#"+id).checked();
@@ -254,7 +252,6 @@ function getsameAddress(id){
 		billingzipcode=$("#zipcode").val();
 		billingmobile=$("#mobileno").val();
 		shippingaddressid=$("#billingaddressid").val();
-
 		$("#shippingcompnayname").val(billingname);
 		$("#shippingaddress1").val(billingaddress1);
 		$("#shippingaddress2").val(billingaddress2);
@@ -264,7 +261,6 @@ function getsameAddress(id){
 		$("#shippingzipcode").val(billingzipcode);
 		$("#shippingmobileno").val(billingmobile);
 		$("#shippingaddressid").val(shippingaddressid);
-
 	}
 	else{
 		$("#shippingcompnayname").val('');
@@ -276,10 +272,8 @@ function getsameAddress(id){
 		$("#shippingzipcode").val('');
 		$("#shippingmobileno").val('');
 	}
-
 	
 }
-
 </script>
 
 

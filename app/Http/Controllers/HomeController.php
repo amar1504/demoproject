@@ -11,6 +11,7 @@ use App\Order;
 use App\Coupon;
 use App\ContactUs;
 use App\Mail\Mailtrap;
+use App\OrderDetails;
 use Mail;
 
 class HomeController extends Controller
@@ -47,7 +48,7 @@ class HomeController extends Controller
      * function to show List of contact us
      */
     public function contactUsList(){
-        $contactList=ContactUs::paginate(5);
+        $contactList=ContactUs::OrderBy('id','desc')->paginate(5);
         return view('admin/contactlist',['contactList'=>$contactList]);
     }
 
@@ -89,4 +90,55 @@ class HomeController extends Controller
             
        
     }
+
+    /**
+     * function to display orders of logged user
+     */
+    public function customerOrdersList(){
+        $orders=Order::with('Orders')
+                    ->orderBy('id','desc')
+                    ->paginate(5);
+        //dd($orders);
+        return view('admin.myorder',['orders'=>$orders]);
+    }
+
+    /**
+     * function to show all details of the respective order 
+     */
+    public function customerOrderDetails($id){
+        $orders=Order::with('Orders','OrderDetails','Addresses')
+                    ->where('id','=',$id)
+                    ->get();
+        //dd($orders);
+        return view('admin.myorderdetails',['orders'=>$orders]);
+
+    }
+
+    /**
+     * function to load  change status view
+     */
+    public function changeStatus($id){
+        $orders=Order::with('Orders','OrderDetails')->where('id','=',$id)->first();
+        //dd($orders);
+        return view('admin.changestatus',['orders'=>$orders]);
+    }
+
+    /**
+     * function to update order status
+     */
+    public function updateStatus(Request $request){
+        $updateStatus=OrderDetails::where('order_id','=',$request->order_id)->update(['status'=>$request->status]);
+        $order=OrderDetails::where('order_id','=',$request->order_id)->first();
+        $user=User::where('id','=',$order->user_id)->first();
+        //dd($user);
+        $statusData['flag']='status for user';
+        $statusData['order_id']=$request->order_id;
+        $statusData['status']=$request->status;
+        $statusData['payment_mode']=$order->payment_mode;
+        if($updateStatus){
+            Mail::to($user->email)->send(new Mailtrap($statusData));
+            return redirect()->route('order.list')->with('flash_message','Status Updated !');
+        }
+    }   
+
 }

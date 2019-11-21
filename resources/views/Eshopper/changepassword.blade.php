@@ -16,21 +16,21 @@
                             </div>
                         @endif
                         <!-- Display flash Message in alert End -->
-                        <form method="POST"  action="{{ route('user.updatepassword') }}">
+                        <form method="POST"  action="{{ route('user.updatepassword') }}" data-parsley-validate="">
                             {{ csrf_field() }}
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <label for="name" class="control-label">{{ 'Current Password' }}</label>
-                                <input class="form-control" name="oldpassword" type="password" id="oldpassword" value="" required="">
+                                <label for="name" class="control-label">{{ 'Current Password' }} <font color="red">*</font></label>
+                                <input class="form-control" name="oldpassword" type="password" id="oldpassword" data-parsley-length="[8, 12]" data-parsley-type="alphanum"	 value="" required="">
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <label for="name" class="control-label">{{ 'New Password' }}</label>
-                                <input class="form-control" name="newpassword" type="password" id="newpassword" value="" required="">
+                                <label for="name" class="control-label">{{ 'New Password' }} <font color="red">*</font></label>
+                                <input class="form-control" name="newpassword" type="password" id="newpassword" value="" data-parsley-length="[8, 12]" data-parsley-type="alphanum"	 required="">
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                <label for="name" class="control-label">{{ 'Confirm Password' }}</label>
-                                <input class="form-control" name="confirmpassword" type="password" id="confirmpassword" value="" required="">
+                                <label for="name" class="control-label">{{ 'Confirm Password' }} <font color="red">*</font></label>
+                                <input class="form-control" name="confirmpassword" type="password" id="confirmpassword" value=""  data-parsley-equalto="#newpassword" required="">
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                             </div>
                             <input type="submit" class="btn btn-primary" value="Change Password">
