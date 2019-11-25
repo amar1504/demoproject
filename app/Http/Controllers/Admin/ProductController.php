@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Product;
 use App\ProductImage;
 use App\ProductCategory;
@@ -163,12 +162,9 @@ class ProductController extends Controller
             }
         }
 
-
-        
         //echo $requestData['product_image'];
         
         ProductImage::whereId($productImg->id)->update(['product_id'=>$product->id,'product_image'=>$requestData['product_image'] ]);
-        
         ProductCategory::whereId($productCat->id)->update(['category_id'=>$request->category_id,'product_id'=>$product->id]);
         
         return redirect('admin/product')->with('flash_message', 'Product updated!');
@@ -194,7 +190,6 @@ class ProductController extends Controller
         $cat=$request->category_id;
         $subcat=Category::where('parent_id',$cat)->get();
         return response()->json(['name' => $subcat]);
-
         //$subcat=Category::where('parent_id',$request->category_id)->get();
         
     }

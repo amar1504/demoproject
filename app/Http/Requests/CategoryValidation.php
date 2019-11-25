@@ -34,6 +34,10 @@ class CategoryValidation extends FormRequest
         // validation rules for Catgory form start
     }
     
+
+    /**
+     * function to display message for validation
+     */
     public function messages()
     {
         // validation message for Catgory form start

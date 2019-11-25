@@ -17,7 +17,7 @@
                             </ul>
                         @endif-->
 
-                        <form method="POST" action="{{ url('/admin/coupon/' . $coupon->id) }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('coupon.update', $coupon->id) }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 

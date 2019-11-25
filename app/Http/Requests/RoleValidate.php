@@ -31,6 +31,9 @@ class RoleValidate extends FormRequest
         // validation for role form end
     }
 
+    /**
+     * function to display message for validation
+     */
     public function messages()
     {
         // validation message for role form start

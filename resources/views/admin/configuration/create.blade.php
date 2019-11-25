@@ -17,7 +17,7 @@
                             </ul>
                         @endif -->
 
-                        <form method="POST" action="{{ url('/admin/configuration') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('configuration.store') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('admin.configuration.form', ['formMode' => 'create'])

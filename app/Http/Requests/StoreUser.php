@@ -35,7 +35,9 @@ class StoreUser extends FormRequest
         // validation for user form End
     }
 
-    
+    /**
+     * function to display message for validation
+     */
     public function messages()
     {
         // validation message for user form start

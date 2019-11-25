@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Eshoppeer;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Address;
 use Illuminate\Http\Request;
-
 use App\Category;
 use App\Product;
 use App\ProductImage;
 use App\ProductCategory;
 use App\Banner;
+use App\CMS;
 use App\Role;
 use App\User;
 use Auth;
@@ -44,8 +43,10 @@ class AddressController extends Controller
         } else {
             $address = Address::where('user_id','=',$user_id)->latest()->paginate($perPage);
         }
+         $cms=CMS::where('type','=','footer')->get();
 
-        return view('Eshopper.address.index', compact('address'),['category'=>$category,'subcategorycount'=>$subcategorycount]);
+
+        return view('Eshopper.address.index', compact('address'),['category'=>$category,'subcategorycount'=>$subcategorycount,'cms'=>$cms]);
     }
 
     /**
@@ -57,8 +58,9 @@ class AddressController extends Controller
     {
         $category=Category::with('subCategories')->where([['parent_id','=',0],['status','=','1']])->get();
         $subcategorycount=Category::with('products')->where([['parent_id','!=',0],['status','=','1']])->get();        
+         $cms=CMS::where('type','=','footer')->get();
 
-        return view('Eshopper.address.create',['category'=>$category,'subcategorycount'=>$subcategorycount]);
+        return view('Eshopper.address.create',['category'=>$category,'subcategorycount'=>$subcategorycount,'cms'=>$cms]);
     }
 
     /**
@@ -90,7 +92,9 @@ class AddressController extends Controller
         //$address = Address::findOrFail($id);
         $category=Category::with('subCategories')->where([['parent_id','=',0],['status','=','1']])->get();
         $subcategorycount=Category::with('products')->where([['parent_id','!=',0],['status','=','1']])->get();        
-        return view('Eshopper.address.show', compact('address'),['category'=>$category,'subcategorycount'=>$subcategorycount]);
+         $cms=CMS::where('type','=','footer')->get();
+        
+        return view('Eshopper.address.show', compact('address'),['category'=>$category,'subcategorycount'=>$subcategorycount,'cms'=>$cms]);
     }
 
     /**
@@ -104,8 +108,9 @@ class AddressController extends Controller
     {
         $category=Category::with('subCategories')->where([['parent_id','=',0],['status','=','1']])->get();
         $subcategorycount=Category::with('products')->where([['parent_id','!=',0],['status','=','1']])->get();        
+         $cms=CMS::where('type','=','footer')->get();
         
-        return view('Eshopper.address.edit', compact('address'),['category'=>$category,'subcategorycount'=>$subcategorycount]);
+        return view('Eshopper.address.edit', compact('address'),['category'=>$category,'subcategorycount'=>$subcategorycount,'cms'=>$cms]);
     }
 
     /**
@@ -118,11 +123,9 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        
-        $requestData = $request->all();
-        
+        $requestData = $request->all();   
         $address->update($requestData);
-
+        
         return redirect('eshopper/address')->with('flash_message', 'Address updated!');
     }
 
@@ -136,7 +139,6 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $address->delete();
-
         return redirect('eshopper/address')->with('flash_message', 'Address deleted!');
     }
 }

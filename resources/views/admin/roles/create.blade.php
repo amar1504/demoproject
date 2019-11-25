@@ -18,7 +18,7 @@
                             </ul>
                         @endif -->
 
-                        <form method="POST" action="{{ url('/admin/roles') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('roles.store') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('admin.roles.form', ['formMode' => 'create'])

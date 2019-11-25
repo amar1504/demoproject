@@ -16,7 +16,7 @@
                             </ul>
                         @endif-->
 
-                        <form method="POST" action="{{ url('/admin/product/' . $product->id) }}" data-parsley-validate="" accept-charset="UTF-8" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('product.update' ,$product->id) }}" data-parsley-validate="" accept-charset="UTF-8" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 

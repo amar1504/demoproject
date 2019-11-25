@@ -24,6 +24,7 @@
                                             <td>
                                                 
                                                 <a href="{{ route('user.myorderdetails',$item->id) }}" class="btn btn-info" >view Order</a>
+                                                <a href="{{ route('user.trackorderList',$item->id)}}" class="btn btn-warning" >Track Order</a>
                                                 
                                             </td>
                                         </tr>

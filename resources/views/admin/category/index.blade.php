@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row ">
                             <div class="col-md-6 text-center">
-                                <form method="GET" action="{{ url('/admin/category') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                                <form method="GET" action="{{ route('category.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                                     <div class="row">
                                         <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
                                         <span class="input-group-append">
@@ -24,7 +24,7 @@
                             <div class="col-md-6 text-right ">
                                 <!-- Access Control according to role start-->
                                 @if(Gate::check('isSuperAdmin'))
-                                    <a href="{{ url('/admin/category/create') }}" class="btn btn-success btn-sm" title="Add New Category">
+                                    <a href="{{ route('category.create') }}" class="btn btn-success btn-sm" title="Add New Category">
                                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                                     </a><br/><br/>
                                 @endif
@@ -58,13 +58,13 @@
                                         <td>{{ $item->category_name }}</td>
                                         <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         <td>
-                                            <a href="{{ url('/admin/category/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ route('category.show', $item->id) }}" title="View Category"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <!-- Access Control according to role start-->
                                             @if(Gate::check('isSuperAdmin'))
 
-                                            <a href="{{ url('/admin/category/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ route('category.edit', $item->id) }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
-                                            <form method="POST" action="{{ url('/admin/category' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                            <form method="POST" action="{{ route('category.destroy' , $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Delete Category" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>

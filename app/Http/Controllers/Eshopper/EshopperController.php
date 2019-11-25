@@ -15,6 +15,7 @@ use App\Order;
 use App\OrderDetails;
 use App\ContactUs;
 use App\ProductOrder;
+use App\CMS;
 use App\Mail\Mailtrap;
 use Auth;
 use Mail;
@@ -56,7 +57,9 @@ class EshopperController extends Controller
                                     ->where([['parent_id','!=',0],['status','=','1']])
                                     ->get();        
         //dd($subcategorycount);
-        return view('Eshopper/master',['category'=>$category,'banner'=>$banner,'product'=>$product,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'subcategorycount'=>$subcategorycount]);  
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper/master',['category'=>$category,'banner'=>$banner,'product'=>$product,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'subcategorycount'=>$subcategorycount ,'cms'=>$cms]);  
      }
     
      /**
@@ -79,7 +82,8 @@ class EshopperController extends Controller
      */
     public function userLogin(){
         $role=Role::where('role_name','=','customer')->first();
-        return view('Eshopper/login',['role_id'=>$role->id]);
+        $cms=CMS::where('type','=','footer')->get();
+        return view('Eshopper/login',['role_id'=>$role->id,'cms'=>$cms]);
     }
     
     /**
@@ -112,8 +116,9 @@ class EshopperController extends Controller
         $subcategorycount=Category::with('products')
                                     ->where([['parent_id','!=',0],['status','=','1']])
                                     ->get();        
-
-        return view('Eshopper/product',['category'=>$category,'product'=>$product,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'givencategory'=>$givencategory,'subcategorycount'=>$subcategorycount]);  
+        $cms=CMS::where('type','=','footer')->get();
+        
+        return view('Eshopper/product',['category'=>$category,'product'=>$product,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'givencategory'=>$givencategory,'subcategorycount'=>$subcategorycount,'cms'=>$cms]);  
 
     }
     
@@ -176,8 +181,9 @@ class EshopperController extends Controller
                                 ->where([['id','=',$id]])
                                 ->orderBy('id','DESC')
                                 ->first();        
-    
-        return view('Eshopper/product-details',['category'=>$category,'productdetails'=>$productdetails,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'givencategory'=>$givencategory,'subcategorycount'=>$subcategorycount]);  
+        $cms=CMS::where('type','=','footer')->get();
+        
+        return view('Eshopper/product-details',['category'=>$category,'productdetails'=>$productdetails,'randomsubcategory'=>$randomsubcategory,'recommendedproduct'=>$recommendedproduct,'givencategory'=>$givencategory,'subcategorycount'=>$subcategorycount,'cms'=>$cms]);  
 
     }
 
@@ -202,7 +208,9 @@ class EshopperController extends Controller
      * function to return profile view
      */
     public function userProfile(){
-        return view('Eshopper.profile');
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper.profile',['cms'=>$cms]);
     }
 
     /**
@@ -221,7 +229,9 @@ class EshopperController extends Controller
      * function to return change password view
      */
     public function changePassword(){
-        return view('Eshopper.changepassword');
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper.changepassword',['cms'=>$cms]);
     }
     
     /**
@@ -256,7 +266,9 @@ class EshopperController extends Controller
                     ->orderBy('id','desc')
                     ->get();
         //dd($orders);
-        return view('Eshopper.myorder',['orders'=>$orders]);
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper.myorder',['orders'=>$orders,'cms'=>$cms]);
     }
 
     /**
@@ -267,7 +279,9 @@ class EshopperController extends Controller
                     ->where('id','=',$id)
                     ->get();
         //dd($orders);
-        return view('Eshopper.myorderdetails',['orders'=>$orders]);
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper.myorderdetails',['orders'=>$orders,'cms'=>$cms]);
 
     }
 
@@ -275,7 +289,9 @@ class EshopperController extends Controller
      * function to load track order view
      */
     public function trackOrderView(){
-        return view('Eshopper.trackorderview');
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper.trackorderview',['cms'=>$cms]);
      }
 
     /**
@@ -284,6 +300,7 @@ class EshopperController extends Controller
     public function trackOrder(Request $request){
         $email=$request->email;
         $orderId=$request->order_id;
+        
         $user=User::where('email','=',$email)
                     ->first();
         if($user==""){
@@ -296,15 +313,29 @@ class EshopperController extends Controller
         if($orderStatus==""){
             return redirect()->back()->with('flash_message','Invalid Email or Order Id !');
         }
-        return view('Eshopper.trackorder',['status'=>$orderStatus->status,'orderId'=>$orderId]);
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper.trackorder',['status'=>$orderStatus->status,'orderId'=>$orderId,'cms'=>$cms]);
        
+    }
+
+    /** Function to track order from order list */
+    public function trackOrderFromOrderList($id){
+        $orderStatus=OrderDetails::where('order_id','=',$id)
+                    ->first();
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper.trackorder',['status'=>$orderStatus->status,'orderId'=>$id,'cms'=>$cms]);
     }
     
     /**
      * function to load contact us view
      */
     public function contactUsView(){
-        return view('Eshopper.contact-us');
+        $cms=CMS::where('type','=','footer')->get();
+        $cmsContact=CMS::where('title','=','Conatct info')->first();
+        
+        return view('Eshopper.contact-us',['cms'=>$cms,'cmsContact'=> $cmsContact]);
     }
 
      /**
@@ -325,6 +356,43 @@ class EshopperController extends Controller
 
     }
 
+    /**
+     * function for  about us cms
+     */
+    public function aboutUs(){
+        $cms=CMS::where('type','=','footer')->get();
+        $cmsAbout=CMS::where('title','=','About us')->first();
+        return view('Eshopper.aboutus',['cms'=>$cms,'cmsAbout'=>$cmsAbout]);
+    }
+
+    /**
+     * function for Privacy & Terms cms
+     */
+    public function privacyTerms(){
+        $cms=CMS::where('type','=','footer')->get();
+        $cmsPrivacy=CMS::where('title','=','Privacy & terms')->first();
+        return view('Eshopper.privacy',['cms'=>$cms,'cmsPrivacy'=>$cmsPrivacy]);
+
+    }
+   
+    /**
+     * function for return & refund cms
+     */
+    public function returnRefund(){
+        $cms=CMS::where('type','=','footer')->get();
+        $cmsReturnRefund=CMS::where('title','=','Returns & refund')->first();
+        return view('Eshopper.returnrefund',['cms'=>$cms,'cmsReturnRefund'=>$cmsReturnRefund]);
+
+    }
+
+    /**
+     * function for Purchase Protection cms
+     */
+    public function purchaseProtection(){
+        $cms=CMS::where('type','=','footer')->get();
+        $cmspurchaseProtection=CMS::where('title','=','100% purchase protection')->first();
+        return view('Eshopper.purchaseprotection',['cms'=>$cms,'cmspurchaseProtection'=>$cmspurchaseProtection]);
+    }
    
 
 }

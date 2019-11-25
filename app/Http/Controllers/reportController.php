@@ -83,7 +83,6 @@ class reportController extends Controller
     public function edit($id)
     {
         $report = report::findOrFail($id);
-
         return view('report.edit', compact('report'));
     }
 
@@ -116,7 +115,6 @@ class reportController extends Controller
     public function destroy($id)
     {
         report::destroy($id);
-
         return redirect('report')->with('flash_message', 'report deleted!');
     }
 }

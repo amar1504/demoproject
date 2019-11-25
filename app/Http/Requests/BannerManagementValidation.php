@@ -32,6 +32,10 @@ class BannerManagementValidation extends FormRequest
         // validation for banner form end
     }
 
+
+    /**
+     * function to display message for validation
+     */
     public function messages()
     {
         // validation message for banner form start

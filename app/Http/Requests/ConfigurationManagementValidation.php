@@ -34,6 +34,10 @@ class ConfigurationManagementValidation extends FormRequest
         // validation for configuration form end
     }
 
+
+    /**
+     * function to display message for validation
+     */
     public function messages()
     {
         // validation message for configuration form start

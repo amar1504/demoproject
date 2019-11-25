@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Eshopper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cart;
-
 use App\Category;
 use App\Product;
 use App\ProductImage;
@@ -17,6 +16,7 @@ use App\ProductOrder;
 use App\OrderDetails;
 use App\Role;
 use App\User;
+use App\CMS;
 use Auth;
 use App\Mail\Mailtrap;
 use App\Mail\Mailorder;
@@ -29,7 +29,10 @@ class CartController extends Controller
     public function index(){
         
         //return Cart::content().'<br/> total :'.Cart::total().' <br/> Tax: '.Cart::tax().'<br/> subtotal: '.Cart::subtotal().'<br/> count: '.Cart::count();
-        return view('Eshopper.cart',['cartcontent'=>Cart::content(),'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal(),'count'=>Cart::count()]);
+        $cms=CMS::where('type','=','footer')->get();
+        $cmsCart=CMS::where('title','=','Cart page cms')->first();
+        
+        return view('Eshopper.cart',['cartcontent'=>Cart::content(),'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal(),'count'=>Cart::count(),'cms'=>$cms,'cmsCart'=>$cmsCart,]);
     }
 
     /**
@@ -122,7 +125,9 @@ class CartController extends Controller
         $couponDiscount=$request->coupondiscount;
         $user_id=Auth::user()->id;
         $addresses=Address::where('user_id','=',$user_id)->get();
-        return view('Eshopper/checkout',['coupon_id'=>$request->coupon_id, 'addresses'=>$addresses,'cartcontent'=>Cart::content(),'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal(),'count'=>Cart::count(),'couponDiscount'=>$couponDiscount]);
+        $cms=CMS::where('type','=','footer')->get();
+
+        return view('Eshopper/checkout',['coupon_id'=>$request->coupon_id, 'addresses'=>$addresses,'cartcontent'=>Cart::content(),'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal(),'count'=>Cart::count(),'couponDiscount'=>$couponDiscount,'cms'=>$cms]);
     }
 
     /**
@@ -233,8 +238,9 @@ class CartController extends Controller
             //dd($orders);
             Mail::to(Auth::user()->email)->send(new Mailorder($orders));
             Mail::to($user->email)->send(new Mailorder($orders));
-
-           return view('Eshopper.ordersubmit');
+            $cms=CMS::where('type','=','footer')->get();
+            
+           return view('Eshopper.ordersubmit',['cms'=>$cms]);
         }
         
 

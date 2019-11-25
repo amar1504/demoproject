@@ -17,8 +17,7 @@
                             </ul>
                         @endif-->
 
-                        <form method="POST" action="{{ url('/admin/banner/' . $banner->id) }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                        <form method="POST" action="{{ route('banner.update',$banner->id)}}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('admin.banner.form', ['formMode' => 'edit'])

@@ -168,6 +168,26 @@
         </li>
         <!-- Coupon Management nav End-->
 
+        <!-- CMS nav start-->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>CMS Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('/admin/cms') }}"><i class="fa fa-circle-o"></i> List CMS</a></li>
+            <!-- Nav list for Product Management according to role of logged user start -->
+            @if(Gate::check('isSuperAdmin') )
+              <li><a href="{{ url('/admin/cms/create') }}"><i class="fa fa-circle-o"></i> Add CMS</a></li>
+            @endif
+            <!-- Nav list for Product Management according to role of logged user End -->
+          </ul>
+        </li>
+        <!-- CMS nav End-->
+
+
         <!-- Contact Us  nav start-->
         <li class="treeview">
           <a href="#">
@@ -182,7 +202,7 @@
         </li>
         <!-- Contact Us nav End-->
 
-        <!-- Contact Us  nav start-->
+        <!-- Order   nav start-->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-shopping-bag"></i> <span>Order</span>
@@ -194,7 +214,7 @@
             <li><a href="{{ route('order.list') }}"><i class="fa fa-circle-o"></i> List Order</a></li>
           </ul>
         </li>
-        <!-- Contact Us nav End-->
+        <!-- Order nav End-->
 
 
         <!--

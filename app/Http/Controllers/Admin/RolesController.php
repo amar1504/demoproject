@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RoleValidate;
 class RolesController extends Controller
 {
+   
+
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +54,9 @@ class RolesController extends Controller
     public function store(RoleValidate $request)
     {
         $requestData = $request->all();
-        Role::create($requestData);
+        $role=Role::create($requestData);
+        //$role->syncPermissions($request->input('permission'));
+
         return redirect('admin/roles')->with('flash_message', 'Role added!');
     }
 

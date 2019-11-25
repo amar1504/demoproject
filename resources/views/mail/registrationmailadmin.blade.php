@@ -7,7 +7,8 @@
     <title>Registration Mail</title>
 
     <style>
-    p{
+   
+   p{
         color:#484848;
         font-size: 85% ;
         font-family:Verdana, Geneva, Tahoma, sans-serif;
@@ -20,32 +21,52 @@
     }
      
     .jumbotron{
+            
         padding: 0rem 1rem; 
-        border:1px solid grey; margin-bottom: 2rem; 
-        background-color: #e9ecef; 
-        border-radius: .3rem;
+        border:1px solid #e0f0f8; margin-bottom: 2rem; 
+        background-color: #e0f0f8; 
+        font-size: 103%;
+        border-radius: .2rem;
     }
     .border{
         border:1px solid black; 
         height:100%; 
-        width:45%; 
+        width:49%; 
         padding: 2%; 
-        margin:2%0%0%25%; 
+        margin:2%0%0%23%; 
         font-family: Arial, Helvetica, sans-serif;
     }
+    td,p{
+        color:#484848;
+        font-size: 85% ;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
     a{
         color: #4b8adb;
     }
+
 
     </style>
     
 </head>
 <body class="border">
     <h1 style="text-align: center;">Welcome to Eshopper.</h1>
-    <p>To log in when visiting our site just click <a href="http://localhost:8000/eshopper/login">Login</a> or <a href="http://localhost:8000/eshopper/login">My Account</a> at the top of every page, and then enter your email address and password.</p>
+    <table class="jumbotron">
+        <tr>
+            <td style="width: 280px; word-wrap:break-word;">
+            <img src="http://localhost:8000/Eshopper/images/home/logo.png">
+            <p>To log in when visiting our site just click <a href="http://localhost:8000/eshopper/login">Login</a> or <a href="http://localhost:8000/eshopper/login">My Account</a> at the top of every page, and then enter your email address and password.</p>
+            </td>
+            <td style="color:grey; font-size:10px;"><p>|<br>|<br>|<br/>|<br>|<br>|<br>|<br>|<br></p></td>
+            <td style="width: 300px; word-wrap:break-word; word-break: break-all;">
+                <p>&nbsp;<b>Call Us:</b>+91 -22 -40500699</p>
+                <p>&nbsp;<b>Email:</b>info@shoppingcompany.com</p>
+            </td>
+        </tr>
+    </table>
     <div class="jumbotron">
         <p>Use the following values when prompted to log in:</p>
-        <p>Email:{Email}</p>
+        <p>Email:{{ $data['email'] }}</p>
     </div>
     <p>When you log in to your account, you will be able to do the following:</p>
     <ul>

@@ -44,6 +44,14 @@ class Mailtrap extends Mailable
         {
             return $this->view('mail/orderstatusmail')->with('data', $this->data);
         }
+        if($this->data['flag']=='cutomer registaion')
+        {
+            return $this->view('mail/userregistrationmail')->with('data', $this->data);
+        }
+        if($this->data['flag']=='cutomer registaion for admin')
+        {
+            return $this->view('mail/registrationmailadmin')->with('data', $this->data);
+        }
         else{
             return $this->view('Eshopper/mailbody')->with('data', $this->data);
         }

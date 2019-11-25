@@ -58,8 +58,7 @@
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->
-					
-					<div class="category-tab shop-details-tab"><!--category-tab-->
+					<!--<div class="category-tab shop-details-tab">
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
 								<li><a href="#details" data-toggle="tab">Details</a></li>
@@ -247,7 +246,7 @@
 							</div>
 							
 						</div>
-					</div><!--/category-tab-->
+					</div>\ -->
 					@include('Eshopper.footerslider')
 					
 				</div>

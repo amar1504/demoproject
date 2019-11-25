@@ -41,6 +41,9 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * function for logout
+     */
     public function logout(Request $request)
     {
         $roleId=auth()->user()->roles; 
@@ -54,6 +57,9 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * function to redirect as per role of logged user
+     */
     public function redirectTo() 
     {
         $roleId=auth()->user()->roles; 
@@ -70,9 +76,7 @@ class LoginController extends Controller
         }elseif($role->role_name == 'customer'){
             return('/eshopper');
         }
-        else{
-            return('/eshopper/login');
-        }
+        
     }
 
     

@@ -17,7 +17,7 @@
                             </ul>
                         @endif-->
 
-                        <form method="POST" action="{{ url('/admin/banner') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('banner.store') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('admin.banner.form', ['formMode' => 'create'])

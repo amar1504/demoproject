@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\User;
 use App\Role;
+use App\Mail\Mailtrap;
+use Auth;
+use Mail;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUser;
@@ -74,6 +77,16 @@ class UsersController extends Controller
         $user=User::create($requestData);
         $role=Role::findOrFail($user->roles);
         if ($role->role_name == 'customer') {
+            $userRegisterData['email']=$request->email;
+            $userRegisterData['password']=$request->password;
+            $userRegisterData['flag']='cutomer registaion';
+            Mail::to($request->email)->send(new Mailtrap($userRegisterData));
+            $adminRegisterData['email']=$request->email;
+            $adminRegisterData['flag']='cutomer registaion for admin';
+            $roleAdmin=Role::where('role_name','=','superadmin')->first();
+            $adminUser=User::where('roles','=',$roleAdmin->id)->first();
+            Mail::to($adminUser->email)->send(new Mailtrap($adminRegisterData));
+
             return redirect('eshopper')->with('flash_message', 'customer added!');            
         }
         else{

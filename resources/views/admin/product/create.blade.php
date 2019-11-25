@@ -18,7 +18,7 @@
                             </ul>
                         @endif-->
 
-                        <form method="POST" action="{{ url('/admin/product') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('product.index') }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('admin.product.form', ['formMode' => 'create'])

@@ -13,8 +13,10 @@
         "kodeine/laravel-acl": "^1.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "paypal/rest-api-sdk-php": "*",
-        "skovmand/mailchimp-laravel": "^1.0"
+        "skovmand/mailchimp-laravel": "^1.0",
+        "spatie/laravel-permission": "^2.38",
+	"paypal/rest-api-sdk-php": "^1.14"
+        
     },
     "require-dev": {
         "appzcoder/crud-generator": "^3.1",

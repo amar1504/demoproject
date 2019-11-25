@@ -24,7 +24,7 @@
                             <div class="col-md-6 text-right">
                                 <!--Access Control  according to role start -->
                                 @if(Gate::check('isAdmin') || Gate::check('isSuperAdmin'))
-                                    <a href="{{ url('/admin/banner/create') }}" class="btn btn-success btn-sm" title="Add New Banner">
+                                    <a href="{{ route('banner.create') }}" class="btn btn-success btn-sm" title="Add New Banner">
                                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                                     </a><br/><br/>
                                 @endif
@@ -59,13 +59,13 @@
                                         <td>{{ $item->title }}</td><td><img src="{{ asset('storage/'.$item->bannerimage) }}" class="imgsize" /></td>
                                         <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         <td>
-                                            <a href="{{ url('/admin/banner/' . $item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ route('banner.show' , $item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                         <!--Access Control  according to role start -->
                                         @if(Gate::check('isAdmin') || Gate::check('isSuperAdmin'))
 
-                                            <a href="{{ url('/admin/banner/' . $item->id . '/edit') }}" title="Edit Banner"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ route('banner.edit', $item->id ) }}" title="Edit Banner"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
-                                            <form method="POST" action="{{ url('/admin/banner' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                            <form method="POST" action="{{ route('banner.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Delete Banner" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
