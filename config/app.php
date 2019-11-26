@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
     ],
 
@@ -231,6 +232,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,    
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
     ],
 
 ];

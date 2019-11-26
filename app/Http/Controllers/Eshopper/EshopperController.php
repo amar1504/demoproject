@@ -205,6 +205,16 @@ class EshopperController extends Controller
     }
 
     /**
+     * function  to show wishlist
+     */
+    public function myWishList(){
+        $cms=CMS::where('type','=','footer')->get();
+        $wishList=Wishlist::with('wishlistProduct','ProductImage')->where('user_id','=',Auth::user()->id)->get();
+        //dd($wishList);
+        return view('Eshopper.wishlist',['cms'=>$cms,'wishList'=>$wishList]);
+    }
+
+    /**
      * function to return profile view
      */
     public function userProfile(){

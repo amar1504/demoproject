@@ -27,5 +27,21 @@ class Wishlist extends Model
      */
     protected $fillable = ['product_id','user_id'];
 
+    /**
+     * Get product record assocated with wishlist
+     */    
+    public function wishlistProduct() {
+        return $this->hasMany('App\Product','id','product_id');
+
+    }
+
+    /**
+     * Get product image assocated with product 
+     */
+    public function ProductImage() {
+        return $this->hasMany('App\ProductImage','product_id','product_id');
+    }   
+    
+
 
 }

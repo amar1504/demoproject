@@ -89,8 +89,9 @@
 					
 					<div class="col-sm-4">
 						<div class="shopper-info order ">
-							<p>To Shipping</p>
 							
+							<p>To Shipping</p>
+									<label><input type="checkbox" name="sameaddress" id="sameaddress" value="1" onclick="getsameAddress(this.id);"> Shipping to bill address</label>
 									<input type="text" name="shippingname" id="shippingcompnayname" placeholder="Company Name" required="">
 									<input type="text" name="shippingaddress1" placeholder="Address 1 *"  id="shippingaddress1" required="">
 									<input type="text" name="shippingaddress2" placeholder="Address 2" id="shippingaddress2">
@@ -99,7 +100,6 @@
 									<input type="text" name="shippingcity" placeholder="City" id="shippingcity" required="">
 									<input type="text" name="shippingzipcode" placeholder="Zipcode" id="shippingzipcode" required="">
 									<input type="text" name="shippingmobileno" placeholder="Mobile No." id="shippingmobileno" required="">
-									<label><input type="checkbox" name="sameaddress" id="sameaddress" value="1" onclick="getsameAddress(this.id);"> Shipping to bill address</lable>
 									<input type="hidden" name="shippingaddressid" id="shippingaddressid" value="" >
 									
 								

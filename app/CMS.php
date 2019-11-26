@@ -28,7 +28,7 @@ class CMS extends Model
     protected $fillable = ['title', 'type' ,'description', 'status'];
 
     /**
-     * Get the  name.
+     * Get the  title.
      *
      * @param  string  $value
      * @return string
@@ -39,7 +39,7 @@ class CMS extends Model
     }
 
     /**
-     * Set the  name.
+     * Set the  title.
      *
      * @param  string  $value
      * @return void

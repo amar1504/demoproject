@@ -27,4 +27,26 @@ class Banner extends Model
      */
     protected $fillable = ['title', 'bannerimage','status']; //fillable fields in Banner
     
+     /**
+     * Get the  title.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getTitleAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    /**
+     * Set the  title.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = strtolower($value);
+    }
+
 }

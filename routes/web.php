@@ -18,11 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', ['as' => 'home' ,'uses' => 'HomeController@index']);
 Route::get('/home', 'HomeController@index')->name('home');
-
-//Route::resource('report', 'reportController');
-Route::get('logout', 'Auth\LoginController@logout');
 //Route::get('admin/product/create', 'Admin\\ProductController@index'); 
-
+Route::get('logout', 'Auth\LoginController@logout');
 Route::resource('admin/banner', 'Admin\\BannerController');
 Route::resource('admin/category', 'Admin\\CategoryController');
 Route::resource('admin/cms', 'Admin\\cmsController');
@@ -131,10 +128,15 @@ Route::prefix('/admin')->namespace('Admin\\')->group(function(){
     Route::delete('/users/{users}','UsersController@destroy')->name('users.destroy');
     Route::get('/users/{users}/edit','UsersController@edit')->name('users.edit');
 
+    #Report Route
+    Route::get('/report/sale-report','ReportController@saleReport')->name('sale.report');
+    Route::get('/report/cutomer-report','BargraphContoller@index')->name('customer.report');
+    Route::get('/report/coupon-report','ReportController@couponReport')->name('coupon.report');
+
+
+
 });
 
-
-//Route::get('/dropdown', ['as' => 'dropdown' ,'uses' => 'Admin\\ProductController@dropdown']);
 Route::post('/dropdown','Admin\\ProductController@dropdownCat')->name('dropdown_route');
 Route::any('/getproduct','Eshopper\\EshopperController@featuresItem')->name('getproducts');
 Route::get('eshopper', 'Eshopper\\EshopperController@index')->name('eshopper');
@@ -163,15 +165,16 @@ Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
     Route::get('/profile/track-my-order','EshopperController@trackOrderView')->name('user.trackorderview');
     Route::post('/profile/track-my-order/your-order','EshopperController@trackOrder')->name('user.trackorder');
     Route::get('/profile/track/{id}','EshopperController@trackOrderFromOrderList')->name('user.trackorderList');
+    Route::get('/profile/my/wish-list','EshopperController@myWishList')->name('user.mywishlist');
 
-     #about us Route
-     Route::get('/about', 'EshopperController@aboutUs')->name('about');
-     #privacy terms Route
-     Route::get('/privacy-terms', 'EshopperController@privacyTerms')->name('privacy');
-     #return refund Route
-     Route::get('/return-refund', 'EshopperController@returnRefund')->name('returnrefund');
-     #purchase protection Route
-     Route::get('/purchase-protection', 'EshopperController@purchaseProtection')->name('purchaseprotection');
+    #about us Route
+    Route::get('/about', 'EshopperController@aboutUs')->name('about');
+    #privacy terms Route
+    Route::get('/privacy-terms', 'EshopperController@privacyTerms')->name('privacy');
+    #return refund Route
+    Route::get('/return-refund', 'EshopperController@returnRefund')->name('returnrefund');
+    #purchase protection Route
+    Route::get('/purchase-protection', 'EshopperController@purchaseProtection')->name('purchaseprotection');
 
     #contact us cutomer Route
     Route::get('/contact-us','EshopperController@contactUsView')->name('view.contactus');
@@ -214,7 +217,6 @@ Route::get('paypal', array('as' => 'payment.status','uses' => 'AddMoneyControlle
 Route::get('manageMailChimp', 'MailChimpController@manageMailChimp');
 Route::post('subscribe',['as'=>'subscribe','uses'=>'MailChimpController@subscribe']);
 Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'MailChimpController@sendCompaign']);
-
 
 
 

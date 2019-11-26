@@ -26,6 +26,30 @@ class User extends Authenticatable
         'firstname','lastname', 'email', 'password','roles','status','image'
     ];
 
+     /**
+     * Get the  name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getFirstnameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    /**
+     * Set the  name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setFirstnameAttribute($value)
+    {
+        $this->attributes['firstname'] = strtolower($value);
+    }
+
+
+
     /**
      * The attributes that should be hidden for arrays.
      *

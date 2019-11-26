@@ -69,10 +69,15 @@ class CartController extends Controller
 
         $rowId=$request->id;
         $getproduct=Cart::get($rowId);
-        Cart::update($rowId, $getproduct->qty-1); // This Will update the quantity
-        $upitem=$getproduct=Cart::get($rowId);
-        return response()->json(['qty'=>$upitem->qty,'itemsubtotal'=>$upitem->subtotal,'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal()]);
-        
+        //echo $getproduct->qty.'---';
+        if($getproduct->qty ==1){
+            return response()->json(['errormsg'=>'You Cannot minimize the quantity']);
+        }
+        else{
+            Cart::update($rowId, $getproduct->qty-1); // This Will update the quantity
+            $upitem=$getproduct=Cart::get($rowId);
+            return response()->json(['qty'=>$upitem->qty,'itemsubtotal'=>$upitem->subtotal,'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal()]);
+        }
     } 
 
     /**
@@ -100,6 +105,9 @@ class CartController extends Controller
      */
     public function coupon(Request $request){
         $coupon=Coupon::where('code','=',$request->code)->first();
+        if(!$coupon){
+            return response()->json(['error_msg'=>'Invalid Coupon']);
+        }
 
         if($coupon->type=="1"){
             $discount=(Cart::total()*$coupon->discount)/100;
@@ -108,13 +116,8 @@ class CartController extends Controller
         else{
             $discount=$coupon->discount;
         }
-
-        if(count($coupon)>=1){
-            return response()->json(['couponid'=>$coupon->id, 'name'=>$request->code,'discount'=>$discount,'total'=>Cart::total()]);
-        }
-        else{
-            return response()->json(['error_msg'=>'Invalid Coupon']);
-        }
+        
+        return response()->json(['couponid'=>$coupon->id, 'name'=>$request->code,'discount'=>$discount,'total'=>Cart::total()]);
 
     }    
 
@@ -205,6 +208,11 @@ class CartController extends Controller
         
         if($orderSubmit)
         {
+            if($request->coupon_id >=1){
+                $coupon=Coupon::whereId($request->coupon_id)->first();
+                Coupon::whereId($request->coupon_id)->update(['quantity'=>$coupon->quantity-1]);
+            }
+
             foreach(Cart::content() as $item)
             {   
                 $order['order_id']=$orderSubmit->id;

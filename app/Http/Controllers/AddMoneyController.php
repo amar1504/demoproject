@@ -21,7 +21,22 @@ use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
 use Cart;
+use App\Category;
+use App\Product;
+use App\ProductImage;
+use App\ProductCategory;
+use App\Coupon;
+use App\Address;
+use App\Order;
+use App\ProductOrder;
+use App\OrderDetails;
+use App\Role;
+use App\User;
+use App\CMS;
 use Auth;
+use App\Mail\Mailtrap;
+use App\Mail\Mailorder;
+use Mail;
 
 class AddMoneyController extends HomeController
 {
@@ -57,6 +72,50 @@ class AddMoneyController extends HomeController
      */
     public function postPaymentWithpaypal(Request $request)
     {   
+        $r=$request->all();
+        
+        $billingaddressid=$request->billingaddressid."<br/>";
+        $shippingaddressid=$request->shippingaddressid."<br/>";
+        $billingaddress=Address::where('id','=',$billingaddressid)->first();
+        $shippingaddress=Address::where('id','=',$shippingaddressid)->first();
+        // echo "<br/><br/>".count($billingaddress);
+        // echo "<br/><br/>".count($shippingaddress);
+        if(count($billingaddress)<1){
+            dd(count($billingaddress));
+
+            //echo "<br/>insert billing address";
+            $requestData1['name']=$request->billingname;
+            $requestData1['address1']=$request->billingaddress1;
+            $requestData1['address2']=$request->billingaddress2;
+            $requestData1['country']=$request->billingcountry;
+            $requestData1['state']=$request->billingstate;
+            $requestData1['city']=$request->billingcity;
+            $requestData1['zipcode']=$request->billingzipcode;
+            $requestData1['mobileno']=$request->billingmobileno;
+            $requestData1['user_id']=Auth::user()->id;
+            Address::create($requestData1);
+
+            //dd($requestData1);  
+        }
+        if(count($shippingaddress)<1){
+            //echo "<br/>insert shipping address";        
+            $requestData2['name']=$request->shippingname;
+            $requestData2['address1']=$request->shippingaddress1;
+            $requestData2['address2']=$request->shippingaddress2;
+            $requestData2['country']=$request->shippingcountry;
+            $requestData2['state']=$request->shippingstate;
+            $requestData2['city']=$request->shippingcity;
+            $requestData2['zipcode']=$request->shippingzipcode;
+            $requestData2['mobileno']=$request->shippingmobileno;
+            $requestData2['user_id']=Auth::user()->id;
+            Address::create($requestData2);
+
+            //dd($requestData2);
+        }
+       
+
+        //dd($r);
+       
         if(Cart::total() >=500)
         {
             $shippingCharge=0;
@@ -78,19 +137,65 @@ class AddMoneyController extends HomeController
         $orderData['total']=$total-$orderData['discount'];
         $orderData['shipping_charge']=$shippingCharge;
         $orderData['coupon_id']=$request->coupon_id;
+        // echo $orderData['total'];
+        // dd($orderData);
+        $orderSubmit=Order::create($orderData);
+
         
+        if($orderSubmit)
+        {
+            if($request->coupon_id >=1){
+                $coupon=Coupon::whereId($request->coupon_id)->first();
+                Coupon::whereId($request->coupon_id)->update(['quantity'=>$coupon->quantity-1]);
+            }
+
+            foreach(Cart::content() as $item)
+            {   
+                $order['order_id']=$orderSubmit->id;
+                $order['user_id']=Auth::user()->id;
+                $order['product_id']=$item->id;
+                $order['name']=$item->name;
+                $order['price']=$item->subtotal;
+                $order['product_image']=$item->options->product_image;
+                $order['quantity']=$item->qty;
+                ProductOrder::create($order);
+            }
+
+            $orderdeatils['order_id']=$orderSubmit->id;
+            $orderdeatils['user_id']=Auth::user()->id;
+            $orderdeatils['transaction_id']=str_random(8,12);
+            $orderdeatils['transaction_status']='pending';
+            $orderdeatils['payment_mode']=$request->paymentMode;
+            $orderdeatils['status']='pending';
+            OrderDetails::create($orderdeatils);
+
+            Cart::destroy();
+
+            $orders=Order::with('Orders','OrderDetails','Addresses')
+                    ->where('id','=',$orderSubmit->id)
+                    ->first();
+           
+            
+            $role=Role::where('role_name','=','superadmin')->first();
+            $user=User::where('roles','=',$role->id)->first();
+           // $orders['flag']='order mail for user';
+            //dd($orders);
+            Mail::to(Auth::user()->email)->send(new Mailorder($orders));
+            Mail::to($user->email)->send(new Mailorder($orders));
+
+        }
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         $item_1 = new Item();
         $item_1->setName('Item 1') /** item name **/
             ->setCurrency('INR')
             ->setQuantity(1)
-            ->setPrice(50); /** unit price **/
+            ->setPrice($orderData['subtotal']); /** unit price **/
         $item_list = new ItemList();
         $item_list->setItems(array($item_1));
         $amount = new Amount();
         $amount->setCurrency('INR')
-            ->setTotal(50);
+            ->setTotal($orderData['total']);
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($item_list)
@@ -154,14 +259,15 @@ class AddMoneyController extends HomeController
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
         /** dd($result);exit; /** DEBUG RESULT, remove it later **/
+        $cms=CMS::where('type','=','footer')->get();
         if ($result->getState() == 'approved') { 
             
             /** it's all right **/
             /** Here Write your database logic like that insert record or value in database if you want **/
-            \Session::put('success','Payment success');
-            return Redirect::route('addmoney.paywithpaypal');
+            \Session::put('success payment','Payment success');
+            return Redirect::route('Eshopper.ordersubmit');
         }
         \Session::put('error','Payment failed');
-        return Redirect::route('addmoney.paywithpaypal');
+        return Redirect::route('Eshopper.ordersubmit');
     }
   }

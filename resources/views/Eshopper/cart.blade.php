@@ -87,6 +87,8 @@
 								<input type="text" name="coupon_code" id="coupon_code">
 								
 							</li>
+							<li><i  class="fa fa-spinner fa-spin" ></i>
+							</li>
 							
 						</ul>
 						<!-- <a class="btn btn-default update" href="">Get Quotes</a> -->
@@ -128,7 +130,7 @@
 
 <script>
 $(document).ready(function(){
-	
+	$(".fa-spin").hide();
 });
 /**
  * function to add item using ajax
@@ -172,6 +174,7 @@ function additems(id, selector){
  * function to remove item using ajax
  */
 function removeitems(id, selector){
+
 	//alert(id);
 	$.ajaxSetup({
 		headers: {
@@ -184,6 +187,13 @@ function removeitems(id, selector){
 		url:"{{ route('cart.removeitems') }}",
 		data:{id:id},
 		success:function(data) {
+			if(data.errormsg =="You Cannot minimize the quantity")
+			{
+				alert(data.errormsg);
+				//$("#coupon_msg").html(`<br/><font color="red">`+data.error_msg+`</font>`);
+				//console.log(data.error_msg);
+			}
+			else{
 			// alert(data.itemsubtotal);
 			//console.log(data.qty);
 			$('#cartqty'+selector).val(data.qty);
@@ -201,6 +211,7 @@ function removeitems(id, selector){
 			$('#subtotal').text('$'+data.subtotal);
 			$('#tax').text('$'+data.tax);
 			$('#grandtotal').text('$'+data.total);
+			}
 		},
 		
 	});
@@ -213,6 +224,9 @@ function removeitems(id, selector){
  * function to apply coupon using ajax
  */
 function applyCoupon(){
+	$('.fa-spin').show();
+	
+	
 	code=$("#coupon_code").val();
 	//alert(code);
 	$.ajaxSetup({
@@ -226,6 +240,10 @@ function applyCoupon(){
 		url:"{{ route('cart.coupon') }}",
 		data:{code:code},
 		success:function(data) {
+			if(data!="")
+			{
+				$('.fa-spin').hide(1000);
+			}
 			// alert("hii");
 			console.log(data.discount);
 			if(data.error_msg =="Invalid Coupon")
@@ -260,7 +278,7 @@ function applyCoupon(){
  */
 function couponCancel(){
 	total=$("#total").text();
-	// alert(total);	
+	 //alert(total);	
 	$("#discount").html('-');
 	$("#grandtotal").html(total);
 }

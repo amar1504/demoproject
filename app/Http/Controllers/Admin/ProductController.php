@@ -180,7 +180,8 @@ class ProductController extends Controller
     public function destroy($id)
     {
         Product::destroy($id);
-
+        ProductImage::where('product_id','=',$id)->delete();
+        ProductCategory::where('product_id','=',$id)->delete();
         return redirect('admin/product')->with('flash_message', 'Product deleted!');
     }
 

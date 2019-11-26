@@ -13,11 +13,17 @@
     <textarea class="form-control" rows="5" name="description" type="textarea" id="description" data-parsley-minlength="10" required="">{{ isset($coupon->description) ? $coupon->description : old('description')}}</textarea>
     {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
 </div>
+<div class="form-group {{ $errors->has('quantity') ? 'has-error' : ''}}">
+    <label for="quantity" class="control-label">{{ 'Quantity' }} <font color="red">*</font></label>
+    <input class="form-control" name="quantity" type="text" id="quantity" value="{{ isset($coupon->quantity) ? $coupon->quantity : old('quantity')}}" data-parsley-type="number"  required="" >
+    {!! $errors->first('quantity', '<p class="help-block">:message</p>') !!}
+</div>
 <div class="form-group {{ $errors->has('discount') ? 'has-error' : ''}}">
     <label for="discount" class="control-label">{{ 'Discount/Amount' }} <font color="red">*</font></label>
     <input class="form-control" name="discount" type="text" id="discount" value="{{ isset($coupon->discount) ? $coupon->discount : old('discount')}}" data-parsley-type="number"  required="" >
     {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
 </div>
+
 <div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
     <label for="type" class="control-label">{{ 'Type' }} <font color="red">*</font></label>
     <select name="type" class="form-control "  id="type" required="" >

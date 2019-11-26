@@ -45,7 +45,7 @@
 								<span>
 									<span> ${{$productdetails->price}}</span>
 									<label>Quantity:</label>
-									<input type="text" value="3" />
+									<input type="text" value="3" disabled/>
 									<a href="{{ route('cart.add',$productdetails->id ) }}" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
