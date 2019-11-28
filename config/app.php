@@ -180,6 +180,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -234,6 +235,7 @@ return [
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Input' => Illuminate\Support\Facades\Input::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

@@ -88,7 +88,7 @@
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div class="single-widget">
 							<h2>Get to Know us</h2>
 							<ul class="nav nav-pills nav-stacked">
@@ -97,7 +97,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-2">
+					<!-- <div class="col-sm-2">
 						<div class="single-widget">
 							<h2>Quick Shop</h2>
 							<ul class="nav nav-pills nav-stacked">
@@ -107,8 +107,8 @@
 								<li><a href="{{ route('product',23) }}">Women Footware</a></li>
 							</ul>
 						</div>
-					</div>
-					<div class="col-sm-2">
+					</div> -->
+					<div class="col-sm-3">
 						<div class="single-widget">
 							<h2>Policies</h2>
 							<ul class="nav nav-pills nav-stacked">
@@ -118,7 +118,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div class="single-widget">
 							<h2>Connect with us</h2>
 							<ul class="nav nav-pills nav-stacked">
@@ -129,7 +129,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3 col-sm-offset-1">						
+					<div class="col-sm-3 ">						
 						<div class="single-widget" >
 							<h2>About Shopper</h2>
 							@if ($message = Session::get('success'))

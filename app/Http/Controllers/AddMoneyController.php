@@ -73,15 +73,16 @@ class AddMoneyController extends HomeController
     public function postPaymentWithpaypal(Request $request)
     {   
         $r=$request->all();
-        
+        //dd($r);
         $billingaddressid=$request->billingaddressid."<br/>";
         $shippingaddressid=$request->shippingaddressid."<br/>";
         $billingaddress=Address::where('id','=',$billingaddressid)->first();
         $shippingaddress=Address::where('id','=',$shippingaddressid)->first();
         // echo "<br/><br/>".count($billingaddress);
         // echo "<br/><br/>".count($shippingaddress);
+        
         if(count($billingaddress)<1){
-            dd(count($billingaddress));
+            //dd(count($billingaddress));
 
             //echo "<br/>insert billing address";
             $requestData1['name']=$request->billingname;
@@ -138,9 +139,9 @@ class AddMoneyController extends HomeController
         $orderData['shipping_charge']=$shippingCharge;
         $orderData['coupon_id']=$request->coupon_id;
         // echo $orderData['total'];
-        // dd($orderData);
+         //dd($orderData);
         $orderSubmit=Order::create($orderData);
-
+        //dd($orderSubmit);
         
         if($orderSubmit)
         {
@@ -159,6 +160,9 @@ class AddMoneyController extends HomeController
                 $order['product_image']=$item->options->product_image;
                 $order['quantity']=$item->qty;
                 ProductOrder::create($order);
+                //dd($order);
+                $product=Product::whereId($item->id)->first();
+                Product::whereId($item->id)->update(['quantity'=>$product->quantity-$item->qty]);
             }
 
             $orderdeatils['order_id']=$orderSubmit->id;
@@ -168,6 +172,7 @@ class AddMoneyController extends HomeController
             $orderdeatils['payment_mode']=$request->paymentMode;
             $orderdeatils['status']='pending';
             OrderDetails::create($orderdeatils);
+            //dd($orderdeatils);
 
             Cart::destroy();
 
@@ -188,13 +193,13 @@ class AddMoneyController extends HomeController
         $payer->setPaymentMethod('paypal');
         $item_1 = new Item();
         $item_1->setName('Item 1') /** item name **/
-            ->setCurrency('INR')
+            ->setCurrency('USD')
             ->setQuantity(1)
-            ->setPrice($orderData['subtotal']); /** unit price **/
+            ->setPrice($orderData['total']); /** unit price **/
         $item_list = new ItemList();
         $item_list->setItems(array($item_1));
         $amount = new Amount();
-        $amount->setCurrency('INR')
+        $amount->setCurrency('USD')
             ->setTotal($orderData['total']);
         $transaction = new Transaction();
         $transaction->setAmount($amount)
@@ -212,15 +217,16 @@ class AddMoneyController extends HomeController
         try {
             $payment->create($this->_api_context);
         } catch (\PayPal\Exception\PPConnectionException $ex) {
+            //dd($ex);
             if (\Config::get('app.debug')) {
                 \Session::put('error','Connection timeout');
-                return Redirect::route('addmoney.paywithpaypal');
+                return Redirect::route('cart');
                 /** echo "Exception: " . $ex->getMessage() . PHP_EOL; **/
                 /** $err_data = json_decode($ex->getData(), true); **/
                 /** exit; **/
             } else {
                 \Session::put('error','Some error occur, sorry for inconvenient');
-                return Redirect::route('addmoney.paywithpaypal');
+                return Redirect::route('cart');
                 /** die('Some error occur, sorry for inconvenient'); **/
             }
         }
@@ -265,9 +271,9 @@ class AddMoneyController extends HomeController
             /** it's all right **/
             /** Here Write your database logic like that insert record or value in database if you want **/
             \Session::put('success payment','Payment success');
-            return Redirect::route('Eshopper.ordersubmit');
+            return view('Eshopper.ordersubmit',['cms'=>$cms]);
         }
         \Session::put('error','Payment failed');
-        return Redirect::route('Eshopper.ordersubmit');
+        return view('Eshopper.ordersubmit',['cms'=>$cms]);
     }
   }

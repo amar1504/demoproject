@@ -39,9 +39,9 @@ class CartController extends Controller
      * function to add item to cart
      */
     public function addItem($id){
-
+       
         $productdetails=Product::with('ProductCategory','ProductCategory.Category','ProductImage')->where([['id','=',$id]])->orderBy('id','DESC')->first();        
-        echo 'id '.$productdetails->id.' name '.$productdetails->product_name.' price '.$productdetails->price;
+        //echo 'id '.$productdetails->id.' name '.$productdetails->product_name.' price '.$productdetails->price;
         $product_image=$productdetails->ProductImage->first()->product_image;
         //dd($productdetails);
         Cart::add($productdetails->id,$productdetails->product_name, 1, $productdetails->price,['product_image'=>$product_image]);
@@ -53,9 +53,14 @@ class CartController extends Controller
      * function to increase quantity
      */
     public function addQuantity(Request $request){
-
         $rowId=$request->id;
         $getproduct=Cart::get($rowId);
+        //dd($getproduct);
+        $productQty=Product::whereId($getproduct->id)->first();
+        if($productQty->quantity ==1){
+            return response()->json(['errormsg'=>'You can\'t increase more quantity. Only one product is left instock']);
+        }
+
         Cart::update($rowId, $getproduct->qty+1); // This Will update the quantity
         $upitem=$getproduct=Cart::get($rowId);
         return response()->json(['qty'=>$upitem->qty,'itemsubtotal'=>$upitem->subtotal,'total'=>Cart::total(),'tax'=>Cart::tax(),'subtotal'=>Cart::subtotal()]);
@@ -137,7 +142,7 @@ class CartController extends Controller
      * function to store address if new , order details
      */
     public function storeOrder(Request $request){
-       
+      
         $r=$request->all();
         $billingaddressid=$request->billingaddressid."<br/>";
         $shippingaddressid=$request->shippingaddressid."<br/>";
@@ -212,7 +217,7 @@ class CartController extends Controller
                 $coupon=Coupon::whereId($request->coupon_id)->first();
                 Coupon::whereId($request->coupon_id)->update(['quantity'=>$coupon->quantity-1]);
             }
-
+           
             foreach(Cart::content() as $item)
             {   
                 $order['order_id']=$orderSubmit->id;
@@ -223,6 +228,10 @@ class CartController extends Controller
                 $order['product_image']=$item->options->product_image;
                 $order['quantity']=$item->qty;
                 ProductOrder::create($order);
+
+                $product=Product::whereId($item->id)->first();
+                Product::whereId($item->id)->update(['quantity'=>$product->quantity - $item->qty]);
+
             }
 
             $orderdeatils['order_id']=$orderSubmit->id;

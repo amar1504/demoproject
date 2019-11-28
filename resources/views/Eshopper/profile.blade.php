@@ -20,12 +20,12 @@
                             {{ csrf_field() }}
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name" class="control-label">{{ 'Firstname' }} <font color="red">*</font></label>
-                                <input class="form-control" name="firstname" type="text" id="name" value="{{ Auth::user()->firstname }}" required="">
+                                <input class="form-control" name="firstname" type="text" id="name" value="{{ Auth::user()->firstname }}" data-parsley-pattern="^[a-zA-Z]+$" required="">
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name" class="control-label">{{ 'Lastname' }} <font color="red">*</font></label>
-                                <input class="form-control" name="lastname" type="text" id="name" value="{{ Auth::user()->lastname }}" required="">
+                                <input class="form-control" name="lastname" type="text" id="name" value="{{ Auth::user()->lastname }}" data-parsley-pattern="^[a-zA-Z]+$" required="">
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">

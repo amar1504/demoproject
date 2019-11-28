@@ -13,6 +13,7 @@
         "guzzlehttp/guzzle": "~5.2",
         "kodeine/laravel-acl": "^1.0",
         "laravel/framework": "5.5.*",
+        "laravel/socialite": "~2.0",
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "^1.14",
         "skovmand/mailchimp-laravel": "^1.0",

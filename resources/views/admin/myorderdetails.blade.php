@@ -34,7 +34,7 @@
                                         <td>{{ $orderdetails->Addresses->name }}</td>
                                         <td>{{ $orderdetails->created_at }}</td>
                                         <td>{{ $orderdetails->OrderDetails->status }}</td>
-                                        <td>@if($orderdetails->OrderDetails->payment_mode==0){{ 'COD'}} <br/>{{'Transaction Id:'.$orderdetails->OrderDetails->transaction_id }} @else {{ 'Paypal'.' Transaction Id:'.$orderdetails->OrderDetails->transaction_id }} @endif</td>
+                                        <td>@if($orderdetails->OrderDetails->payment_mode==0){{ 'COD'}} <br/>{{'( Transaction Id:'.$orderdetails->OrderDetails->transaction_id.' )' }} @else {{ 'Paypal'.' (Transaction Id: '.$orderdetails->OrderDetails->transaction_id.')' }} @endif</td>
                                         <td>{{ $orderdetails->Addresses->address1.' '.$orderdetails->Addresses->address2.' '.$orderdetails->Addresses->city.' ,'.$orderdetails->Addresses->state.' ,'.$orderdetails->Addresses->country.' -'.$orderdetails->Addresses->zipcode }}</td>
 
                                     @endforeach
@@ -63,7 +63,7 @@
                                         <td><img src="{{ asset('storage/'.$product->product_image)}}" class="imgsize"></td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->quantity }}</td>
-                                        <td>&#x20b9;{{ $product->price }}</td>
+                                        <td>${{ $product->price }}</td>
 
                                         
                                     </tr>
@@ -76,23 +76,23 @@
                                         <table class="table table-bordered ">
                                             <tr>
                                                 <td>Sub Total</td>
-                                                <td class="col-md-6">&#x20b9;{{ $item->subtotal }}</td>
+                                                <td class="col-md-6">${{ $item->subtotal }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Exo Tax</td>
-                                                <td>&#x20b9;{{ $item->tax }}</td>
+                                                <td>${{ $item->tax }}</td>
                                             </tr>
                                             <tr class="shipping-cost">
                                                 <td>Shipping Cost</td>
-                                                <td>&#x20b9;{{ $item->shipping_charge}}</td>										
+                                                <td>${{ $item->shipping_charge}}</td>										
                                             </tr>
                                             <tr class="shipping-cost">
                                                 <td>Discount Cost</td>
-                                                <td>- &#x20b9;{{ $item->discount }}</td>										
+                                                <td>- ${{ $item->discount }}</td>										
                                             </tr>
                                             <tr>
                                                 <td><b>Total</b></td> 
-                                                <td><span><b>&#x20b9;{{ $item->total }}</b></span></td>
+                                                <td><span><b>${{ $item->total }}</b></span></td>
                                             </tr>
 
                                            

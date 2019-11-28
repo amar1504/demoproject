@@ -58,4 +58,27 @@ class Category extends Model
 
     }
     // catgeory and products relationship -End
+
+     /**
+     * Get the  category name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCategorynameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    /**
+     * Set the  category name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setCategorynameAttribute($value)
+    {
+        $this->attributes['category_name'] = strtolower($value);
+    }
+
 }

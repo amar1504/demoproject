@@ -37,7 +37,7 @@
 								<div class="cart_quantity_button">
 									<!-- <a class="cart_quantity_up" href="{{ route('cart.add',$content->id) }}">+</a> -->
 									<a class="cart_quantity_up"  href="javascript:void(0);"><p  onClick="additems('{{$content->rowId }}',{{$content->id }});"> + </p></a>
-									<input  type="text" class="cart_quantity_input" id="cartqty{{$content->id}}" name="quantity" value="{{ $content->qty }}" autocomplete="off" size="2">
+									<input  type="text" class="cart_quantity_input" id="cartqty{{$content->id}}" name="quantity" value="{{ $content->qty }}" autocomplete="off" size="2" disabled>
 									<!-- <a class="cart_quantity_down" href="{{ route('cart.update',$content->rowId) }}">-</a> -->
 									<a class="cart_quantity_down" href="javascript:void(0);"><p  onClick="removeitems('{{$content->rowId }}',{{$content->id }});"> - </p></a>
 								</div>
@@ -148,23 +148,30 @@ function additems(id, selector){
 		url:"{{ route('cart.additems') }}",
 		data:{id:id},
 		success:function(data) {
-			// alert(data.itemsubtotal);
-			//console.log(data.qty);
-			$('#cart_total_price'+selector).text('$'+data.itemsubtotal);
-			$('#cartqty'+selector).val(data.qty);
-			if(data.total<500){
-				data.total=parseFloat(data.total)+50;
-				//alert(data.total);
-				$('#total').text('$'+data.total);
-				$('#shippingcost').text('$'+50);
+			if(data.errormsg)
+			{
+				alert(data.errormsg);
+				
 			}
 			else{
-				$('#total').text('$'+data.total);
-				$('#shippingcost').text('Free');
+				// alert(data.itemsubtotal);
+				//console.log(data.qty);
+				$('#cart_total_price'+selector).text('$'+data.itemsubtotal);
+				$('#cartqty'+selector).val(data.qty);
+				if(data.total<500){
+					data.total=parseFloat(data.total)+50;
+					//alert(data.total);
+					$('#total').text('$'+data.total);
+					$('#shippingcost').text('$'+50);
+				}
+				else{
+					$('#total').text('$'+data.total);
+					$('#shippingcost').text('Free');
+				}
+				$('#subtotal').text('$'+data.subtotal);
+				$('#tax').text('$'+data.tax);
+				$('#grandtotal').text('$'+data.total);
 			}
-			$('#subtotal').text('$'+data.subtotal);
-			$('#tax').text('$'+data.tax);
-			$('#grandtotal').text('$'+data.total);
 		},
 		
 	});

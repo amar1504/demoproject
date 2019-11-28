@@ -35,7 +35,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['product_name', 'price', 'description','status'];
+    protected $fillable = ['product_name', 'price', 'description','quantity','status'];
 
     /**
      * Get product category record assocated with product 

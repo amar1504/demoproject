@@ -44,14 +44,21 @@
 								<img src="images/product-details/rating.png" alt="" />
 								<span>
 									<span> ${{$productdetails->price}}</span>
-									<label>Quantity:</label>
-									<input type="text" value="3" disabled/>
+									<!-- <label>Quantity:</label> -->
+									<!-- <input type="text" value="3" disabled/> -->
+									@if($productdetails->quantity >=1)
 									<a href="{{ route('cart.add',$productdetails->id ) }}" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
 									</a>
+									@else
+									<a href="" class="btn btn-fefault cart">
+										<i class="fa fa-shopping-cart"></i>
+										Out of Stock
+									</a>
+									@endif
 								</span>
-								<p><b>Availability:</b> In Stock</p>
+								<p><b>Availability:</b> @if($productdetails->quantity <1) {{ 'Out Of Stock' }} @else {{ 'In Stock' }} @endif </p>
 								<p><b>Condition:</b> New</p>
 								<p><b>Brand:</b> E-SHOPPER</p>
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>

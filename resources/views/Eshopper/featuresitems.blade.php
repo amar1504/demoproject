@@ -17,7 +17,11 @@
 											<h2>${{$prod->price}}</h2>
 											<p>{{$prod->product_name}}</p>
 												<a href="{{ route('product-details', ['id'=>$prod->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
-												<a href="{{ route('cart.add',$prod->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												@if($prod->quantity >=1)
+													<a href="{{ route('cart.add',$prod->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												@else
+													<a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Out of Stock</a>
+												@endif
 											</div>
 										</div>
 								</div>
@@ -28,7 +32,10 @@
 									@else
 									<li><a href="{{ route('userlogin') }}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
 									@endif
-										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+
+									@if($prod->quantity < 1)
+										<li><a href="#"><i class="fa fa-plus-square"></i>Out Of stock</a></li>
+									@endif
 									</ul>
 								</div>
 							</div>
@@ -91,12 +98,9 @@ $(document).ready(function() {
 </script>
 
 <script>
-
-
 function getproducts(id)
 {
 	//alert(id);
-
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -117,22 +121,31 @@ function getproducts(id)
 			console.log( data.product[i].product.product_name);
 			console.log( data.product[i].product_images.product_image);
 			console.log( data.product[i].id);
-			$("#tshirt").append(`<div class="col-sm-3">
+
+			let col=`<div class="col-sm-3">
 				<div class="product-image-wrapper">
 					<div class="single-products">
 						<div class="productinfo text-center">
 							<img src="{{ asset('storage')}}/`+data.product[i].product_images[0].product_image+`" id="img" alt="" />
 							<h2>$`+data.product[i].product.price+`</h2>
 							<p>`+data.product[i].product.product_name+`</p>
-							<a href="{{ route('product-details') }}/`+data.product[i].product.id+`" class="btn btn-default add-to-cart"></i>View Product</a>
-							<a href="{{ route('cart.add') }}/`+data.product[i].product.id+`" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-						</div>
+							<a href="{{ route('product-details') }}/`+data.product[i].product.id+`" class="btn btn-default add-to-cart"></i>View Product</a>`
+							if(data.product[i].product.quantity >=1){
+								col+=`<a href="{{ route('cart.add') }}/`+data.product[i].product.id+`" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>`;
+							}else{
+								col+=`<a  class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Out Of Stock</a>`;
+
+							}
+						
+						col+=`</div>
 						
 					</div>
 				</div>
-			</div>`);
+			</div>`;
+			$("#tshirt").append(col);
+
+
 			}
-			
 			//$("#category_id").html(data);
 		},
 		

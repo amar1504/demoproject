@@ -19,14 +19,22 @@
 											<img src="{{asset('storage/'.$prod->ProductImages->first()->product_image)}}" class="productimg" alt="" />
 											<h2>$ {{$prod->Product->price}}</h2>
 											<p>{{$prod->Product->product_name}}</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											@if($prod->Product->quantity >=1)
+											<a href="{{ route('cart.add',$prod->Product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											@else
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Out of Stock</a>
+											@endif
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
 											<h2>$ {{$prod->Product->price}}</h2>
 											<p>{{$prod->Product->product_name}}</p>
 												<a href="{{ route('product-details', ['id'=>$prod->Product->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
-												<a href="{{ route('cart.add',$prod->Product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												@if($prod->Product->quantity >=1)
+											<a href="{{ route('cart.add',$prod->Product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											@else
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Out of Stock</a>
+											@endif
 											</div>
 										</div>
 								</div>

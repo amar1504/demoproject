@@ -29,6 +29,7 @@ class ProductValidation extends FormRequest
             'product_name'=>'required',
             'price'=>'required|numeric',
             'description'=>'required',
+            'quantity'=>'required',
         ];
         // validation rules for product validation -End
 
@@ -46,6 +47,7 @@ class ProductValidation extends FormRequest
             'product_name.required' => 'Product name is required.',
             'price.required' => 'Price is required.',
             'description.required' => 'Description is required.',
+            'quantity.required' => 'Quantity is required.',
         ];
         // validation message for product form end
     }

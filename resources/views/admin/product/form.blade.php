@@ -39,6 +39,13 @@
     <textarea class="form-control" rows="5" name="description" type="textarea" id="description" data-parsley-minlength="6" required="" >{{ isset($product->description) ? $product->description : old('description')}}</textarea>
     {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
 </div>
+
+<div class="form-group {{ $errors->has('quantity') ? 'has-error' : ''}}">
+    <label for="quantity" class="control-label">{{ 'Quantity' }} <font color="red">*</font></label>
+    <input class="form-control" name="quantity" type="text" id="quantity" value="{{ isset($product->quantity) ? $product->quantity : old('quantity')}}" data-parsley-type="number"  required="" >
+    {!! $errors->first('quantity', '<p class="help-block">:message</p>') !!}
+</div>
+
 <div class="form-group {{ $errors->has('product_image') ? 'has-error' : ''}}">
     <label for="product_image" class="control-label">{{ 'Product Image' }}</label>
     <input class="" name="product_image[]" type="file" id="product_image" multiple value="{{ isset($product->product_image) ? $product->product_image : ''}}" >

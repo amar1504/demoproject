@@ -274,7 +274,7 @@ class EshopperController extends Controller
         $orders=Order::with('Orders')
                     ->where('user_id','=',Auth::user()->id)
                     ->orderBy('id','desc')
-                    ->get();
+                    ->paginate(10);
         //dd($orders);
         $cms=CMS::where('type','=','footer')->get();
 
@@ -342,9 +342,9 @@ class EshopperController extends Controller
      * function to load contact us view
      */
     public function contactUsView(){
+        
         $cms=CMS::where('type','=','footer')->get();
         $cmsContact=CMS::where('title','=','Conatct info')->first();
-        
         return view('Eshopper.contact-us',['cms'=>$cms,'cmsContact'=> $cmsContact]);
     }
 

@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Role;
 use App\User;
+use Socialite;
+
+use Exception;
 
 class LoginController extends Controller
 {
@@ -75,9 +78,35 @@ class LoginController extends Controller
             return('/home');
         }elseif($role->role_name == 'customer'){
             return('/eshopper');
-        }
-        
+        }    
     }
 
-    
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+            $finduser = User::where('google_id', $user->id)->first();
+            if($finduser){
+                Auth::login($finduser);
+                return  redirect('/eshopper');   
+            }else{
+                $newUser = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'google_id'=> $user->id
+                ]);
+                Auth::login($newUser);
+                return  redirect('/eshopper');   
+            }
+  
+        } catch (Exception $e) {
+            return redirect('auth/google');
+        }
+    }
+
 }

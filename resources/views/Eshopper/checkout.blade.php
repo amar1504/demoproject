@@ -59,8 +59,8 @@
 						<div class="shopper-info">
 							<p>Shopper Information</p>
 							
-								<input type="text" placeholder="Display Name" value="{{ Auth::user()->firstname.' '.Auth::user()->lastname }}">
-								<input type="text" placeholder="User Name" value="{{ Auth::user()->email }}">
+								<input type="text" placeholder="Display Name" value="{{ Auth::user()->firstname.' '.Auth::user()->lastname }}" disabled>
+								<input type="text" placeholder="User Name" value="{{ Auth::user()->email }}" disabled>
 								
 							
 							<!-- <a class="btn btn-primary" href="">Get Quotes</a>
@@ -197,19 +197,19 @@
 						<label><b>Payment : </b></label>
 					</span>
 					<span>
-						&emsp;<label><input name="paymentMode" type="radio" value="0" required=""> Cash On Delivery</label> &emsp;
+						&emsp;<label><input name="paymentMode" type="radio" id="cod" value="0" required=""> Cash On Delivery</label> &emsp;
 					</span>
 					<span>
-						<label><input name="paymentMode" type="radio" value="1" required=""> Paypal</label>
+						<label><input name="paymentMode" type="radio" id="paypal" value="1" required=""> Paypal</label>
 					</span>
 					
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-						&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;<input type="submit" class="btn btn-default check_out" value="Place Order">
+						&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;<input type="submit" id="codButton" class="btn btn-default check_out" value="Place Order">
 				</div>
 				<div class="col-md-12">
-					<button class="btn btn-primary btn-md"  formaction="{{route('addmoney.paypal')}}" id="formButton" name="submit" style="margin-left:50px;margin-bottom:10px;" formmethod="POST">Place Order  with paypal</button><br>
+					<button class="btn btn-primary btn-md" id="paypalButton" formaction="{{route('addmoney.paypal')}}" id="formButton" name="submit" style="margin-left:50px;margin-bottom:10px;" formmethod="POST">Place Order  with paypal</button><br>
 				</div>
 			</div><br/>
 			
@@ -276,5 +276,34 @@ function getsameAddress(id){
 }
 </script>
 
+<script>
+$(document).ready(function() {
+	$("#codButton").hide();
+	$("#paypalButton").hide();	
+	
+});
+
+$('#cod').click(function(){
+	$("#paypalButton").hide();		
+
+	if($("#cod").prop("checked"))
+	{ 
+		$("#codButton").show();		
+	}
+	
+});
+
+
+$('#paypal').click(function(){
+	$("#codButton").hide();		
+
+	if($("#paypal").prop("checked"))
+	{
+		$("#paypalButton").show();		
+	}
+	
+});
+
+</script>
 
 @include('Eshopper.footer')

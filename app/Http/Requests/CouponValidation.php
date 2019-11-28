@@ -29,6 +29,7 @@ class CouponValidation extends FormRequest
             'code'=>'required|unique:coupons',
             'description'=>'required',
             'discount'=>'required',
+            'quantity'=>'required',
             'type'=>'required',
         ];
         // validation rules for Coupon -End
@@ -47,6 +48,7 @@ class CouponValidation extends FormRequest
             'code.required' => 'Code is required.',
             'description.required' => 'Description is required.',
             'discount.required' => 'Discount is required.',
+            'quantity.required' => 'Quantity is required.',
             'type.required' => 'Type is required.',
         ];
         // validation message for coupon form end

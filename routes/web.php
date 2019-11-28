@@ -218,7 +218,12 @@ Route::get('manageMailChimp', 'MailChimpController@manageMailChimp');
 Route::post('subscribe',['as'=>'subscribe','uses'=>'MailChimpController@subscribe']);
 Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'MailChimpController@sendCompaign']);
 
+// Google Login Route
+Route::get('google', function () {
+    return view('googleAuth');
+});
 
-
+Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
 
 

@@ -17,9 +17,12 @@
 								<h2>${{ $item['price'] }} </h2>
 								<p>{{ $item['product_name'] }}</p>
 								<a href="{{ route('product-details', ['id'=>$item['id']] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
-								<a href="{{ route('cart.add',$item['id'] ) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+								@if($item['quantity']>=1)
+									<a href="{{ route('cart.add',$item['id'] ) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+								@else
+									<a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Out Of Stock</a>
+								@endif
 							</div>
-							
 						</div>
 					</div>
 				</div>

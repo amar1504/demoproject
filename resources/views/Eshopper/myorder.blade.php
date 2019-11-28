@@ -31,7 +31,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                            
+                                <div class="pagination-wrapper"> {{ $orders->links() }} </div>
                             </div>
 
                     </div>
