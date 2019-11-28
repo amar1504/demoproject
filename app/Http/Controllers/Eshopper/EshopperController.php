@@ -288,10 +288,12 @@ class EshopperController extends Controller
         $orders=Order::with('Orders','OrderDetails','Addresses')
                     ->where('id','=',$id)
                     ->get();
+        $orderStatus=OrderDetails::where('order_id','=',$id)
+                    ->first();
         //dd($orders);
         $cms=CMS::where('type','=','footer')->get();
 
-        return view('Eshopper.myorderdetails',['orders'=>$orders,'cms'=>$cms]);
+        return view('Eshopper.myorderdetails',['orders'=>$orders,'status'=>$orderStatus->status,'orderId'=>$id,'cms'=>$cms]);
 
     }
 
