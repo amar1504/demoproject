@@ -6,6 +6,7 @@ use App\User;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleValidate;
+use App\Http\Requests\updateRole;
 class RolesController extends Controller
 {
    
@@ -81,7 +82,7 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(RoleValidate $request, Role $role)
+    public function update(updateRole $request, Role $role)
     {  
         $requestData = $request->all();
         $role->update($requestData);

@@ -19,15 +19,15 @@ Auth::routes();
 Route::get('/home', ['as' => 'home' ,'uses' => 'HomeController@index']);
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('admin/product/create', 'Admin\\ProductController@index'); 
-Route::get('logout', 'Auth\LoginController@logout');
-Route::resource('admin/banner', 'Admin\\BannerController');
-Route::resource('admin/category', 'Admin\\CategoryController');
-Route::resource('admin/cms', 'Admin\\cmsController');
-Route::resource('admin/configuration', 'Admin\\ConfigurationController');
-Route::resource('admin/coupon', 'Admin\\CouponController');
-Route::resource('admin/product', 'Admin\\ProductController');
-Route::resource('admin/roles', 'Admin\\RolesController');
-Route::resource('admin/users', 'Admin\\UsersController');
+//Route::get('logout', 'Auth\LoginController@logout');
+//Route::resource('admin/banner', 'Admin\\BannerController');
+//Route::resource('admin/category', 'Admin\\CategoryController');
+//Route::resource('admin/cms', 'Admin\\cmsController');
+//Route::resource('admin/configuration', 'Admin\\ConfigurationController');
+//Route::resource('admin/coupon', 'Admin\\CouponController');
+//Route::resource('admin/product', 'Admin\\ProductController');
+//Route::resource('admin/roles', 'Admin\\RolesController');
+//Route::resource('admin/users', 'Admin\\UsersController');
 
 
 Route::prefix('/admin')->group(function(){
@@ -48,85 +48,85 @@ Route::prefix('/admin')->group(function(){
 Route::prefix('/admin')->namespace('Admin\\')->group(function(){
     #subcategoey Route
     Route::get('/subcategorylist', 'CategoryController@SubCategoryList')->name('subcateory.list');
-    Route::get('/subcategory/create','CategoryController@createSubcategory')->name('subcategory.create');
+    Route::get('/subcategory/create','CategoryController@createSubcategory')->name('subcategory.create')->middleware('checkRole');
     Route::get('/subcategorydetail/{id?}', 'CategoryController@showSubcategory')->name('subcategory.show');
-    Route::get('/subcategoryedit/{id}', 'CategoryController@editSubcategory')->name('subcategory.edit');
-    Route::post('/subcategoryup/{category}', 'CategoryController@updateSubcategory')->name('subcategory.update');
+    Route::get('/subcategoryedit/{id}', 'CategoryController@editSubcategory')->name('subcategory.edit')->middleware('checkRole');
+    Route::post('/subcategoryup/{category}', 'CategoryController@updateSubcategory')->name('subcategory.update')->middleware('checkRole');
     Route::get('/subcategory/{id?}', 'CategoryController@showSubCat')->name('subcateory.view');
-    Route::post('/subcategorystore', 'CategoryController@storeSubCategory')->name('subcateory.store');
-    Route::post('/subcategorydestroy/{category}', 'CategoryController@destroySubCategory')->name('subcateory.destroy');
+    Route::post('/subcategorystore', 'CategoryController@storeSubCategory')->name('subcateory.store')->middleware('checkRole');
+    Route::post('/subcategorydestroy/{category}', 'CategoryController@destroySubCategory')->name('subcateory.destroy')->middleware('checkRole');
 
     #Banner Route
     Route::get('/banner','BannerController@index')->name('banner.index');
-    Route::post('/banner','BannerController@store')->name('banner.store');
-    Route::GET('/banner/create','BannerController@create')->name('banner.create');
+    Route::post('/banner','BannerController@store')->name('banner.store')->middleware('checkRole');
+    Route::GET('/banner/create','BannerController@create')->name('banner.create')->middleware('checkRole');
     Route::GET('/banner/{banner}','BannerController@show')->name('banner.show');
-    Route::post('/banner/{banner}','BannerController@update')->name('banner.update');
-    Route::delete('/banner/{banner}','BannerController@destroy')->name('banner.destroy');
-    Route::get('/banner/{banner}/edit','BannerController@edit')->name('banner.edit');
+    Route::post('/banner/{banner}','BannerController@update')->name('banner.update')->middleware('checkRole');
+    Route::delete('/banner/{banner}','BannerController@destroy')->name('banner.destroy')->middleware('checkRole');
+    Route::get('/banner/{banner}/edit','BannerController@edit')->name('banner.edit')->middleware('checkRole');
 
     #category Route
     Route::get('/category','CategoryController@index')->name('category.index');
-    Route::post('/category','CategoryController@store')->name('category.store');
-    Route::GET('/category/create','CategoryController@create')->name('category.create');
+    Route::post('/category','CategoryController@store')->name('category.store')->middleware('checkRole');
+    Route::GET('/category/create','CategoryController@create')->name('category.create')->middleware('checkRole');
     Route::GET('/category/{category}','CategoryController@show')->name('category.show');
-    Route::post('/category/{category}','CategoryController@update')->name('category.update');
-    Route::delete('/category/{category}','CategoryController@destroy')->name('category.destroy');
-    Route::get('/category/{category}/edit','CategoryController@edit')->name('category.edit');
+    Route::post('/category/{category}','CategoryController@update')->name('category.update')->middleware('checkRole');
+    Route::delete('/category/{category}','CategoryController@destroy')->name('category.destroy')->middleware('checkRole');
+    Route::get('/category/{category}/edit','CategoryController@edit')->name('category.edit')->middleware('checkRole');
 
     #CMS Route
     Route::get('/cms','cmsController@index')->name('cms.index');
-    Route::post('/cms','cmsController@store')->name('cms.store');
-    Route::GET('/cms/create','cmsController@create')->name('cms.create');
+    Route::post('/cms','cmsController@store')->name('cms.store')->middleware('checkRole');
+    Route::GET('/cms/create','cmsController@create')->name('cms.create')->middleware('checkRole');
     Route::GET('/cms/{cms}','cmsController@show')->name('cms.show');
-    Route::post('/cms/{cms}','cmsController@update')->name('cms.update');
-    Route::delete('/cms/{cms}','cmsController@destroy')->name('cms.destroy');
-    Route::get('/cms/{cms}/edit','cmsController@edit')->name('cms.edit');
+    Route::post('/cms/{cms}','cmsController@update')->name('cms.update')->middleware('checkRole');
+    Route::delete('/cms/{cms}','cmsController@destroy')->name('cms.destroy')->middleware('checkRole');
+    Route::get('/cms/{cms}/edit','cmsController@edit')->name('cms.edit')->middleware('checkRole');
 
     #Configuration Route
     Route::get('/configuration','ConfigurationController@index')->name('configuration.index');
-    Route::post('/configuration','ConfigurationController@store')->name('configuration.store');
-    Route::GET('/configuration/create','ConfigurationController@create')->name('configuration.create');
+    Route::post('/configuration','ConfigurationController@store')->name('configuration.store')->middleware('checkRole');
+    Route::GET('/configuration/create','ConfigurationController@create')->name('configuration.create')->middleware('checkRole');
     Route::GET('/configuration/{configuration}','ConfigurationController@show')->name('configuration.show');
-    Route::post('/configuration/{configuration}','ConfigurationController@update')->name('configuration.update');
-    Route::delete('/configuration/{configuration}','ConfigurationController@destroy')->name('configuration.destroy');
-    Route::get('/configuration/{configuration}/edit','ConfigurationController@edit')->name('configuration.edit');
+    Route::post('/configuration/{configuration}','ConfigurationController@update')->name('configuration.update')->middleware('checkRole');
+    Route::delete('/configuration/{configuration}','ConfigurationController@destroy')->name('configuration.destroy')->middleware('checkRole');
+    Route::get('/configuration/{configuration}/edit','ConfigurationController@edit')->name('configuration.edit')->middleware('checkRole');
    
     #Coupon Route
     Route::get('/coupon','CouponController@index')->name('coupon.index');
-    Route::post('/coupon','CouponController@store')->name('coupon.store');
-    Route::GET('/coupon/create','CouponController@create')->name('coupon.create');
+    Route::post('/coupon','CouponController@store')->name('coupon.store')->middleware('checkRole');
+    Route::GET('/coupon/create','CouponController@create')->name('coupon.create')->middleware('checkRole');
     Route::GET('/coupon/{coupon}','CouponController@show')->name('coupon.show');
-    Route::post('/coupon/{coupon}','CouponController@update')->name('coupon.update');
-    Route::delete('/coupon/{coupon}','CouponController@destroy')->name('coupon.destroy');
-    Route::get('/coupon/{coupon}/edit','CouponController@edit')->name('coupon.edit');
+    Route::post('/coupon/{coupon}','CouponController@update')->name('coupon.update')->middleware('checkRole');
+    Route::delete('/coupon/{coupon}','CouponController@destroy')->name('coupon.destroy')->middleware('checkRole');
+    Route::get('/coupon/{coupon}/edit','CouponController@edit')->name('coupon.edit')->middleware('checkRole');
 
     #Product Route
     Route::get('/product','ProductController@index')->name('product.index');
-    Route::post('/product','ProductController@store')->name('product.store');
-    Route::GET('/product/create','ProductController@create')->name('product.create');
+    Route::post('/product','ProductController@store')->name('product.store')->middleware('checkRole');
+    Route::GET('/product/create','ProductController@create')->name('product.create')->middleware('checkRole');
     Route::GET('/product/{product}','ProductController@show')->name('product.show');
-    Route::post('/product/{product}','ProductController@update')->name('product.update');
-    Route::delete('/product/{product}','ProductController@destroy')->name('product.destroy');
-    Route::get('/product/{product}/edit','ProductController@edit')->name('product.edit');
+    Route::post('/product/{product}','ProductController@update')->name('product.update')->middleware('checkRole');
+    Route::delete('/product/{product}','ProductController@destroy')->name('product.destroy')->middleware('checkRole');
+    Route::get('/product/{product}/edit','ProductController@edit')->name('product.edit')->middleware('checkRole');
 
     #Roles Route
     Route::get('/roles','RolesController@index')->name('roles.index');
-    Route::post('/roles','RolesController@store')->name('roles.store');
-    Route::GET('/roles/create','RolesController@create')->name('roles.create');
+    Route::post('/roles','RolesController@store')->name('roles.store')->middleware('checkRole');
+    Route::GET('/roles/create','RolesController@create')->name('roles.create')->middleware('checkRole');
     Route::GET('/roles/{roles}','RolesController@show')->name('roles.show');
-    Route::post('/roles/{roles}','RolesController@update')->name('roles.update');
-    Route::delete('/roles/{roles}','RolesController@destroy')->name('roles.destroy');
-    Route::get('/roles/{roles}/edit','RolesController@edit')->name('roles.edit');
+    Route::post('/roles/{roles}','RolesController@update')->name('roles.update')->middleware('checkRole');
+    Route::delete('/roles/{roles}','RolesController@destroy')->name('roles.destroy')->middleware('checkRole');
+    Route::get('/roles/{roles}/edit','RolesController@edit')->name('roles.edit')->middleware('checkRole');
 
     #User Route
     Route::get('/users','UsersController@index')->name('users.index');
-    Route::post('/users','UsersController@store')->name('users.store');
-    Route::GET('/users/create','UsersController@create')->name('users.create');
+    Route::post('/users','UsersController@store')->name('users.store')->middleware('checkRole');
+    Route::GET('/users/create','UsersController@create')->name('users.create')->middleware('checkRole');
     Route::GET('/users/{users}','UsersController@show')->name('users.show');
-    Route::post('/users/{users}','UsersController@update')->name('users.update');
-    Route::delete('/users/{users}','UsersController@destroy')->name('users.destroy');
-    Route::get('/users/{users}/edit','UsersController@edit')->name('users.edit');
+    Route::post('/users/{users}','UsersController@update')->name('users.update')->middleware('checkRole');
+    Route::delete('/users/{users}','UsersController@destroy')->name('users.destroy')->middleware('checkRole');
+    Route::get('/users/{users}/edit','UsersController@edit')->name('users.edit')->middleware('checkRole');
 
     #Report Route
     Route::get('/report/sale-report','ReportController@saleReport')->name('sale.report');

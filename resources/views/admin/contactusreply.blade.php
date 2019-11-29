@@ -29,7 +29,8 @@
                                     <form method="POST" action="{{ route('contactus.replyupdate') }}"  >
                                         {{ csrf_field() }}
                                         <input type="hidden" name="contact_id" value="{{ $contact->id }}">
-                                        <tr><th> Reply :</th><td> <textarea rows="5" class="form-control" name="reply" required=""></textarea></td></tr>
+                                        <tr><th> Reply :</th><td> <textarea rows="5" class="form-control" name="reply" ></textarea></td></tr>
+                                        <tr><th></th><td> {!! $errors->first('reply', '<p class="help-block"><font color="red">:message</font></p>') !!}</td></tr>
                                         <tr><th></th><td> <button type="submit" name="submit" class="btn btn-primary" > Send Reply&nbsp;&nbsp;<i class="fa fa-reply"></i></button></td></tr>
                                     </form>
                                     <!-- fetch the contact us detail End-->

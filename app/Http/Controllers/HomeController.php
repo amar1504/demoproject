@@ -12,6 +12,7 @@ use App\ContactUs;
 use App\Mail\Mailtrap;
 use App\OrderDetails;
 use Mail;
+use App\Http\Requests\OrderStatus; 
 
 class HomeController extends Controller
 {
@@ -72,6 +73,9 @@ class HomeController extends Controller
      */
     public function contactUsReplyUpdate(Request $request){
         //dd($request->all());
+        $validatedData=$request->validate([
+            'reply'=>'required',
+            ]);
         $contact=ContactUs::where('id', $request->contact_id)->update(['reply'=>$request->reply]);
         if($contact){
             $id=$request->contact_id;
@@ -125,7 +129,7 @@ class HomeController extends Controller
     /**
      * function to update order status
      */
-    public function updateStatus(Request $request){
+    public function updateStatus(OrderStatus $request){
         $updateStatus=OrderDetails::where('order_id','=',$request->order_id)->update(['status'=>$request->status]);
         $order=OrderDetails::where('order_id','=',$request->order_id)->first();
         $user=User::where('id','=',$order->user_id)->first();

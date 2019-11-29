@@ -31,6 +31,7 @@ class CouponValidation extends FormRequest
             'discount'=>'required',
             'quantity'=>'required',
             'type'=>'required',
+            'status'=>'required',
         ];
         // validation rules for Coupon -End
 
@@ -50,6 +51,7 @@ class CouponValidation extends FormRequest
             'discount.required' => 'Discount is required.',
             'quantity.required' => 'Quantity is required.',
             'type.required' => 'Type is required.',
+            'status.required' => 'Status is required.',
         ];
         // validation message for coupon form end
     }

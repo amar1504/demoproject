@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CouponValidation;
+use App\Http\Requests\updateCoupon;
 
 use App\Coupon;
 use Illuminate\Http\Request;
@@ -91,7 +92,7 @@ class CouponController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(CouponValidation $request, Coupon $coupon)
+    public function update(updateCoupon $request, Coupon $coupon)
     {
         $requestData = $request->all();    
         $coupon->update($requestData);

@@ -34,6 +34,7 @@
                                                     <option value="delivered" @if($orders->OrderDetails->status=='delivered') {{ 'selected' }} @endif>Delivered</option>
                                                     <option value="cancelled" @if($orders->OrderDetails->status=='cancelled') {{ 'selected' }} @endif>Cancelled</option>
                                                 </select>
+                                                {!! $errors->first('status', '<p class="help-block red">:message</p>') !!}
                                             </td>
                                         </tr>
                                         <input type="hidden" name="order_id" value="{{ $orders->id }}">

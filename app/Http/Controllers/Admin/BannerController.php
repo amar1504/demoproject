@@ -96,6 +96,9 @@ class BannerController extends Controller
      */
     public function update(BannerManagementValidation $request,Banner $banner)
     {
+        if($request->file('bannerimage')){
+            dd('yes');
+        }
         $requestData = $request->all();
         if ($request->hasFile('bannerimage')) {
             $requestData['bannerimage'] = $request->file('bannerimage')

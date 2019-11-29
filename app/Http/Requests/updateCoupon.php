@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductValidation extends FormRequest
+class updateCoupon extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,17 +23,16 @@ class ProductValidation extends FormRequest
      */
     public function rules()
     {
-        // validation rules for product validation -start
+        // validation rules for Coupon -start
         return [
-            'category_id'=>'required',
-            'product_name'=>'required',
-            'price'=>'required|numeric',
+            'coupon_title'=>'required',
             'description'=>'required',
-            'product_image'=>'image|max:2048',
+            'discount'=>'required',
             'quantity'=>'required',
-            'status.required' => 'Status is required.',
+            'type'=>'required',
+            'status'=>'required',
         ];
-        // validation rules for product validation -End
+        // validation rules for Coupon -End
 
     }
 
@@ -43,21 +42,16 @@ class ProductValidation extends FormRequest
      */
     public function messages()
     {
-        // validation message for product form start
+        // validation message for Coupon form start
         return [
-            'category_id.required' => 'Category is required.',
-            'product_name.required' => 'Product name is required.',
-            'price.required' => 'Price is required.',
+            'coupon_title.required' => 'Coupon Title is required.',
             'description.required' => 'Description is required.',
+            'discount.required' => 'Discount is required.',
             'quantity.required' => 'Quantity is required.',
+            'type.required' => 'Type is required.',
             'status.required' => 'Status is required.',
-            'product_image.required' => 'Banner image is required.',
-
         ];
-        // validation message for product form end
+        // validation message for coupon form end
     }
-
-
-    
 
 }

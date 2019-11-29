@@ -26,6 +26,7 @@ class RoleValidate extends FormRequest
         // validation for role form start
         return [
             'role_name'=>'required|unique:roles',
+            'status'=>'required',
 
         ];
         // validation for role form end
@@ -39,7 +40,7 @@ class RoleValidate extends FormRequest
         // validation message for role form start
         return [
             'role_name.required' => 'Role name is required.',
-            
+            'status.required' => 'Status is required.',
         ];
         // validation message for role form end
     }

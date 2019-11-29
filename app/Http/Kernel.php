@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'acl' => 'Kodeine\Acl\Middleware\HasPermission',
         
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'checkRole'=> \App\Http\Middleware\CheckRoleMiddleware::class,
     ];
 
     

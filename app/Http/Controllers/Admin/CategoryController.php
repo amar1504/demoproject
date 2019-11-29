@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryValidation;
+use App\Http\Requests\updateCategory;
 use App\Category;
 use App\ProductCategory;
 use Illuminate\Http\Request;
@@ -104,7 +105,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(CategoryValidation $request, Category $category)
+    public function update(updateCategory $request, Category $category)
     {
         $requestData = $request->all();
         $category->update($requestData);
@@ -185,7 +186,7 @@ class CategoryController extends Controller
     /**
      * Update Specified subcategory
      */
-    public function updateSubcategory(CategoryValidation $request, Category $category)
+    public function updateSubcategory(updateCategory $request, Category $category)
     {
         $requestData = $request->all();
         $a=$category->update($requestData);

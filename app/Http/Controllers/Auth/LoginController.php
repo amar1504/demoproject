@@ -56,7 +56,7 @@ class LoginController extends Controller
             return redirect('eshopper');
         }
         else{
-            return view('auth.login');
+            return redirect('login');
         }
     }
 

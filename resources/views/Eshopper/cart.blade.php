@@ -7,6 +7,13 @@
 				  <li class="active">Shopping Cart</li>
 				</ol>
 			</div>
+			<!-- Display flash Message in alert start -->
+			
+				<div class="alert alert-danger text-center">
+					<strong id="cartResponse"></strong>
+				</div>
+			
+			<!-- Display flash Message in alert End -->		
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
@@ -131,6 +138,7 @@
 <script>
 $(document).ready(function(){
 	$(".fa-spin").hide();
+	$(".alert").hide();
 });
 /**
  * function to add item using ajax
@@ -150,7 +158,9 @@ function additems(id, selector){
 		success:function(data) {
 			if(data.errormsg)
 			{
-				alert(data.errormsg);
+				//alert(data.errormsg);
+				$(".alert").show();
+				$("#cartResponse").html(data.errormsg);
 				
 			}
 			else{
@@ -196,8 +206,9 @@ function removeitems(id, selector){
 		success:function(data) {
 			if(data.errormsg =="You Cannot minimize the quantity")
 			{
-				alert(data.errormsg);
-				//$("#coupon_msg").html(`<br/><font color="red">`+data.error_msg+`</font>`);
+				//alert(data.errormsg);
+				$(".alert").show();
+				$("#cartResponse").html(data.errormsg);
 				//console.log(data.error_msg);
 			}
 			else{

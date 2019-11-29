@@ -8,7 +8,14 @@
             <div class="col-md-7">
                 <div class="box box-primary">
                     <div class="box-body">
-
+                         <!-- Display flash Message in alert start -->
+                         @if (session()->has('message'))
+                            <div class="alert alert-warning">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+                        <!-- Display flash Message in alert End -->
+                        
                         <!--@if ($errors->any())
                             <ul class="alert alert-danger">
                                 @foreach ($errors->all() as $error)

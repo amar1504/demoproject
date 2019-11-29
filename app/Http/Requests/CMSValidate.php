@@ -27,6 +27,7 @@ class CMSValidate extends FormRequest
         return [
             'title'=>'required',
             'description'=>'required',
+            'type'=>'required',
             'status'=>'required',
         ];
         // validation for user form End
@@ -43,6 +44,7 @@ class CMSValidate extends FormRequest
         return [
             'title.required' => 'Title is required.',
             'description.required' => 'Description is required.',
+            'type.required' => 'Type is required.',
             'status.required' => 'Status is required.',
         ];
         // validation message for user form end

@@ -16,10 +16,10 @@
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
     <label for="status" class="control-label">{{ 'Status' }} <font color="red">*</font></label>
     <div class="radio">
-    <label><input name="status" type="radio" value="1" {{ (isset($category) && 1 == $category->status) ? 'checked' : '' }} required=""> Active</label>
+    <label><input name="status" type="radio" value="1" {{(old('status') == '1') ? 'checked' : ''}} {{ (isset($category) && 1 == $category->status) ? 'checked' : '' }} required=""> Active</label>
 </div>
 <div class="radio">
-    <label><input name="status" type="radio" value="0" {{ (isset($category) && 0 == $category->status) ? 'checked' : '' }} > Inactive</label>
+    <label><input name="status" type="radio" value="0" {{(old('status') == '0') ? 'checked' : ''}} {{ (isset($category) && 0 == $category->status) ? 'checked' : '' }} > Inactive</label>
 </div>
     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
 </div>

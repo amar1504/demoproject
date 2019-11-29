@@ -4,7 +4,7 @@
     {!! $errors->first('coupon_title', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('code') ? 'has-error' : ''}}">
-    <label for="code" class="control-label">{{ 'Code' }} <font color="red">*</font></label>
+    <label for="code" class="control-label">{{ 'Code' }}  @if( !isset($coupon)) {!! '<font color="red">*</font>' !!} @endif</label>
     <input class="form-control" name="code" type="text" id="code" value="{{ isset($coupon->code) ? $coupon->code : old('code')}}"  required="">
     {!! $errors->first('code', '<p class="help-block">:message</p>') !!}
 </div>
@@ -42,10 +42,10 @@
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
     <label for="status" class="control-label">{{ 'Status' }} <font color="red">*</font></label>
     <div class="radio">
-    <label><input name="status" type="radio" value="1" {{ (isset($coupon) && 1 == $coupon->status) ? 'checked' : '' }} required=""> Active</label>
+    <label><input name="status" type="radio" value="1" {{(old('status') == '1') ? 'checked' : ''}} {{ (isset($coupon) && 1 == $coupon->status) ? 'checked' : '' }} required=""> Active</label>
 </div>
 <div class="radio">
-    <label><input name="status" type="radio" value="0" {{ (isset($coupon) && 0 == $coupon->status) ? 'checked' : '' }} > Inactive</label>
+    <label><input name="status" type="radio" value="0" {{(old('status') == '0') ? 'checked' : ''}} {{ (isset($coupon) && 0 == $coupon->status) ? 'checked' : '' }} > Inactive</label>
 </div>
     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
 </div>

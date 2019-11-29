@@ -9,28 +9,28 @@
     {!! $errors->first('lastname', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
-    <label for="email" class="control-label">{{ 'Email' }} <font color="red">*</font></label>
+    <label for="email" class="control-label">{{ 'Email' }}  @if( !isset($user)) {!! '<font color="red">*</font>' !!} @endif</label>
     <input class="form-control" name="email" type="text" id="email" value="{{ isset($user->email) ? $user->email : old('email')}}"  data-parsley-type="email" required="">
     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
-    <label for="password" class="control-label">{{ 'Password' }} <font color="red">*</font></label>
-    <input class="form-control" name="password" type="password" id="password" value="{{old('password')}}" data-parsley-length="[8, 12]" required="">
+    <label for="password" class="control-label">{{ 'Password' }} @if( !isset($user)) {!! '<font color="red">*</font>' !!} @endif</label>
+    <input class="form-control" name="password" type="password" id="password" value="{{old('password')}}" data-parsley-length="[8, 12]" @if( !isset($user)) {{ "required=true" }} @endif >
     {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group {{ $errors->has('confirmpassword') ? 'has-error' : ''}}">
-    <label for="confirm password" class="control-label">{{ 'Confirm Password' }} <font color="red">*</font></label>
-    <input class="form-control" name="confirmpassword" type="password" id="confirmpassword" value="{{old('confirmpassword')}}" data-parsley-equalto="#password"  required="">
+    <label for="confirm password" class="control-label">{{ 'Confirm Password' }} @if( !isset($user)) {!! '<font color="red">*</font>' !!} @endif</label>
+    <input class="form-control" name="confirmpassword" type="password" id="confirmpassword" value="{{old('confirmpassword')}}" data-parsley-equalto="#password"  @if( !isset($user)) {{ "required=true" }} @endif >
     {!! $errors->first('confirmpassword', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
     <label for="status" class="control-label">{{ 'Status' }} <font color="red">*</font></label>
     <div class="radio">
-    <label><input name="status" type="radio" value="1" {{ (isset($user) && 1 == $user->status) ? 'checked' : '' }} required=""> Active</label>
+    <label><input name="status" type="radio" value="1" {{(old('status') == '1') ? 'checked' : ''}} {{ (isset($user) && 1 == $user->status) ? 'checked' : '' }} required=""> Active</label>
 </div>
 <div class="radio">
-    <label><input name="status" type="radio" value="0" {{ (isset($user) && 0 == $user->status) ? 'checked' : '' }} > Inactive</label>
+    <label><input name="status" type="radio" value="0" {{(old('status') == '0') ? 'checked' : ''}} {{ (isset($user) && 0 == $user->status) ? 'checked' : '' }} > Inactive</label>
 </div>
     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
 </div>

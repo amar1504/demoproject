@@ -48,6 +48,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+       /* if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) {
+            return redirect()->back()->with('message', 'Image size is too Large');
+        }*/
         if ($this->isHttpException($exception)) {
 
             if ($exception->getStatusCode() == 404) {

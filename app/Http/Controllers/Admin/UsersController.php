@@ -12,6 +12,7 @@ use Mail;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUser;
+use App\Http\Requests\updateUser;
 
 class UsersController extends Controller
 {
@@ -131,7 +132,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(StoreUser $request,User $user)
+    public function update(updateUser $request,User $user)
     {
         $requestData = $request->all();
         if ($request->hasFile('image')) {

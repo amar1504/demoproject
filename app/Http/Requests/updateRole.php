@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryValidation extends FormRequest
+class updateRole extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,37 +16,32 @@ class CategoryValidation extends FormRequest
         return true;
     }
 
-    /**
+     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-
-     
     public function rules()
     {
-
-        // validation rules for Catgory form start
+        // validation for role form start
         return [
-            'category_name'=>'required|unique:categories',
             'status'=>'required',
 
         ];
-
-        // validation rules for Catgory form start
+        // validation for role form end
     }
-    
 
     /**
      * function to display message for validation
      */
     public function messages()
     {
-        // validation message for Catgory form start
+        // validation message for role form start
         return [
-            'category_name.required' => 'Category name is required.',
             'status.required' => 'Status is required.',
+            
         ];
-        // validation message for Category form end
+        // validation message for role form end
     }
+
 }

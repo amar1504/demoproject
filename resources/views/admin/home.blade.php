@@ -8,7 +8,13 @@
                 <div class="card-body">
                 <div class="row mg">
                     <br/><br/>
-
+                        <!-- Display flash Message in alert start -->
+                        @if (session('flash_message'))
+                            <div class="alert alert-danger text-center">
+                                {{ session('flash_message') }}
+                            </div>
+                        @endif
+                        <!-- Display flash Message in alert End -->
                         <div class="col-xs-3 text-center circle">
                             <input type="text" class="knob" data-readonly="true" value="{{ $userCount }} " data-width="60" data-height="60"
                                 data-fgColor="#39CCCC">
