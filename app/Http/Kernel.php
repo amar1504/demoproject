@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
         
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'checkRole'=> \App\Http\Middleware\CheckRoleMiddleware::class,
+        'sessionTimeOut'=> \App\Http\Middleware\SessionTimeoutMiddleware::class,
     ];
 
     

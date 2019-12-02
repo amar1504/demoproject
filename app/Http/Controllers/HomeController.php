@@ -112,8 +112,9 @@ class HomeController extends Controller
         $orders=Order::with('Orders','OrderDetails','Addresses')
                     ->where('id','=',$id)
                     ->get();
-        //dd($orders);
-        return view('admin.myorderdetails',['orders'=>$orders]);
+        $coupon=Coupon::whereId($orders[0]->coupon_id)->first();
+        //dd($coupon);
+        return view('admin.myorderdetails',['orders'=>$orders,'coupon'=>$coupon]);
 
     }
 

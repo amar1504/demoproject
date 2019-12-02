@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Cookie\CookieJar;
 use Auth;
+use Cookie;
 use App\Role;
 use App\User;
 use Socialite;
@@ -53,10 +55,12 @@ class LoginController extends Controller
         $role=Role::findOrFail($roleId);
         Auth::logout();
         if ($role->role_name == 'customer') {
-            return redirect('eshopper');
+            $request->session()->flush();
+            return redirect()->route('userlogin')->with('info','You have been logged out.');
         }
         else{
-            return redirect('login');
+            $request->session()->flush();
+            return redirect('login')->with('info','You have been logged out.');
         }
     }
 
@@ -65,6 +69,8 @@ class LoginController extends Controller
      */
     public function redirectTo() 
     {
+        Cookie::queue(Cookie::make('user_id', Auth::user()->id));
+        //dd($cookie);
         $roleId=auth()->user()->roles; 
         $role=Role::findOrFail($roleId);
         //echo $role->role_name;  //dd($role);

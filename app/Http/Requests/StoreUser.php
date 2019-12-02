@@ -30,6 +30,7 @@ class StoreUser extends FormRequest
             'email'=>'required|email|unique:users',
             'password'=>'required|alpha_num|between:8,12',
             'confirmpassword'=>'required|alpha_num|between:8,12|same:password',
+            'image'=>'image|max:2048',
             'status'=>'required',
         ];
         // validation for user form End

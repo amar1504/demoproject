@@ -2619,3 +2619,7 @@ h2.title {
   .progressbar li.active + li:after {
       background-color: #55b776;
   }
+
+  .red{
+    color:red;
+  }

@@ -36,7 +36,7 @@
 </div>
 <div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
     <label for="image" class="control-label">{{ 'Image' }} </label>
-    <input class="" name="image" type="file" id="image" value="{{ isset($user->image) ? $user->image : ''}}" >
+    <input class="" name="image" type="file" id="image" value="{{ isset($user->image) ? $user->image : ''}}" data-parsley-max-file-size="2048" >
     {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('roles') ? 'has-error' : ''}}">

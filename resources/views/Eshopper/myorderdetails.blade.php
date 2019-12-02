@@ -75,7 +75,30 @@
                                 
 
                                 <tr>
-                                    <td colspan="3">&nbsp;</td>
+                                    <td colspan="3">
+                                        @if($coupon!="")
+                                        <table class="table table-bordered ">
+                                            <tr>
+                                                <th colspan="3" class="text-center">Coupon Discount Details:</th>
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td>Coupon Id:</td>
+                                                <td class="col-md-6">#{{ $coupon->id }}</td>
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td>Coupon Title:</td>
+                                                <td class="col-md-6">{{ $coupon->coupon_title }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Coupon code:</td>
+                                                <td class="col-md-6">{{ $coupon->code }}</td>
+                                            </tr>
+                                                
+                                        </table>
+                                        @endif
+                                    </td>
                                     <td colspan="2">
                                         <table class="table table-bordered ">
                                             <tr>

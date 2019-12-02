@@ -32,6 +32,13 @@
   <div class="login-logo">
     <a href="../../index2.html"><b>Admin</b>LTE</a>
   </div>
+  <!-- Display flash Message in alert start -->
+  @if (session('info'))
+      <div class="alert alert-info text-center">
+          {{ session('info') }}
+      </div>
+  @endif
+  <!-- Display flash Message in alert End -->
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>

@@ -26,12 +26,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::resource('admin/configuration', 'Admin\\ConfigurationController');
 //Route::resource('admin/coupon', 'Admin\\CouponController');
 //Route::resource('admin/product', 'Admin\\ProductController');
-//Route::resource('admin/roles', 'Admin\\RolesController');
-//Route::resource('admin/users', 'Admin\\UsersController');
+Route::resource('admin/roles', 'Admin\\RolesController');
+Route::resource('admin/users', 'Admin\\UsersController');
 
 
 Route::prefix('/admin')->group(function(){
-
+    Route::middleware(['sessionTimeOut'])->group(function () {
     #contact us admin Route
     Route::get('/contact-us','HomeController@contactUsList')->name('contactus.list');
     Route::get('/contact-us/{id?}','HomeController@contactUsShow')->name('contactus.show');
@@ -41,11 +41,12 @@ Route::prefix('/admin')->group(function(){
     Route::get('/orders/details/{id?}','HomeController@customerOrderDetails')->name('order.details');
     Route::get('/orders/change-status/{id?}','HomeController@changeStatus')->name('order.changestatus');
     Route::post('/orders/update-status','HomeController@updateStatus')->name('order.updatestatus');
-
+    });
 });
 
 
 Route::prefix('/admin')->namespace('Admin\\')->group(function(){
+    Route::middleware(['sessionTimeOut'])->group(function () {
     #subcategoey Route
     Route::get('/subcategorylist', 'CategoryController@SubCategoryList')->name('subcateory.list');
     Route::get('/subcategory/create','CategoryController@createSubcategory')->name('subcategory.create')->middleware('checkRole');
@@ -133,7 +134,7 @@ Route::prefix('/admin')->namespace('Admin\\')->group(function(){
     Route::get('/report/cutomer-report','BargraphContoller@index')->name('customer.report');
     Route::get('/report/coupon-report','ReportController@couponReport')->name('coupon.report');
 
-
+    });
 
 });
 
@@ -142,9 +143,10 @@ Route::any('/getproduct','Eshopper\\EshopperController@featuresItem')->name('get
 Route::get('eshopper', 'Eshopper\\EshopperController@index')->name('eshopper');
 
 Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
-
+   
     #Login Route
     Route::get('/login','EshopperController@userLogin')->name('userlogin');
+    Route::middleware(['sessionTimeOut'])->group(function () {
     Route::get('/product/{id?}','EshopperController@product')->name('product');
     
     #Eshopper forgot password Route
@@ -190,12 +192,12 @@ Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
     Route::post('/cart/coupon','CartController@coupon')->name('cart.coupon');
     Route::post('/cart/checkout/items','CartController@checkout')->name('cart.checkout');
     Route::post('/cart/store/order','CartController@storeOrder')->name('cart.storeorder');
-
+    });
 });
 
 
 Route::prefix('/eshopper')->namespace('Eshoppeer\\')->group(function(){
-
+    Route::middleware(['sessionTimeOut'])->group(function () {
     #shipping address Route
     Route::resource('/address', 'AddressController');
     Route::post('/address', 'AddressController@store')->name('address.store');
@@ -205,7 +207,7 @@ Route::prefix('/eshopper')->namespace('Eshoppeer\\')->group(function(){
     Route::put('/address/{address}', 'AddressController@update')->name('address.update');
     Route::get('/address/{address}', 'AddressController@show')->name('address.show');
     Route::get('/address/{address}/edit', 'AddressController@edit')->name('address.edit');
-
+    });
 });
 
 // Paypal Route

@@ -23,14 +23,14 @@ class CMSValidate extends FormRequest
      */
     public function rules()
     {
-        // validation for user form start
+        // validation for CMS form start
         return [
             'title'=>'required',
             'description'=>'required',
             'type'=>'required',
             'status'=>'required',
         ];
-        // validation for user form End
+        // validation for CMS form End
     }
 
 

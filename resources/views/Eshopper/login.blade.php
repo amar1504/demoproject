@@ -5,6 +5,13 @@
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
+					 	<!-- Display flash Message in alert start -->
+						@if (session('info'))
+							<div class="alert alert-info text-center">
+								{{ session('info') }}
+							</div>
+						@endif
+						<!-- Display flash Message in alert End -->
 						<h2>Login to your account</h2>
 						<!-- <a href="{{ url('auth/google') }}" class="btn btn-lg btn-primary btn-block">
 						<strong>Login With Google</strong></a> -->

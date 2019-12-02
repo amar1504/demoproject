@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Eshoppeer;
 
 use App\Http\Requests;
+use App\Http\Requests\AddressValidation;
 use App\Http\Controllers\Controller;
 use App\Address;
 use Illuminate\Http\Request;
@@ -71,11 +72,9 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(AddressValidation $request)
     {
-        
         $requestData = $request->all();
-        
         Address::create($requestData);
 
         return redirect('eshopper/address')->with('flash_message', 'Address added!');
@@ -122,7 +121,7 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Address $address)
+    public function update(AddressValidation $request, Address $address)
     {
         $requestData = $request->all();   
         $address->update($requestData);

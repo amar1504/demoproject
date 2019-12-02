@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Eshopper;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TrackOrderValidation;
+use App\Http\Requests\UserProfileValidation;
+use App\Http\Requests\UpdatePasswordValidation;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Product;
@@ -20,6 +23,7 @@ use App\Mail\Mailtrap;
 use Auth;
 use Mail;
 use App\Wishlist;
+use App\Coupon;
 use Hash;
 class EshopperController extends Controller
 {
@@ -226,7 +230,7 @@ class EshopperController extends Controller
     /**
      * function to update user profile details
      */
-    public function userProfileUpdate(Request $request){
+    public function userProfileUpdate(UserProfileValidation $request){
         //dd($request->all());
         $userData['firstname']=$request->firstname;
         $userData['lastname']=$request->lastname;
@@ -247,7 +251,7 @@ class EshopperController extends Controller
     /**
      * function to update user password
      */
-    public function updatePassword(Request $request){
+    public function updatePassword(UpdatePasswordValidation $request){
 
         if (!(Hash::check($request->oldpassword, Auth::user()->password))) {
             return redirect()->back()->with("flash_message","Your current password does not matches with the password you provided. Please try again.");
@@ -290,10 +294,12 @@ class EshopperController extends Controller
                     ->get();
         $orderStatus=OrderDetails::where('order_id','=',$id)
                     ->first();
+        $coupon=Coupon::whereId($orders[0]->coupon_id)
+                    ->first();
         //dd($orders);
         $cms=CMS::where('type','=','footer')->get();
 
-        return view('Eshopper.myorderdetails',['orders'=>$orders,'status'=>$orderStatus->status,'orderId'=>$id,'cms'=>$cms]);
+        return view('Eshopper.myorderdetails',['orders'=>$orders,'status'=>$orderStatus->status,'orderId'=>$id,'cms'=>$cms,'coupon'=>$coupon]);
 
     }
 
@@ -309,7 +315,7 @@ class EshopperController extends Controller
     /**
      * function to track order
      */
-    public function trackOrder(Request $request){
+    public function trackOrder(TrackOrderValidation $request){
         $email=$request->email;
         $orderId=$request->order_id;
         

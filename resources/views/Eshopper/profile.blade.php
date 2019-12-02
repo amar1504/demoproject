@@ -21,17 +21,17 @@
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name" class="control-label">{{ 'Firstname' }} <font color="red">*</font></label>
                                 <input class="form-control" name="firstname" type="text" id="name" value="{{ Auth::user()->firstname }}" data-parsley-pattern="^[a-zA-Z]+$" required="">
-                                {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                {!! $errors->first('firstname', '<p class="help-block red">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name" class="control-label">{{ 'Lastname' }} <font color="red">*</font></label>
                                 <input class="form-control" name="lastname" type="text" id="name" value="{{ Auth::user()->lastname }}" data-parsley-pattern="^[a-zA-Z]+$" required="">
-                                {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                {!! $errors->first('lastname', '<p class="help-block red">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name" class="control-label">{{ 'Email' }} <font color="red">*</font></label>
                                 <input class="form-control" name="email" type="text" id="name" value="{{ Auth::user()->email }}" data-parsley-type="email" required="">
-                                {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                {!! $errors->first('email', '<p class="help-block red">:message</p>') !!}
                             </div>
                             <input type="submit" class="btn btn-primary" value="Update Profile">
                         </form>

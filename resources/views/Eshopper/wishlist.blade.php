@@ -30,14 +30,14 @@
 											<p>{{ $product->product_name}}</p>
 											<!-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
 										</div>
-										<!-- <div class="product-overlay">
+										<div class="product-overlay">
 											<div class="overlay-content">
 											<h2>${{ $product->price}}</h2>
 											<p>{{ $product->product_name}}</p>
-												<a href="{{ route('product-details', ['id'=>$prod->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
-												<a href="{{ route('cart.add',$prod->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="{{ route('product-details', [$prod->product_id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
+												<!-- <a href="{{ route('cart.add',$prod->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
 											</div>
-                                        </div> -->
+                                        </div> 
                                     @endforeach
 								</div>
 								<!-- <div class="choose">

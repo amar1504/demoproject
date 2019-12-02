@@ -21,17 +21,17 @@
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name" class="control-label">{{ 'Current Password' }} <font color="red">*</font></label>
                                 <input class="form-control" name="oldpassword" type="password" id="oldpassword" data-parsley-length="[8, 12]" data-parsley-type="alphanum"	 value="" required="">
-                                {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                {!! $errors->first('oldpassword', '<p class="help-block red">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name" class="control-label">{{ 'New Password' }} <font color="red">*</font></label>
                                 <input class="form-control" name="newpassword" type="password" id="newpassword" value="" data-parsley-length="[8, 12]" data-parsley-type="alphanum"	 required="">
-                                {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                {!! $errors->first('newpassword', '<p class="help-block red">:message</p>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                                 <label for="name" class="control-label">{{ 'Confirm Password' }} <font color="red">*</font></label>
                                 <input class="form-control" name="confirmpassword" type="password" id="confirmpassword" value=""  data-parsley-equalto="#newpassword" required="">
-                                {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                {!! $errors->first('confirmpassword', '<p class="help-block red">:message</p>') !!}
                             </div>
                             <input type="submit" class="btn btn-primary" value="Change Password">
                         </form>
