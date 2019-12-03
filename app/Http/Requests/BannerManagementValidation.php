@@ -27,6 +27,7 @@ class BannerManagementValidation extends FormRequest
         return [
             'title'=>'required',
             'bannerimage'=>'image|max:2048',
+            'status'=>'required',
 
         ];
         // validation for banner form end
@@ -42,6 +43,7 @@ class BannerManagementValidation extends FormRequest
         return [
             'title.required' => 'Title is required.',
             'bannerimage.required' => 'Banner image is required.',
+            'status.required' => 'Status is required.',
         ];
         // validation message for banner form end
     }

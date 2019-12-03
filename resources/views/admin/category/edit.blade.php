@@ -18,7 +18,7 @@
                         @endif-->
 
                         <form method="POST" action="{{ route('category.update',$category->id) }}" data-parsley-validate="" accept-charset="UTF-8" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                            
                             {{ csrf_field() }}
 
                             @include ('admin.category.form', ['formMode' => 'edit'])

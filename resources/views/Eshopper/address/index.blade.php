@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 text-center">
-                                    <form method="GET" action="{{ url('/eshopper/address') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                                    <form method="GET" action="{{ route('address.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                                         <div class="input-group row">
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
@@ -31,9 +31,16 @@
                                     </a>
                                 </div>
                             </div>
-                       
-                        <br/>
-                        <br/>
+                            <br/>
+                            <br/>
+                            <!-- Display flash Message in alert start -->
+                            @if (session('flash_message'))
+                                <div class="alert alert-success text-center">
+                                    {{ session('flash_message') }}
+                                </div>
+                            @endif
+                            <!-- Display flash Message in alert End -->
+                        
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -42,24 +49,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($address as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->address1 }}</td>
-                                        <td>{{ $item->city.' / '.$item->state }}</td>
-                                        <td>
-                                            <a href="{{ route('address.show',['address'=>$item->id]) }}" title="View Address"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ route('address.edit',['address'=>$item->id])  }}" title="Edit Address"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                @if(count($address) < 1 )
+                                    <div class='alert alert-danger text-center'>No Records Found !</div>
+                                @else
+                                    @foreach($address as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->address1 }}</td>
+                                            <td>{{ $item->city.' / '.$item->state }}</td>
+                                            <td>
+                                                <a href="{{ route('address.show',['address'=>$item->id]) }}" title="View Address"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                                <a href="{{ route('address.edit',['address'=>$item->id])  }}" title="Edit Address"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
-                                            <form method="POST" action="{{ route('address.destroy',['address'=>$item->id]) }}" accept-charset="UTF-8" style="display:inline">
-                                                {{ method_field('DELETE') }}
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete Address" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                <form method="POST" action="{{ route('address.destroy',['address'=>$item->id]) }}" accept-charset="UTF-8" style="display:inline">
+                                                    {{ method_field('DELETE') }}
+                                                    {{ csrf_field() }}
+                                                    <button type="submit" class="btn btn-danger btn-xs" title="Delete Address" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                             <div class="pagination-wrapper"> {!! $address->appends(['search' => Request::get('search')])->render() !!} </div>

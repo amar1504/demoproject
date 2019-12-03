@@ -24,7 +24,7 @@ class AddressValidation extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|alpha',
+            'name'=>'required',
             'address1'=>'required',
             'country'=>'required|alpha',
             'state'=>'required|alpha',

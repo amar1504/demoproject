@@ -24,6 +24,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            @if(count($orders) < 1)
+                                                <tr>
+                                                <div class="alert alert-danger text-center">
+                                                    No Records Found !
+                                                </div>
+                                                </tr>
+                                            @else
+                                            <!-- fetch all Order records -start -->
                                             @foreach($orders as $item)
                                                 <tr class="text-center">
                                                     <td>{{ $loop->iteration }}</td>
@@ -35,6 +43,8 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                            <!-- fetch all Order records -end -->
+                                            @endif
                                             </tbody>
                                         </table>
                                     <div class="pagination-wrapper"> {{ $orders->links() }} </div>

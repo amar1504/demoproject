@@ -9,6 +9,9 @@
                 <div class="card ">
                         <div class="card-body">
                             <div class="col-md-10 col-md-offset-2 text-center">
+                              @if($totalCoupons=="" && $usedCoupons=="" && $unUsedCoupons=="" )
+                                <div class='alert alert-danger text-center'>No Records Found !</div>
+                              @endif
                                <input type="hidden" id="totalCoupon" value="{{ $totalCoupons }}">
                                <input type="hidden" id="usedCoupon" value="{{ $usedCoupons }}">
                                <input type="hidden" id="unUsedCoupon" value="{{ $unUsedCoupons }}">

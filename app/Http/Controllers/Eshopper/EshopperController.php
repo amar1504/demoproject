@@ -35,26 +35,50 @@ class EshopperController extends Controller
                         ->where([['parent_id','=',0],['status','=','1']])
                         ->get();
 
-        $banner=Banner::where([['status','=','1']])->get();
+        $banner=Banner::where([['status','=','1']])->take(3)->get();
 
         $product=Product::with('ProductCategory','ProductCategory.Category','ProductImage')
                         ->where([['status','=','1']])
-                        ->orderBy('id','DESC')
-                        ->take(9)
-                        ->get();        
-
+                        ->orderBy('id','DESC');
+        if(count($product) < 9)
+        {
+            $product=$product->get();
+        }else{
+            $product=$product->take(9)
+            ->get();             
+        }                
+        
         $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')
                                     ->where([['status','=','1']])
-                                    ->orderBy('id','DESC')
-                                    ->get()
-                                    ->random(9);        
-
-        $recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
+                                    ->orderBy('id','DESC');
+                                          
+        if(count($recommendedproduct) < 9)
+        {
+            $recommendedproduct=$recommendedproduct->get();   
+        }else{
+            $recommendedproduct=$recommendedproduct->get()->random(9);          
+        } 
         
-        $randomsubcategory=Category::where([['parent_id','!=',0],['status','=','1']])
-                                    ->get()
-                                    ->random(7);        
+        if(count($recommendedproduct) >= 3)
+        {
+            $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
   
+        }
+        else{
+            $recommendedproductCount=count($recommendedproduct);
+            $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), $recommendedproductCount);
+   
+        }
+       // dd($recommendedproduct);
+
+        $randomsubcategory=Category::where([['parent_id','!=',0],['status','=','1']]);        
+        if(count($randomsubcategory)< 7){
+            $randomsubcategory=$randomsubcategory->get();
+        }
+        else{
+            $randomsubcategory=$randomsubcategory->get()->random(7);
+        }
+
         if(request()->dev==1){ dd($randomsubcategory->toArray()); }
         //dd($mencategory);
         $subcategorycount=Category::with('products')
@@ -106,16 +130,35 @@ class EshopperController extends Controller
         $givencategory=Category::where([['id','=',$id],['status','=','1']])->first();
         
         $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')
-                                    ->where([['status','=','1']])
-                                    ->orderBy('id','DESC')
-                                    ->get()
-                                    ->random(9);        
-        
-        $recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
-        
-        $randomsubcategory=Category::where([['parent_id','!=',0],['status','=','1']])
-                                    ->get()
-                                    ->random(7);        
+        ->where([['status','=','1']])
+        ->orderBy('id','DESC');
+              
+        if(count($recommendedproduct) < 9)
+        {
+        $recommendedproduct=$recommendedproduct->get();   
+        }else{
+        $recommendedproduct=$recommendedproduct->get()->random(9);          
+        } 
+
+        if(count($recommendedproduct) >= 3)
+        {
+        $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
+
+        }
+        else{
+        $recommendedproductCount=count($recommendedproduct);
+        $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), $recommendedproductCount);
+
+        }
+        // dd($recommendedproduct);
+
+        $randomsubcategory=Category::where([['parent_id','!=',0],['status','=','1']]);        
+        if(count($randomsubcategory)< 7){
+        $randomsubcategory=$randomsubcategory->get();
+        }
+        else{
+        $randomsubcategory=$randomsubcategory->get()->random(7);
+        }
         
         $subcategorycount=Category::with('products')
                                     ->where([['parent_id','!=',0],['status','=','1']])
@@ -166,16 +209,35 @@ class EshopperController extends Controller
         // dd($givencategory);     
 
         $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')
-                                    ->where([['status','=','1']])
-                                    ->orderBy('id','DESC')
-                                    ->get()
-                                    ->random(9);        
-        
-        $recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
-        
-        $randomsubcategory=Category::where([['parent_id','!=',0],['status','=','1']])
-                                    ->get()
-                                    ->random(7);        
+        ->where([['status','=','1']])
+        ->orderBy('id','DESC');
+              
+        if(count($recommendedproduct) < 9)
+        {
+        $recommendedproduct=$recommendedproduct->get();   
+        }else{
+        $recommendedproduct=$recommendedproduct->get()->random(9);          
+        } 
+
+        if(count($recommendedproduct) >= 3)
+        {
+        $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
+
+        }
+        else{
+        $recommendedproductCount=count($recommendedproduct);
+        $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), $recommendedproductCount);
+
+        }
+        // dd($recommendedproduct);
+
+        $randomsubcategory=Category::where([['parent_id','!=',0],['status','=','1']]);        
+        if(count($randomsubcategory)< 7){
+        $randomsubcategory=$randomsubcategory->get();
+        }
+        else{
+        $randomsubcategory=$randomsubcategory->get()->random(7);
+        }   
         
         $subcategorycount=Category::with('products')
                                     ->where([['parent_id','!=',0],['status','=','1']])

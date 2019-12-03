@@ -9,10 +9,13 @@
                 <div class="card ">
                         <div class="card-body">
                             <div class="col-md-10 col-md-offset-2 text-center">
+                              @if($order=="" && $orderCod=="" && $orderPaypal=="" )
+                                <div class='alert alert-danger text-center'>No Records Found !</div>
+                              @endif
                                <input type="hidden" id="ordercount" value=" {{ $order }}">
                                <input type="hidden" id="cod" value=" {{ $orderCod }}">
                                <input type="hidden" id="paypal" value=" {{ $orderPaypal }}">
-                               <div class="panel">
+                              <div class="panel">
                                   <div class="panel-heading">Sale Report</div>
                                     <div class="panel-body">
                                         <div id="piechart"></div>

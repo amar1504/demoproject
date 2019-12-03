@@ -1,56 +1,62 @@
 <div class="col-sm-9 padding-right" id="features_items">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						@foreach($product as $prod)
-						
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-										<div class="productinfo text-center">
-											<img src="{{asset('storage/'.$prod->ProductImage->first()->product_image)}}" class="imgsize" alt="" />
-											<h2>${{$prod->price}}</h2>
-											<p>{{$prod->product_name}}</p>
-											<!-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
-										</div>
-										<div class="product-overlay">
-											<div class="overlay-content">
-											<h2>${{$prod->price}}</h2>
-											<p>{{$prod->product_name}}</p>
-												<a href="{{ route('product-details', ['id'=>$prod->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
-												@if($prod->quantity >=1)
-													<a href="{{ route('cart.add',$prod->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												@else
-													<a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Out of Stock</a>
-												@endif
+						@if(count($product) < 1) 
+							<div class='alert alert-danger text-center'>Products are not available !</div>
+						@else
+							@foreach($product as $prod)	
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="{{asset('storage/'.$prod->ProductImage->first()->product_image)}}" class="imgsize" alt="" />
+												<h2>${{$prod->price}}</h2>
+												<p>{{$prod->product_name}}</p>
+												<!-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
 											</div>
-										</div>
-								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-									@if (Auth::user())  
-										<li><a href="{{ route('wishlist.add',$prod->id) }}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-									@else
-									<li><a href="{{ route('userlogin') }}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-									@endif
+											<div class="product-overlay">
+												<div class="overlay-content">
+												<h2>${{$prod->price}}</h2>
+												<p>{{$prod->product_name}}</p>
+													<a href="{{ route('product-details', ['id'=>$prod->id] ) }}" class="btn btn-default add-to-cart"></i>View Product</a>
+													@if($prod->quantity >=1)
+														<a href="{{ route('cart.add',$prod->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													@else
+														<a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Out of Stock</a>
+													@endif
+												</div>
+											</div>
+									</div>
+									<div class="choose">
+										<ul class="nav nav-pills nav-justified">
+										@if (Auth::user())  
+											<li><a href="{{ route('wishlist.add',$prod->id) }}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										@else
+										<li><a href="{{ route('userlogin') }}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										@endif
 
-									@if($prod->quantity < 1)
-										<li><a href="#"><i class="fa fa-plus-square"></i>Out Of stock</a></li>
-									@endif
-									</ul>
+										@if($prod->quantity < 1)
+											<li><a href="#"><i class="fa fa-plus-square"></i>Out Of stock</a></li>
+										@endif
+										</ul>
+									</div>
 								</div>
 							</div>
-						</div>
-						@endforeach
+							@endforeach
+						@endif
 					</div><!--features_items-->
 					
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
-								@foreach($randomsubcategory as $mcat)
-								<li class="{{ $loop->first ? 'active' : '' }}" value="{{$mcat->id}}" id="subcategories{{$loop->iteration}}"><a href="" name="{{$mcat->id}}"  id="subcategories" data-toggle="tab" onClick="getproducts({{$mcat->id}})"; >{{$mcat->category_name}}</a></li>
-								
-								@endforeach
-								
+								@if(count($randomsubcategory) < 1)
+									<div class='alert alert-danger text-center'>Categories are not available !</div>	
+								@else
+									@foreach($randomsubcategory as $mcat)
+									<li class="{{ $loop->first ? 'active' : '' }}" value="{{$mcat->id}}" id="subcategories{{$loop->iteration}}"><a href="" name="{{$mcat->id}}"  id="subcategories" data-toggle="tab" onClick="getproducts({{$mcat->id}})"; >{{$mcat->category_name}}</a></li>
+									
+									@endforeach
+								@endif
 							</ul>
 						</div>
 						<div class="tab-content">

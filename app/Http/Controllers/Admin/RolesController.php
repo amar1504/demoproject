@@ -97,13 +97,16 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        $cnt=User::where('roles','=',$role)->count();
+        
+        $cnt=User::where('roles','=',$role->id)->count();
         if($cnt==0){
+            //dd('not found');
             $role->delete();
             return redirect('admin/roles')->with('flash_message', 'Role deleted!');
         }
         else{
-            return redirect('admin/roles')->with('flash_message', 'Role cannot be deleted!');
+            //dd('found');
+            return redirect('admin/roles')->with('flash_message', 'You can\'t delete this role because it is already assigned !');
         }
     }
 }

@@ -25,16 +25,17 @@ class UsersController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 5;
-
+        $role=Role::where('role_name','=','customer')->first();
         if (!empty($keyword)) {
-            $users = User::where('firstname', 'LIKE', "%$keyword%")
+            $users = User::where('roles','!=',$role->id)
+                    ->where('firstname', 'LIKE', "%$keyword%")
                     ->orWhere('lastname', 'LIKE', "%$keyword%")
                     ->orWhere('email', 'LIKE', "%$keyword%")
                     ->orWhere('roles', 'LIKE', "%$keyword%")
                     ->latest()->paginate($perPage);
         } else {
-        
             $users = User::with('userRole')
+                    ->where('roles','!=',$role->id)
                     ->latest()
                     ->paginate($perPage);
 
@@ -52,10 +53,12 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = DB::table('roles')->get();
+        $roles = DB::table('roles')->where('role_name','!=','customer')->get();
 
         return view('admin.users.create',['roles'=>$roles]);
     }
+
+   
 
     /**
      * Store a newly created resource in storage.
@@ -96,6 +99,37 @@ class UsersController extends Controller
 
     }
 
+
+    /**
+     * store  new customer details 
+     */
+    public function storeCustomer(StoreUser $request){
+        $requestData = $request->all();
+        if ($request->hasFile('image')) {
+            $requestData['image'] = $request->file('image')
+                            ->store('users', 'public');
+        }
+        else{
+            $requestData['image']="";
+        }
+        $requestData['password']=bcrypt($request->password);
+        $user=User::create($requestData);
+        $role=Role::findOrFail($user->roles);
+        if ($role->role_name == 'customer') {
+            $userRegisterData['email']=$request->email;
+            $userRegisterData['password']=$request->password;
+            $userRegisterData['flag']='cutomer registaion';
+            Mail::to($request->email)->send(new Mailtrap($userRegisterData));
+            $adminRegisterData['email']=$request->email;
+            $adminRegisterData['flag']='cutomer registaion for admin';
+            $roleAdmin=Role::where('role_name','=','superadmin')->first();
+            $adminUser=User::where('roles','=',$roleAdmin->id)->first();
+            Mail::to($adminUser->email)->send(new Mailtrap($adminRegisterData));
+
+            return redirect()->route('userlogin')->with('flash_message', 'Your account created successfully !');            
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -120,7 +154,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = DB::table('roles')->get();
+        $roles = DB::table('roles')->where('role_name','!=','customer')->get();
         return view('admin.users.edit', compact('user'),['roles'=>$roles]);
     }
 
@@ -155,7 +189,25 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect('admin/users')->with('flash_message', 'User deleted!');
+        $userRole=Role::whereId(Auth::User()->roles)->first();
+       // dd($userRole);
+        if($userRole->role_name=="superadmin")
+        {   
+            $role=Role::whereId($user->roles)->first();
+            if($role->role_name=="superadmin"){
+                return redirect('admin/users')->with('flash_message', 'Your Can\'t delete own Profile !');
+            }
+            else{
+                $user->delete();
+                return redirect('admin/users')->with('flash_message', 'User deleted!');
+            }
+            
+        }      
+        else{
+            return redirect('admin/users')->with('flash_message', 'Your Can\'t delete this user !');
+
+        }  
+       
+       
     }
 }

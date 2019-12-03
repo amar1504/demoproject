@@ -31,6 +31,7 @@ class StoreUser extends FormRequest
             'password'=>'required|alpha_num|between:8,12',
             'confirmpassword'=>'required|alpha_num|between:8,12|same:password',
             'image'=>'image|max:2048',
+            'roles'=>'required',
             'status'=>'required',
         ];
         // validation for user form End
@@ -49,6 +50,7 @@ class StoreUser extends FormRequest
             'password.required' => 'Password is required.',
             'confirmpassword.required' => 'Confirm Password is required.',
             'status.required' => 'Status is required.',
+            'roles.required' => 'Role is required.',
         ];
         // validation message for user form end
     }

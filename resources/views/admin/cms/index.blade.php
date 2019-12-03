@@ -31,7 +31,7 @@
                         <div class="col-md-12 col-md-offset-1">
                         <!-- Display flash Message in alert start -->
                         @if (session('flash_message'))
-                            <div class="alert alert-warning">
+                            <div class="alert alert-warning text-center">
                                 {{ session('flash_message') }}
                             </div>
                         @endif
@@ -46,6 +46,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @if(count($cms) < 1)
+                                        <tr>
+                                        <div class="alert alert-danger text-center">
+                                            No Records Found !
+                                        </div>
+                                        </tr>
+                                    @else
+                                    <!--fetch the cms records  -Start -->
                                     @foreach($cms as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -64,6 +72,8 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    <!--fetch the cms records  -End -->
+                                    @endif
                                     </tbody>
                                 </table>
                                 <div class="pagination-wrapper"> {!! $cms->appends(['search' => Request::get('search')])->render() !!} </div>

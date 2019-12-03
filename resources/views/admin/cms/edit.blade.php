@@ -20,7 +20,7 @@
                             {{ method_field('PATCH') }}
                             
                             {{ csrf_field() }}
-
+    
                             @include ('admin.cms.form', ['formMode' => 'edit'])
                             
                         </form>

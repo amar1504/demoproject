@@ -9,6 +9,7 @@ use App\ProductImage;
 use App\ProductCategory;
 use App\Category;
 use App\Http\Requests\ProductValidation;
+use App\Http\Requests\UpdateProdctValidation;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -129,7 +130,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(ProductValidation $request, $id)
+    public function update(UpdateProdctValidation $request, $id)
     {
         $product = Product::findOrFail($id);
         $requestData = $request->all();
@@ -179,7 +180,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::destroy($id);
+        Product::where('id','=',$id)->delete();
         ProductImage::where('product_id','=',$id)->delete();
         ProductCategory::where('product_id','=',$id)->delete();
         return redirect('admin/product')->with('flash_message', 'Product deleted!');

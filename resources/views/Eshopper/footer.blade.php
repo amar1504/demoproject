@@ -6,12 +6,14 @@
 					<div class="col-sm-2">
 						<div class="companyinfo">
 							<h2><span>e</span>-shopper</h2>
-							@foreach($cms as $k=>$c)
-								@if($k==1)
-									{!! $c->description !!}
+							@if(count($cms) >= 1)
+								@foreach($cms as $k=>$c)
+									@if($k==1)
+										{!! $c->description !!}
 
-								@endif
-							@endforeach
+									@endif
+								@endforeach
+							@endif
 						</div>
 					</div>
 					<div class="col-sm-7">
@@ -145,9 +147,9 @@
 								<strong>{{ $message }}</strong>
 						</div>
 						@endif
-							<form action="{{ route('subscribe') }}" method="POST" class="searchform">
+							<form action="{{ route('subscribe') }}" method="POST" class="searchform" data-parsley-validate="">
 								{{ csrf_field() }}
-								<input name="email" id="email" type="email" placeholder="Your email address" required />
+								<input name="email" id="email" type="email" placeholder="Your email address" data-parsley-trigger="change" required />
 								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
 								<p>Get the most recent updates from <br />our site and be updated your self...</p>
 							</form>
@@ -161,11 +163,15 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">@foreach($cms as $c)
-										@if($loop->iteration == 1)
-										{!! $c->description !!}
-										@endif
-										@endforeach</p>
+					<p class="pull-left">
+					@if(count($cms) >= 1)
+						@foreach($cms as $c)
+							@if($loop->iteration == 1)
+							{!! $c->description !!}
+							@endif
+						@endforeach
+					@endif
+					</p>
 					<p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
 				</div>
 			</div>

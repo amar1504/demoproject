@@ -1,6 +1,9 @@
 <div class="left-sidebar">
 	<h2>Category</h2>
 	<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+		@if(count($category) < 1)
+			<div class='alert alert-danger text-center'>No Records Found !</div>
+		@else
 		@foreach($category as $cat)
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -23,6 +26,8 @@
 			</div>
 		</div>
 		@endforeach
+		@endif
+
 		<!--<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title"><a href="#">Kids</a></h4>
@@ -35,9 +40,14 @@
 		<h2>Brands</h2>
 		<div class="brands-name">
 			<ul class="nav nav-pills nav-stacked">
-				@foreach($subcategorycount as $scount)
-				<li><a> <span class="pull-right">({{ count($scount->products) }}) </span>{{ $scount->category_name }}</a></li>
-				@endforeach
+				@if(count($subcategorycount) < 1 )
+					<div class='alert alert-danger text-center'>No Records Found !</div>
+				@else
+					@foreach($subcategorycount as $scount)
+					<li><a> <span class="pull-right">({{ count($scount->products) }}) </span>{{ $scount->category_name }}</a></li>
+					@endforeach
+				
+				@endif
 				
 			</ul>
 		</div>

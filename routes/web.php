@@ -22,12 +22,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('logout', 'Auth\LoginController@logout');
 //Route::resource('admin/banner', 'Admin\\BannerController');
 //Route::resource('admin/category', 'Admin\\CategoryController');
-//Route::resource('admin/cms', 'Admin\\cmsController');
+Route::resource('admin/cms', 'Admin\\cmsController');
 //Route::resource('admin/configuration', 'Admin\\ConfigurationController');
 //Route::resource('admin/coupon', 'Admin\\CouponController');
 //Route::resource('admin/product', 'Admin\\ProductController');
+//Route::resource('/address', 'AddressController');
 Route::resource('admin/roles', 'Admin\\RolesController');
 Route::resource('admin/users', 'Admin\\UsersController');
+Route::post('eshopper/customer','Admin\\UsersController@storeCustomer')->name('customer.store');
 
 
 Route::prefix('/admin')->group(function(){
@@ -199,12 +201,12 @@ Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
 Route::prefix('/eshopper')->namespace('Eshoppeer\\')->group(function(){
     Route::middleware(['sessionTimeOut'])->group(function () {
     #shipping address Route
-    Route::resource('/address', 'AddressController');
+    
     Route::post('/address', 'AddressController@store')->name('address.store');
     Route::get('/address', 'AddressController@index')->name('address.index');
     Route::get('/address/create', 'AddressController@create')->name('address.create');
     Route::delete('/address/{address}', 'AddressController@destroy')->name('address.destroy');
-    Route::put('/address/{address}', 'AddressController@update')->name('address.update');
+    Route::post('/address/{address}', 'AddressController@update')->name('address.update');
     Route::get('/address/{address}', 'AddressController@show')->name('address.show');
     Route::get('/address/{address}/edit', 'AddressController@edit')->name('address.edit');
     });

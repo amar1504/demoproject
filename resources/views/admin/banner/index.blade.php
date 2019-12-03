@@ -37,7 +37,7 @@
                         <div class="col-md-12 col-md-offset-1">
                         <!-- Display flash Message in alert start -->
                         @if (session('flash_message'))
-                            <div class="alert alert-warning">
+                            <div class="alert alert-warning text-center">
                                 {{ session('flash_message') }}
                             </div>
                         @endif
@@ -52,6 +52,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if(count($banner)< 1)
+                                    <tr>
+                                    <div class="alert alert-danger text-center">
+                                        No Records Found !
+                                    </div>
+                                    </tr>
+                                @else
                                 <!-- fetch All banners start-->
                                 @foreach($banner as $item)
                                     <tr>
@@ -76,6 +83,7 @@
                                     </tr>
                                 @endforeach
                                 <!-- fetch All banners start-->
+                                @endif
                                 </tbody>
                             </table>
                             <div class="pagination-wrapper"> {!! $banner->appends(['search' => Request::get('search')])->render() !!} </div>

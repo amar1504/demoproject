@@ -31,6 +31,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if(count($contactList) < 1)
+                                    <tr>
+                                    <div class="alert alert-danger text-center">
+                                        No Records Found !
+                                    </div>
+                                    </tr>
+                                @else
                                 <!-- fetch All conatc us data -start-->
                                 @foreach($contactList as $contact)
                                     <tr>
@@ -50,6 +57,7 @@
                                     </tr>
                                 @endforeach
                                 <!-- fetch All contact us data -end-->
+                                @endif
                                 </tbody>
                             </table>
                             <div class="pagination-wrapper"> {{ $contactList->links() }} </div>

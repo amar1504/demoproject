@@ -42,6 +42,7 @@
 <div class="form-group {{ $errors->has('roles') ? 'has-error' : ''}}">
     <label for="roles" class="control-label">{{ 'Role' }} </label>
     <select name="roles" class="form-control" id="roles" required="" >
+    <option  value=" ">Select</option>
     @foreach($roles as $role)
         <option  value="{{ $role->id }}" @if( isset($user->roles) ?  $user->roles==$role->id : $role->role_name=='customer'){{'selected'}} @else {{''}} @endif >{{  $role->role_name }}</option>
     @endforeach

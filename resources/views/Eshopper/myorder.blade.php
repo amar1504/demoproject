@@ -16,19 +16,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($orders as $item)
-                                        <tr class="text-center">
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->id }}</td>
-                                            <td>{{ $item->created_at}}</td>
-                                            <td>
-                                                
-                                                <a href="{{ route('user.myorderdetails',$item->id) }}" class="btn btn-info" >view Order</a>
-                                                <!-- <a href="{{ route('user.trackorderList',$item->id)}}" class="btn btn-warning" >Track Order</a> -->
-                                                
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    @if(count($orders) < 1 )
+                                        <div class='alert alert-danger text-center'>No Records Found !</div>
+                                    @else
+                                        @foreach($orders as $item)
+                                            <tr class="text-center">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->id }}</td>
+                                                <td>{{ $item->created_at}}</td>
+                                                <td>                                                
+                                                    <a href="{{ route('user.myorderdetails',$item->id) }}" class="btn btn-info" >view Order</a>
+                                                    <!-- <a href="{{ route('user.trackorderList',$item->id)}}" class="btn btn-warning" >Track Order</a> -->
+                                                    
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
                                 <div class="pagination-wrapper"> {{ $orders->links() }} </div>

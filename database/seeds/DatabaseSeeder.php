@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         for ($i=0; $i < 5; $i++) { 
             DB::table('roles')->insert([
                 'role_name' => $role[$i],
+                'status' => '1',
                 'created_at'=>date("Y-m-d H:i:s"),
                 'updated_at'=>date("Y-m-d H:i:s"),
             ]);
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'email' =>'kharwadeamar@gmail.com',
             'password' =>bcrypt('admin123'),
             'roles'=>1,
-            'status'=>'0',
+            'status'=>'1',
             'image'=>'',
             'created_at'=>date("Y-m-d H:i:s"),
             'updated_at'=>date("Y-m-d H:i:s"),

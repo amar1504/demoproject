@@ -31,6 +31,7 @@ class updateUser extends FormRequest
             //'password'=>'alpha_num|between:8,12',
             //'confirmpassword'=>'alpha_num|between:8,12|same:password',
             'image'=>'image|max:2048',
+            'roles'=>'required',
             'status'=>'required',
         ];
         // validation for user form End
@@ -47,6 +48,7 @@ class updateUser extends FormRequest
             'firstname.required' => 'First name is required.',
             'lastname.required' => 'Last name is required.',
             'email.required' => 'Email is required.',
+            'roles.required' => 'Role is required.',
             'status.required' => 'Status is required.',
         ];
         // validation message for user form end

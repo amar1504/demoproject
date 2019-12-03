@@ -27,9 +27,9 @@ class SessionTimeoutMiddleware
      */
     public function handle($request, Closure $next)
     {
-      
-       if(!Auth::user()){
-            $userId=Cookie::get('user_id');
+        $userId=Cookie::get('user_id');
+       if(!Auth::user() && $userId!=""){
+            
             $user=User::whereId($userId)->first();
             $role=Role::findOrFail($user->roles);
             if($role->role_name=="customer"){

@@ -18,7 +18,7 @@
                         @endif-->
 
                         <form method="POST" action="{{ route('configuration.update', $configuration->id) }}" data-parsley-validate="" accept-charset="UTF-8"  enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                           
                             {{ csrf_field() }}
 
                             @include ('admin.configuration.form', ['formMode' => 'edit'])

@@ -46,8 +46,15 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
+						<!-- Display flash Message in alert start -->
+						@if (session('flash_message'))
+								<div class="alert alert-info text-center">
+									{{ session('flash_message') }}
+								</div>
+						@endif
+						<!-- Display flash Message in alert End -->
 						<h2>New User Signup!</h2>
-						<form method="POST" action="{{ url('/admin/users') }}" accept-charset="UTF-8"  enctype="multipart/form-data">
+						<form method="POST" action="{{ route('customer.store') }}" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
 
