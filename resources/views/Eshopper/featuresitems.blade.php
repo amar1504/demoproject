@@ -47,18 +47,18 @@
 					</div><!--features_items-->
 					
 					<div class="category-tab"><!--category-tab-->
-						<div class="col-sm-12">
-							<ul class="nav nav-tabs">
-								@if(count($randomsubcategory) < 1)
-									<div class='alert alert-danger text-center'>Categories are not available !</div>	
-								@else
+						@if(count($randomsubcategory) < 1)
+							<div class='alert alert-danger text-center'>Categories are not available !</div>	
+						@else
+							<div class="col-sm-12">						
+								<ul class="nav nav-tabs">				
 									@foreach($randomsubcategory as $mcat)
 									<li class="{{ $loop->first ? 'active' : '' }}" value="{{$mcat->id}}" id="subcategories{{$loop->iteration}}"><a href="" name="{{$mcat->id}}"  id="subcategories" data-toggle="tab" onClick="getproducts({{$mcat->id}})"; >{{$mcat->category_name}}</a></li>
 									
-									@endforeach
-								@endif
-							</ul>
-						</div>
+									@endforeach								
+								</ul>
+							</div>
+						@endif
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="tshirt" >
 								<div class="col-sm-3">

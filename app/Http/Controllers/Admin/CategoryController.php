@@ -91,9 +91,8 @@ class CategoryController extends Controller
      * @return \Illuminate\View\View
      */
     public function edit(Category $category)
-    {
-        $parentCategory=Category::where('parent_id','=',0)->get();
-      
+    {   
+        $parentCategory=Category::where('parent_id','=',0)->where('id','!=',$category->id)->get();
         return view('admin.category.edit', compact('category'),['parentCategory'=>$parentCategory]);
     }
 

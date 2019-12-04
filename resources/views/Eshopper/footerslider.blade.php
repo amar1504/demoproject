@@ -1,12 +1,12 @@
 
 <div class="recommended_items"><!--recommended_items-->
 	<h2 class="title text-center">recommended items</h2>
-	
+	@if(count($recommendedproduct) < 1)
+		<div class='alert alert-danger text-center'>Items are not available !</div>
+	@else
 	<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
-			@if(count($recommendedproduct) < 1)
-				<div class='alert alert-danger text-center'>Items are not available !</div>
-			@else
+			
 				@foreach($recommendedproduct as $rproduct)
 					<div class="item {{ $loop->first ? 'active' : '' }}">
 					@foreach($rproduct as $item) 
@@ -31,7 +31,7 @@
 					@endforeach
 					</div>
 				@endforeach
-			@endif
+			
 		</div>
 			<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 			<i class="fa fa-angle-left"></i>
@@ -40,7 +40,7 @@
 			<i class="fa fa-angle-right"></i>
 			</a>			
 	</div>
-
+	@endif
 
 
 </div><!--/recommended_items-->

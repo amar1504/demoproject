@@ -48,7 +48,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Name</th><th>Value</th><th>Title</th><th>Status</th><th>Actions</th>
+                                        <th>#</th><th>Name</th><th>Value</th><th>Title</th><th>Status</th><th class="col-md-3">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

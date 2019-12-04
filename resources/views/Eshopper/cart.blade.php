@@ -73,8 +73,9 @@
 	<section id="do_action">
 		<div class="container">
 			<div class="heading">
-				{!! $cmsCart->description !!}
-				
+				@if(isset($cmsCart->description) && $cmsCart->description!="" && $cmsCart->description!=null)
+					{!! $cmsCart->description !!}
+				@endif
 			</div>
 			<div class="row">
 				<div class="col-sm-6">

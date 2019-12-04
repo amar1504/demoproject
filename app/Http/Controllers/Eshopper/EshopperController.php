@@ -64,10 +64,16 @@ class EshopperController extends Controller
             $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
   
         }
-        else{
+        else if(count($recommendedproduct) >=1){
             $recommendedproductCount=count($recommendedproduct);
             $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), $recommendedproductCount);
    
+        }
+        else{
+            $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')
+                                ->where([['status','=','1']])
+                                ->orderBy('id','DESC')
+                                ->get();
         }
        // dd($recommendedproduct);
 
@@ -145,10 +151,16 @@ class EshopperController extends Controller
         $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
 
         }
+        else if(count($recommendedproduct) >=1){
+            $recommendedproductCount=count($recommendedproduct);
+            $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), $recommendedproductCount);
+   
+        }
         else{
-        $recommendedproductCount=count($recommendedproduct);
-        $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), $recommendedproductCount);
-
+            $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')
+                                ->where([['status','=','1']])
+                                ->orderBy('id','DESC')
+                                ->get();
         }
         // dd($recommendedproduct);
 
@@ -174,7 +186,8 @@ class EshopperController extends Controller
      */
     public function forgotPasswordview()
     {
-        return view('Eshopper/forgotpassword');
+        $cms=CMS::where('type','=','footer')->get();
+        return view('Eshopper/forgotpassword',['cms'=>$cms]);
     } 
 
     /**
@@ -183,17 +196,26 @@ class EshopperController extends Controller
     public function forgotpassword(Request $request)
     {
         //echo $request->email; 
-        $password=str_random(8,12);
-        $data=array(
-            'email'=>$request->email,
-            'password'=> $password
-        );
-        Mail::to($request->email)->send(new Mailtrap($data));
- 
-        $updatePassword=User::where('email','=',$request->email)
-                            ->update(['password'=>bcrypt($password)]);
+        $user=User::with('userRole')->where('email','=',$request->email)->first();
+        
+        if(count($user) >= 1 && $user->userRole->role_name=="customer")
+        {
+            $password=str_random(8,12);
+            $data=array(
+                'email'=>$request->email,
+                'password'=> $password
+            );
+            $data['flag']='forgot password';
+            Mail::to($request->email)->send(new Mailtrap($data));
+    
+            $updatePassword=User::where('email','=',$request->email)
+                                ->update(['password'=>bcrypt($password)]);
 
-        return redirect('eshopper/forgotpassword')->with('flash_message', 'We will shortly notify you by mail. Thank You -Eshopper !');
+            return redirect('eshopper/forgotpassword')->with('flash_message', 'We will shortly notify you by mail. Thank You -Eshopper !');
+        }else{
+            return redirect('eshopper/forgotpassword')->with('flash_message', 'Email doesnot exist !');
+
+        }
     }
 
     /**
@@ -223,11 +245,16 @@ class EshopperController extends Controller
         {
         $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), 3);
 
+        } else if(count($recommendedproduct) >=1){
+            $recommendedproductCount=count($recommendedproduct);
+            $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), $recommendedproductCount);
+   
         }
         else{
-        $recommendedproductCount=count($recommendedproduct);
-        $recommendedproduct=$recommendedproduct=array_chunk($recommendedproduct->toArray(), $recommendedproductCount);
-
+            $recommendedproduct=Product::with('ProductCategory','ProductCategory.Category','ProductImage')
+                                ->where([['status','=','1']])
+                                ->orderBy('id','DESC')
+                                ->get();
         }
         // dd($recommendedproduct);
 

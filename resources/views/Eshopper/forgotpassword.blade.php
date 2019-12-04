@@ -9,7 +9,7 @@
 											
 						<!-- Display flash Message in alert start -->
 						@if (session('flash_message'))
-							<div class="alert alert-warning">
+							<div class="alert alert-danger">
 								{{ session('flash_message') }}
 							</div>
 						<!-- Display flash Message in alert End -->

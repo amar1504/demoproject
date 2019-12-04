@@ -2,17 +2,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							@if(count($banner) >= 1)
+					@if(count($banner) >= 1)
+						<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+							<ol class="carousel-indicators">								
 								@foreach($banner as $ban)
 								<li data-target="#slider-carousel" data-slide-to="{{$loop->index}}" class="{{ $loop->first ? 'active' : '' }}"></li>
-								@endforeach
-							@endif
-						</ol>
-						
-						<div class="carousel-inner">
-							@if(count($banner) >= 1)
+								@endforeach								
+							</ol>
+							
+							<div class="carousel-inner">								
 								@foreach($banner as $ban)
 								<div class="item {{ $loop->first ? 'active' : '' }}">
 									<div class="col-sm-6">
@@ -26,18 +24,17 @@
 										<img src="{{ asset('Eshopper/images/home/pricing.png')}}"  class="pricing" alt="" />
 									</div>
 								</div>
-								@endforeach
-							@endif
+								@endforeach								
+							</div>
+							
+							<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+								<i class="fa fa-angle-left"></i>
+							</a>
+							<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+								<i class="fa fa-angle-right"></i>
+							</a>
 						</div>
-						
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div>
-					
+					@endif
 				</div>
 			</div>
 		</div>

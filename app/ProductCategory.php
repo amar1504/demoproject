@@ -7,6 +7,7 @@ use App\Product;
 use App\category;
 class ProductCategory extends Model
 {
+ 
     /**
      * The database table used by the model.
      *

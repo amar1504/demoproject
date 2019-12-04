@@ -49,7 +49,9 @@
 							<div class="contact-info">
 								<h2 class="title text-center">Contact Info</h2>
 								<address>
-									{!! $cmsContact->description !!}
+									@if(isset($cmsContact->description) && $cmsContact->description!="" && $cmsContact->description!=null) 
+										{!! $cmsContact->description !!}
+									@endif
 								</address>
 								<div class="social-networks">
 									<h2 class="title text-center">Social Networking</h2>
