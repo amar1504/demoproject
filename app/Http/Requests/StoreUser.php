@@ -28,7 +28,7 @@ class StoreUser extends FormRequest
             'firstname'=>'required|alpha',
             'lastname'=>'required|alpha',
             'email'=>'required|email|unique:users',
-            'password'=>'required|alpha_num|between:8,12',
+            'password'=>'required|between:8,12|regex:([a-zA-Z]+[0-9]+[a-zA-Z0-9]*)',
             'confirmpassword'=>'required|alpha_num|between:8,12|same:password',
             'image'=>'image|max:2048',
             'roles'=>'required',

@@ -15,13 +15,13 @@
 </div>
 <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
     <label for="password" class="control-label">{{ 'Password' }} @if( !isset($user)) {!! '<font color="red">*</font>' !!} @endif</label>
-    <input class="form-control" name="password" type="password" id="password" value="{{old('password')}}" data-parsley-length="[8, 12]" @if( !isset($user)) {{ "required=true" }} @endif >
+    <input class="form-control" name="password" type="password" id="password" value="{{old('password')}}" data-parsley-pattern-message="Password Should be Alphanumeric." data-parsley-pattern="[a-zA-Z]+[0-9]+[a-zA-Z0-9]*" data-parsley-length="[8, 12]" @if( !isset($user)) {{ "required=true" }} @endif >
     {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group {{ $errors->has('confirmpassword') ? 'has-error' : ''}}">
     <label for="confirm password" class="control-label">{{ 'Confirm Password' }} @if( !isset($user)) {!! '<font color="red">*</font>' !!} @endif</label>
-    <input class="form-control" name="confirmpassword" type="password" id="confirmpassword" value="{{old('confirmpassword')}}" data-parsley-equalto="#password"  @if( !isset($user)) {{ "required=true" }} @endif >
+    <input class="form-control" name="confirmpassword" type="password" id="confirmpassword" value="{{old('confirmpassword')}}"  data-parsley-pattern-message="Password Should be Alphanumeric." data-parsley-pattern="[a-zA-Z]+[0-9]+[a-zA-Z0-9]*" data-parsley-equalto="#password"  @if( !isset($user)) {{ "required=true" }} @endif >
     {!! $errors->first('confirmpassword', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">

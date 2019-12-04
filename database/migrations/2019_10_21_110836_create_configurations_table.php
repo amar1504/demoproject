@@ -13,13 +13,12 @@ class CreateConfigurationsTable extends Migration
     public function up()
     {
         Schema::create('configurations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->string('from')->nullable();
-            $table->string('subject')->nullable();
-            $table->string('body')->nullable();
+            $table->increments('id');     
+            $table->string('name')->nullable();
+            $table->string('value')->nullable();
             $table->string('notification_title')->nullable();
             $table->string('status')->nullable();
+            $table->timestamps();
             });
     }
 

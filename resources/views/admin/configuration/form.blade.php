@@ -1,22 +1,17 @@
-<div class="form-group {{ $errors->has('from') ? 'has-error' : ''}}">
-    <label for="from" class="control-label">{{ 'From' }} <font color="red">*</font></label>
-    <input class="form-control" name="from" type="text" id="from" value="{{ isset($configuration->from) ? $configuration->from : old('from')}}" data-parsley-type="email" required="" >
-    {!! $errors->first('from', '<p class="help-block">:message</p>') !!}
+<div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+    <label for="name" class="control-label">{{ 'Name' }} <font color="red">*</font></label>
+    <input class="form-control" name="name" type="text" id="name" value="{{ isset($configuration->name) ? $configuration->name : old('name')}}" required="" >
+    {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group {{ $errors->has('subject') ? 'has-error' : ''}}">
-    <label for="subject" class="control-label">{{ 'Subject' }} <font color="red">*</font></label>
-    <input class="form-control" name="subject" type="text" id="subject" value="{{ isset($configuration->subject) ? $configuration->subject : old('subject')}}" required="" >
-    {!! $errors->first('subject', '<p class="help-block">:message</p>') !!}
+<div class="form-group {{ $errors->has('value') ? 'has-error' : ''}}">
+    <label for="value" class="control-label">{{ 'Value' }} <font color="red">*</font></label>
+    <input class="form-control" name="value" type="text" id="value" value="{{ isset($configuration->value) ? $configuration->value : old('value')}}" required="">
+    {!! $errors->first('value', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group {{ $errors->has('body') ? 'has-error' : ''}}">
-    <label for="body" class="control-label">{{ 'Body' }} <font color="red">*</font></label>
-    <input class="form-control" name="body" type="text" id="body" value="{{ isset($configuration->body) ? $configuration->body : old('body')}}" required="">
-    {!! $errors->first('body', '<p class="help-block">:message</p>') !!}
-</div>
-<div class="form-group {{ $errors->has('notification_title') ? 'has-error' : ''}}">
-    <label for="notification_title" class="control-label">{{ 'Notification Title' }} <font color="red">*</font></label>
-    <input class="form-control" name="notification_title" type="text" id="notification_title" value="{{ isset($configuration->notification_title) ? $configuration->notification_title : old('notification_title')}}" required="">
-    {!! $errors->first('notification_title', '<p class="help-block">:message</p>') !!}
+<div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
+    <label for="title" class="control-label">{{ 'Title' }} <font color="red">*</font></label>
+    <input class="form-control" name="title" type="text" id="title" value="{{ isset($configuration->title) ? $configuration->title : old('title')}}" required="">
+    {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
     <label for="status" class="control-label">{{ 'Status' }} <font color="red">*</font></label>

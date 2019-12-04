@@ -25,10 +25,9 @@ class ConfigurationManagementValidation extends FormRequest
     {
         // validation for configuration form start
         return [
-            'from'=>'required|email',
-            'subject'=>'required',
-            'body'=>'required',
-            'notification_title'=>'required',
+            'name'=>'required',
+            'value'=>'required',
+            'title'=>'required',
             'status'=>'required'
         ];
         // validation for configuration form end
@@ -42,10 +41,9 @@ class ConfigurationManagementValidation extends FormRequest
     {
         // validation message for configuration form start
         return [
-            'from.required' => 'From is required.',
-            'subject.required' => 'Subject is required.',
-            'body.required' => 'Body is required.',
-            'notification_title.required' => 'Notification is required.',
+            'name.required' => 'Name is required.',
+            'value.required' => 'Value is required.',
+            'title.required' => 'Title is required.',
             'status.required' => 'Status is required.',
         ];
         // validation message for configuration form end

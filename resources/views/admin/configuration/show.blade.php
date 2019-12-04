@@ -32,7 +32,9 @@
                                     <tr>
                                         <th>ID</th><td>{{ $configuration->id }}</td>
                                     </tr>
-                                    <tr><th> From </th><td> {{ $configuration->from }} </td></tr><tr><th> Subject </th><td> {{ $configuration->subject }} </td></tr><tr><th> Body </th><td> {{ $configuration->body }} </td></tr>
+                                    <tr><th> Name </th><td> {{ $configuration->name }} </td></tr>
+                                    <tr><th> Value </th><td> {{ $configuration->value }} </td></tr>
+                                    <tr><th> Title </th><td> {{ $configuration->title }} </td></tr>
                                     <tr><th>status</th><td>@if($configuration->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td><tr>
                                     <!-- fetch the configuration detail End-->
                                 </tbody>

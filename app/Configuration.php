@@ -25,6 +25,6 @@ class Configuration extends Model
      *
      * @var array
      */ 
-    protected $fillable = ['from', 'subject', 'body', 'notification_title', 'status']; //fillable fields in configuration 
+    protected $fillable = ['name', 'value', 'title', 'status']; //fillable fields in configuration 
     
 }

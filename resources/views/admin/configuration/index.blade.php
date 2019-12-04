@@ -48,7 +48,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>From</th><th>Subject</th><th>Body</th><th>Status</th><th>Actions</th>
+                                        <th>#</th><th>Name</th><th>Value</th><th>Title</th><th>Status</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,7 +63,7 @@
                                 @foreach($configuration as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->from }}</td><td>{{ $item->subject }}</td><td>{{ $item->body }}</td>
+                                        <td>{{ $item->name }}</td><td>{{ $item->value }}</td><td>{{ $item->title }}</td>
                                         <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         <td>
                                         <!--Access Control  according to role start -->
