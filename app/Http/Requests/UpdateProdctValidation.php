@@ -31,6 +31,10 @@ class UpdateProdctValidation extends FormRequest
             'description'=>'required',
             'product_image'=>'max:2048',
             'quantity'=>'required',
+            'quantity'=>'required',
+            'color'=>'required',
+            'size'=>'required',
+            'type'=>'required',
             'status' => 'required',
         ];
         // validation rules for product validation -End
@@ -49,6 +53,9 @@ class UpdateProdctValidation extends FormRequest
             'price.required' => 'Price is required.',
             'description.required' => 'Description is required.',
             'quantity.required' => 'Quantity is required.',
+            'color.required' => 'Colour is required.',
+            'size.required' => 'Size is required.',
+            'type.required' => 'Type is required.',
             'status.required' => 'Status is required.',
             
         ];

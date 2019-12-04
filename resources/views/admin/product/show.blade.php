@@ -36,6 +36,9 @@
                                     <tr><th> Product Name </th><td> {{ $product->product_name }} </td></tr>
                                     <tr><th> Price </th><td> {{ $product->price }} </td></tr>
                                     <tr><th> Product Image </th><td> <img src="{{ asset('/storage/'.$product->ProductImage->first()->product_image) }}" style="width:80px; height:auto;"> </td></tr>
+                                    <tr><th> Color </th>  <td>{{ $product->ProductAttributes->color }}</td></tr>
+                                    <tr><th> Size </th>  <td>{{ $product->ProductAttributes->size }}</td></tr>
+                                    <tr><th> Type </th>  <td>{{ $product->ProductAttributes->type }}</td></tr>
                                     <tr><th> Status </th><td> @if($product->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif </td></tr>
                                     <!-- fetch Product Details End -->
                                 </tbody>

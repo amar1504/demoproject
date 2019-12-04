@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductImage;
 use App\ProductCategory;
+use App\ProductAttributesAssoc;
 use App\Category;
 use App\Http\Requests\ProductValidation;
 use App\Http\Requests\UpdateProdctValidation;
@@ -84,6 +85,7 @@ class ProductController extends Controller
         }    
         // $product=Product::create(['product_name'=>$request->product_name,'price'=>$request->price,'description'=>$request->description]);
         ProductCategory::create(['category_id'=>$request->category_id,'product_id'=>$product->id]);
+        ProductAttributesAssoc::create(['product_id'=>$product->id,'color'=>$request['color'],'size'=>$request['size'],'type'=>$request['type']]);
         
 
         return redirect('admin/product')->with('flash_message', 'Product added!');
@@ -99,7 +101,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
        // $product = Product::findOrFail($id);
-
+        
         return view('admin.product.show', compact('product'));
     }
 
@@ -118,8 +120,9 @@ class ProductController extends Controller
         $productCat = ProductCategory::where('product_id','=',$id)->first();
         $parentcat=Category::where('id','=',$productCat->category_id)->first();
         $product = Product::findOrFail($id);
+        $productAttributes=ProductAttributesAssoc::where('product_id','=',$id)->first();
 
-        return view('admin.product.edit', compact('product'),['category'=>$category,'subcategory'=>$subcategory,'productCategory'=>$productCat, 'parentcat'=>$parentcat]);
+        return view('admin.product.edit', compact('product'),['category'=>$category,'subcategory'=>$subcategory,'productCategory'=>$productCat, 'parentcat'=>$parentcat,'productAttributes'=>$productAttributes]);
     }
 
     /**
@@ -144,6 +147,7 @@ class ProductController extends Controller
         $productImg = ProductImage::where('product_id','=',$id)->first();
         $productImg1 = ProductImage::where('product_id','=',$id)->get();
         $productCat = ProductCategory::where('product_id','=',$id)->first();
+        $productAttributes = ProductAttributesAssoc::where('product_id','=',$id)->first();
 
         $files = $request->file('product_image');
         if ($request->hasFile('product_image')) {
@@ -167,6 +171,7 @@ class ProductController extends Controller
         
         ProductImage::whereId($productImg->id)->update(['product_id'=>$product->id,'product_image'=>$requestData['product_image'] ]);
         ProductCategory::whereId($productCat->id)->update(['category_id'=>$request->category_id,'product_id'=>$product->id]);
+        ProductAttributesAssoc::whereId($productAttributes->id)->update(['color'=>$request['color'],'size'=>$request['size'],'type'=>$request['type'],'product_id'=>$product->id]);
         
         return redirect('admin/product')->with('flash_message', 'Product updated!');
     }
@@ -183,6 +188,7 @@ class ProductController extends Controller
         Product::where('id','=',$id)->delete();
         ProductImage::where('product_id','=',$id)->delete();
         ProductCategory::where('product_id','=',$id)->delete();
+        ProductAttributesAssoc::where('product_id','=',$id)->delete();
         return redirect('admin/product')->with('flash_message', 'Product deleted!');
     }
 

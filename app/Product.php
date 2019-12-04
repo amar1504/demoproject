@@ -55,4 +55,14 @@ class Product extends Model
         return $this->hasMany('App\ProductImage');
 
     }
+
+    /**
+     * Get product Attributes record assocated with product 
+     */
+    public function ProductAttributes() {
+        return $this->hasOne('App\ProductAttributesAssoc' );
+
+    }
+    
+
 }

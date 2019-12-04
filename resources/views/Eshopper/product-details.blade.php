@@ -62,6 +62,9 @@
 									</span>
 									<p><b>Availability:</b> @if($productdetails->quantity <1) {{ 'Out Of Stock' }} @else {{ 'In Stock' }} @endif </p>
 									<p><b>Condition:</b> New</p>
+									<p><b>Colour:</b> {{ $productdetails->ProductAttributes->color }}</p>
+									<p><b>Size:</b> {{ $productdetails->ProductAttributes->size }}</p>
+									<p><b>Type:</b> {{ $productdetails->ProductAttributes->type }}</p>
 									<p><b>Brand:</b> E-SHOPPER</p>
 									<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 								</div><!--/product-information-->

@@ -51,6 +51,27 @@
     <input class="" name="product_image[]" type="file" id="product_image" multiple value="{{ isset($product->product_image) ? $product->product_image : ''}}"  @if( !isset($product)) {{ "required=true" }} @endif data-parsley-max-file-size="2048" >
     {!! $errors->first('product_image', '<p class="help-block">:message</p>') !!}
 </div>
+
+
+<div class="form-group {{ $errors->has('color') ? 'has-error' : ''}}">
+    <label for="color" class="control-label">{{ 'Colour' }} <font color="red">*</font></label>
+    <input class="form-control" name="color" type="text" id="color" value="{{ isset($productAttributes->color) ? $productAttributes->color : old('color')}}"   required="" >
+    {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
+</div>
+
+<div class="form-group {{ $errors->has('size') ? 'has-error' : ''}}">
+    <label for="size" class="control-label">{{ 'Size' }} <font color="red">*</font></label>
+    <input class="form-control" name="size" type="text" id="size" value="{{ isset($productAttributes->size) ? $productAttributes->size : old('size')}}"   required="" >
+    {!! $errors->first('size', '<p class="help-block">:message</p>') !!}
+</div>
+
+
+<div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
+    <label for="type" class="control-label">{{ 'Type' }} <font color="red">*</font></label>
+    <input class="form-control" name="type" type="text" id="type" value="{{ isset($productAttributes->type) ? $productAttributes->type : old('type')}}"   required="" >
+    {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
+</div>
+
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
     <label for="status" class="control-label">{{ 'Status' }} <font color="red">*</font></label>
     <div class="radio">
