@@ -38,7 +38,7 @@ return [
     'google' => [
         'client_id' => '944209589777-o4fnftk3a660iqrqc7vqbop790hm4o8j.apps.googleusercontent.com',
         'client_secret' => '3dUNq5jAZ5o0cnu6SyR55DMe',
-        'redirect' => 'http://127.0.0.1:8000/eshopper',
+        'redirect' => 'http://127.0.0.1:8000/login/google/callback',
     ],
 
 ];

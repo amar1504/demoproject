@@ -20,7 +20,7 @@ class Mailtrap extends Mailable
     public function __construct($data)
     {
         $this->data = $data;
-
+        // dd($data);
     }
 
     /**
@@ -52,8 +52,11 @@ class Mailtrap extends Mailable
         {
             return $this->view('mail/registrationmailadmin')->with('data', $this->data);
         }
-        else{
+        if($this->data['flag']=='cutomer registaion for admin'){
             return $this->view('Eshopper/mailbody')->with('data', $this->data);
+        }
+        else{
+            return $this->view('mail/wishlistmail')->with('data', $this->data);
         }
     }
 }

@@ -89,30 +89,35 @@ class LoginController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+         return Socialite::driver('google')->redirect();
     }
-
+   
     public function handleGoogleCallback()
     {
-        try {
+         try {
             $user = Socialite::driver('google')->user();
-            $finduser = User::where('google_id', $user->id)->first();
-            if($finduser){
-                Auth::login($finduser);
-                return  redirect('/eshopper');   
-            }else{
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'google_id'=> $user->id
-                ]);
-                Auth::login($newUser);
-                return  redirect('/eshopper');   
-            }
-  
         } catch (Exception $e) {
-            return redirect('auth/google');
+            //dd($e);
+            return Redirect('auth/google');
+         }
+    
+        $authUser = $this->findOrCreateUser($user);
+        Auth::login($authUser, true);
+        return redirect()->route('eshopper');
+        
+    }
+    private function findOrCreateUser($googleUser)
+    {
+        if ($authUser = User::where('google_id', $googleUser->id)->first()) {
+            return $authUser;
         }
+        return User::create([
+            'first_name' => $googleUser->name,
+            'email' => $googleUser->email,
+            'google_id' => $googleUser->id,
+            'roles'=>5
+            
+        ]);
     }
 
 }

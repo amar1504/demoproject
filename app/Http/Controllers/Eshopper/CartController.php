@@ -21,6 +21,8 @@ use Auth;
 use App\Mail\Mailtrap;
 use App\Mail\Mailorder;
 use Mail;
+use DB;
+
 class CartController extends Controller
 {
     /**
@@ -109,20 +111,25 @@ class CartController extends Controller
      * function to calculate discount of coupon
      */
     public function coupon(Request $request){
-        $coupon=Coupon::where('code','=',$request->code)->first();
+        $coupon=DB::select('CALL GetCoupon(?)',[$request->code]);
+        //$coupon=Coupon::where('code','=',$request->code)->first();
         if(!$coupon){
             return response()->json(['error_msg'=>'Invalid Coupon']);
         }
+        if($coupon[0]->quantity < 1)
+        {
+            return response()->json(['error_msg'=>'Coupon Expired !']);
 
-        if($coupon->type=="1"){
-            $discount=(Cart::total()*$coupon->discount)/100;
+        }
+        if($coupon[0]->type=="1"){
+            $discount=(Cart::total()*$coupon[0]->discount)/100;
             $discount=number_format($discount,2);
         }
         else{
-            $discount=$coupon->discount;
+            $discount=$coupon[0]->discount;
         }
         
-        return response()->json(['couponid'=>$coupon->id, 'name'=>$request->code,'discount'=>$discount,'total'=>Cart::total()]);
+        return response()->json(['couponid'=>$coupon[0]->id, 'name'=>$request->code,'discount'=>$discount,'total'=>Cart::total()]);
 
     }    
 

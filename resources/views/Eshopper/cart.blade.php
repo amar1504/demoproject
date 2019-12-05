@@ -265,13 +265,13 @@ function applyCoupon(){
 			}
 			// alert("hii");
 			console.log(data.discount);
-			if(data.error_msg =="Invalid Coupon")
+			if(data.error_msg)
 			{
 				$("#coupon_msg").html(`<br/><font color="red">`+data.error_msg+`</font>`);
 				//console.log(data.error_msg);
 			}
 			else{
-				$("#coupon_msg").html(`<br/><font color="red"> Valid Coupon </font>`);
+				$("#coupon_msg").html(`<br/><font color="red">  Coupon Applied. </font>`);
 				$("#discount").html('-$'+data.discount);
 				$("#coupondiscount").val(data.discount);
 				$("#couponid").val(data.couponid);
@@ -300,6 +300,7 @@ function couponCancel(){
 	 //alert(total);	
 	$("#discount").html('-');
 	$("#grandtotal").html(total);
+	$("#coupon_msg").html(`<br/><font color="red">  Coupon Cancelled. </font>`);
 }
 </script>
 

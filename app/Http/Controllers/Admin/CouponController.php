@@ -6,7 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CouponValidation;
 use App\Http\Requests\updateCoupon;
-use DB;
+
 use App\Coupon;
 use Illuminate\Http\Request;
 
@@ -31,7 +31,6 @@ class CouponController extends Controller
                             ->paginate($perPage);
         } else {
             $coupon = Coupon::latest()->paginate($perPage);
-
         }
 
         return view('admin.coupon.index', compact('coupon'));
@@ -57,8 +56,7 @@ class CouponController extends Controller
     public function store(CouponValidation $request)
     {
         $requestData = $request->all();
-        $couponAdd = DB::insert("CALL InsertCoupons('$request->coupon_title','$request->code','$request->description',$request->discount,$request->quantity, $request->type,$request->status)");
-       // Coupon::create($requestData);
+        Coupon::create($requestData);
         return redirect('admin/coupon')->with('flash_message', 'Coupon added!');
     }
 
@@ -97,9 +95,8 @@ class CouponController extends Controller
     public function update(updateCoupon $request, Coupon $coupon)
     {
         $requestData = $request->all();    
-       // $coupon->update($requestData);       
-        $couponUpdate = DB::select('CALL UpdateCoupons(?,?,?,?,?,?,?,?)',[$request->coupon_title,$request->code,$request->description,$request->discount,$request->quantity, $request->type,$request->status,$coupon->id]);
-     
+        $coupon->update($requestData);
+
         return redirect('admin/coupon')->with('flash_message', 'Coupon updated!');
     }
 
@@ -112,8 +109,7 @@ class CouponController extends Controller
      */
     public function destroy(Coupon $coupon)
     {
-        //  $coupon->delete();
-        DB::select('CALL DeleteCoupons(?)',[$coupon->id]);
+        $coupon->delete();
         return redirect('admin/coupon')->with('flash_message', 'Coupon deleted!');
     }
 }

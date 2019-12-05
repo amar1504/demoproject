@@ -13,8 +13,8 @@
 						@endif
 						<!-- Display flash Message in alert End -->
 						<h2>Login to your account</h2>
-						<!-- <a href="{{ url('auth/google') }}" class="btn btn-lg btn-primary btn-block">
-						<strong>Login With Google</strong></a> -->
+						<a href="{{ url('auth/google') }}" class="btn btn-lg btn-primary btn-block">
+						<strong>Login With Google</strong></a>
 						<form method="POST" action="{{ route('login') }}">
 							{{csrf_field()}}
 							<label for="email" class="control-label">{{ 'Email' }} <font color="red">*</font></label>
