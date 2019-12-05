@@ -87,7 +87,7 @@
                                         <p>Orders <i class="fa fa-shopping-cart"></i></p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion ion-bag"></i>
+                                        <i class="fa fa-shopping-cart"></i>
                                     </div>
                                     <a href="#" class="small-box-footer"> Orders <i class="fa fa-shopping-cart"></i></a>
                                 </div>
@@ -103,7 +103,7 @@
                                         <p>Coupons <i class="fa fa-gift "></i></p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion ion-bag"></i>
+                                        <i class="fa fa-gift "></i>
                                     </div>
                                     <a href="#" class="small-box-footer"> Coupons <i class="fa fa-gift "></i></a>
                                 </div>
