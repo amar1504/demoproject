@@ -85,7 +85,7 @@
 								
 								@endif
 								
-								<li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Cart({{ Cart::count() }})</a></li>
+								<li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i><span id="carttotal"> Cart({{ Cart::count() }})</span></a></li>
 								@if (Auth::user())  
 								<!-- <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li> -->
 

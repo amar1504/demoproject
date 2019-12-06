@@ -37,6 +37,7 @@
                                     <tr><th> Description </th><td> {{ $coupon->description }} </td></tr>
                                     <tr><th> Type </th><td> @if($coupon->type ==1) {{ 'Discount'}} @else {{'Amount'}} @endif </td></tr>
                                     <tr><th> @if($coupon->type ==1) {{ 'Discount'}} @else {{'Amount'}} @endif </th><td> {{ $coupon->discount }} </td></tr>
+                                    <tr><th> Quantity </th><td> {{ $coupon->quantity }} </td></tr>
                                     <tr><th>Status</th><td>@if($coupon->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td></tr>
                                     <!-- fetch Coupon Details end-->
                                 </tbody>

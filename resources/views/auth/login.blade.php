@@ -16,6 +16,10 @@
   <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="{{ asset('js/parsley.min.js')}}"></script> <!-- parsley min js -->
+  <link href="{{ asset('css/parsley.css')}}" rel="stylesheet" type="text/css"> <!--parsley css-->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,10 +47,10 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+    <form class="form-horizontal" method="POST" action="{{ route('login') }}" data-parsley-validate="" >
     {{csrf_field()}}
       <div class="form-group has-feedback">
-      <input id="email" type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
+      <input id="email" type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" required="" autofocus>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         @if ($errors->has('email'))
             <span class="help-block">
@@ -56,7 +60,7 @@
 
       </div>
       <div class="form-group has-feedback">
-      <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+      <input id="password" type="password" class="form-control" name="password" placeholder="Password" required="">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         @if ($errors->has('password'))
             <span class="help-block">
@@ -68,7 +72,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+              <!-- <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me -->
 
             </label>
           </div>
@@ -81,17 +85,17 @@
       </div>
     </form>
 
-    <div class="social-auth-links text-center">
+    <!-- <div class="social-auth-links text-center">
       <p>- OR -</p>
       <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
         Facebook</a>
       <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
         Google+</a>
-    </div>
+    </div> -->
     <!-- /.social-auth-links -->
 
-    <a href="{{ route('password.request') }}">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <!-- <a href="{{ route('password.request') }}">I forgot my password</a><br>
+    <a href="register.html" class="text-center">Register a new membership</a> -->
 
   </div>
   <!-- /.login-box-body -->

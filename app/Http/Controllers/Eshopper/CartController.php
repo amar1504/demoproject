@@ -59,8 +59,8 @@ class CartController extends Controller
         $getproduct=Cart::get($rowId);
         //dd($getproduct);
         $productQty=Product::whereId($getproduct->id)->first();
-        if($productQty->quantity ==1){
-            return response()->json(['errormsg'=>'You can\'t increase more quantity. Only one product is left instock']);
+        if($productQty->quantity ==$getproduct->qty){
+            return response()->json(['errormsg'=>'You can\'t increase more quantity. Stock is full']);
         }
 
         Cart::update($rowId, $getproduct->qty+1); // This Will update the quantity

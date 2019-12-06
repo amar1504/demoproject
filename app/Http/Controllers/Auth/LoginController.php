@@ -43,6 +43,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        
         $this->middleware('guest')->except('logout');
     }
 
@@ -94,6 +95,7 @@ class LoginController extends Controller
    
     public function handleGoogleCallback()
     {
+        dd('hii');
          try {
             $user = Socialite::driver('google')->user();
         } catch (Exception $e) {

@@ -13,6 +13,7 @@ use App\Mail\Mailtrap;
 use App\OrderDetails;
 use Mail;
 use App\Http\Requests\OrderStatus; 
+use App\Http\Requests\ContactUsValidation;
 
 class HomeController extends Controller
 {

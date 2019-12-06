@@ -47,7 +47,14 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Category Name</th><th>Product Name</th><th>Product Image</th><th>Price</th><th>Status</th><th>Actions</th>
+                                        <th>#</th>
+                                        <th>Category Name</th>
+                                        <th>Product Name</th>
+                                        <th>Product Image</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,6 +76,7 @@
                                         </td>
                                         <td>{{ $item->product_name }}</td>
                                         <td>{{ $item->price }}</td>
+                                        <td>{{ $item->quantity }}</td>
                                         <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         <td>
                                             <a href="{{ route('product.show',$item->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

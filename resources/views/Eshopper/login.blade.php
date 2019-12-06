@@ -13,8 +13,6 @@
 						@endif
 						<!-- Display flash Message in alert End -->
 						<h2>Login to your account</h2>
-						<a href="{{ url('auth/google') }}" class="btn btn-lg btn-primary btn-block">
-						<strong>Login With Google</strong></a>
 						<form method="POST" action="{{ route('login') }}">
 							{{csrf_field()}}
 							<label for="email" class="control-label">{{ 'Email' }} <font color="red">*</font></label>
@@ -38,6 +36,15 @@
 								<a href="{{ route('forgot.passwordview') }}"> Forgot password ? </a>
 							</span>
 							<button type="submit" class="btn btn-default">Login</button>
+							<hr/>
+							<h4>Login with</h4>
+						<a href="{{ url('auth/google') }}" class="btn btn-lg btn-google btn-block ">
+							<i class="fa fa-google-plus" aria-hidden="true"></i>&emsp;<strong>Login with  Google</strong>
+		
+						</a>
+						<a href="{{ url('auth/facebook') }}" class="btn btn-lg btn-fb btn-block ">
+							<i class="fa fa-facebook-square"  aria-hidden="true"></i>&emsp;<strong> Login with Facebook </strong>
+						</a>  
 						</form>
 					</div><!--/login form-->
 				</div>

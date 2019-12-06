@@ -2623,3 +2623,23 @@ h2.title {
   .red{
     color:red;
   }
+
+.btn-fb{
+	background-color:#3b5998;
+	color:#fff;
+	text-decoration:none;
+}
+.btn-fb:hover{
+	color:#fff;
+}
+
+.btn-google{
+	background-color:#DB4437;;
+	color:#fff;
+	text-decoration:none;
+}
+
+.btn-google:hover{
+	color:#fff;
+}
+

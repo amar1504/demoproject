@@ -52,7 +52,7 @@ class Mailtrap extends Mailable
         {
             return $this->view('mail/registrationmailadmin')->with('data', $this->data);
         }
-        if($this->data['flag']=='cutomer registaion for admin'){
+        if($this->data['flag']=='forgot password'){
             return $this->view('Eshopper/mailbody')->with('data', $this->data);
         }
         else{

@@ -182,6 +182,7 @@ function additems(id, selector){
 				$('#subtotal').text('$'+data.subtotal);
 				$('#tax').text('$'+data.tax);
 				$('#grandtotal').text('$'+data.total);
+				$('#carttotal').html(' Cart('+data.qty+')')
 			}
 		},
 		
@@ -230,6 +231,9 @@ function removeitems(id, selector){
 			$('#subtotal').text('$'+data.subtotal);
 			$('#tax').text('$'+data.tax);
 			$('#grandtotal').text('$'+data.total);
+			$('#carttotal').html(' Cart('+data.qty+')');
+
+
 			}
 		},
 		

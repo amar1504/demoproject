@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TrackOrderValidation;
 use App\Http\Requests\UserProfileValidation;
 use App\Http\Requests\UpdatePasswordValidation;
+use App\Http\Requests\ContactUsValidation;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Product;
@@ -448,7 +449,7 @@ class EshopperController extends Controller
      /**
      * function to store contact us data
      */
-    public function contactUs(Request $request){
+    public function contactUs(ContactUsValidation $request){
        //dd($request->all());
        $contactData['name']=$request->name;
        $contactData['email']=$request->email;

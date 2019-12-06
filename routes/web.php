@@ -145,15 +145,17 @@ Route::any('/getproduct','Eshopper\\EshopperController@featuresItem')->name('get
 Route::get('eshopper', 'Eshopper\\EshopperController@index')->name('eshopper');
 
 Route::prefix('/eshopper')->namespace('Eshopper\\')->group(function(){
-   
-    #Login Route
-    Route::get('/login','EshopperController@userLogin')->name('userlogin');
-    Route::middleware(['sessionTimeOut'])->group(function () {
-    Route::get('/product/{id?}','EshopperController@product')->name('product');
     
     #Eshopper forgot password Route
     Route::get('/forgotpassword/','EshopperController@forgotPasswordview')->name('forgot.passwordview');
     Route::post('/forgot-password/','EshopperController@forgotPassword')->name('forgot.password');
+    
+    #Login Route
+    Route::get('/login','EshopperController@userLogin')->name('userlogin');
+    
+    Route::middleware(['sessionTimeOut'])->group(function () {
+    Route::get('/product/{id?}','EshopperController@product')->name('product');
+    
     Route::get('/product-details/{id?}','EshopperController@productDetails')->name('product-details');
     
     #wishlist
@@ -229,4 +231,9 @@ Route::get('google', function () {
 Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
 
-
+//Facebook Login Route
+Route::get('facebook', function () {
+    return view('facebook');
+});
+Route::get('auth/facebook', 'Auth\FacebookController@redirectToFacebook');
+Route::get('auth/facebook/callback', 'Auth\FacebookController@handleFacebookCallback');

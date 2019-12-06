@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Wishlist</title>
+    <title>order Mail</title>
 
     <style>
         .border{
@@ -49,8 +49,9 @@
         <tr>
             <td style="width:300px; word-wrap:break-word;">
                 <img src="http://localhost:8000/Eshopper/images/home/logo.png">
-                <p><b> Wishlist By Customer</b></p>
-                
+                <p><b> Daily ORDER FROM ESHOPPER.</b></p>
+                <p style="text-align:center;">Once your package ships we will send an email with a link to track your order. Your order summary is below. Thank you again for your business.</p>
+            
             </td>
             <td style="color:grey; font-size:10px;"><p>|<br>|<br>|<br>|<br>|<br>|<br/>|<br>|<br>|<br/>|<br>|<br>|<br>|<br>|<br></p></td>
             <td style="width: 280px; word-wrap:break-word; word-break: break-all;">
@@ -60,25 +61,35 @@
         </tr>
     </table>    
     
-    <table border="1" style="width:100%;  font-size:85%;  border: 1px solid black;  border-collapse: collapse;">
+   
+    <table border="1" style="width:100%;  font-size:85%; border: 1px solid black;  border-collapse: collapse;">
         <thead>
-            <th >Product Id</th>
-            <th >Product Name</th>
-            <th >Product Price</th>
-            <th >Product Image</th>
-           
+            <th class="text-center">#</th>
+            <th class="text-center">Order Id</th>
+            <th class="text-center">User Id</th>
+            <th class="text-center">Transction Mode</th>
+            <th class="text-center">Transction  Id</th>
+            <th class="text-center">Order Date</th>
         </thead>
-        <tbody>
-            <tr>     
-                <td>{{ $data->product_id }}</td>
-                <td>{{ $data->wishlistProduct[0]->product_name }}</td>
-                <td>{{ $data->wishlistProduct[0]->price }}</td>
-                <td><img src="{{ asset('storage/'.$data->ProductImage->first()->product_image) }}" class="imgsm"> </td>
-                
-            </tr>
+        <tbody>    
+        
+        @foreach($data as $order)
+         
+        <tr>
+            <td>{{ $loop->index+1 }}</td>
+            <td>{{ $order->order_id }}</td>
+            <td>{{ $order->user_id }}</td>
+            <td>@if($order->payment_mode==0){{ 'COD' }} @else {{ 'PAYPAL' }} @endif</td>
+            <td>{{ $order->transaction_id }}</td>
+            <td>{{ $order->created_at }}</td>
+
+            
+        </tr>
+        @endforeach
+            
+        
         </tbody>
     </table> 
-   
     
 </body>
 </html>

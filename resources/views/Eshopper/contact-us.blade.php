@@ -29,15 +29,23 @@
 									{{ csrf_field() }}
 									<div class="form-group col-md-6">
 										<input type="text" name="name" class="form-control" required="required" placeholder="Name">
+										{!! $errors->first('name', '<p class="help-block red">:message</p>') !!}
+
 									</div>
 									<div class="form-group col-md-6">
 										<input type="email" name="email" class="form-control" required="required" data-parsley-type="email" placeholder="Email">
+										{!! $errors->first('email', '<p class="help-block red" >:message</p>') !!}
+
 									</div>
 									<div class="form-group col-md-12">
 										<input type="text" name="subject" class="form-control" required="required" placeholder="Subject">
+										{!! $errors->first('subject', '<p class="help-block red">:message</p>') !!}
+										
 									</div>
 									<div class="form-group col-md-12">
 										<textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
+										{!! $errors->first('message', '<p class="help-block red">:message</p>') !!}
+
 									</div>                        
 									<div class="form-group col-md-12">
 										<input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">

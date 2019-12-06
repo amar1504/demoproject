@@ -47,7 +47,13 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Coupon Title</th><th>Code</th><th>Description</th><th>Status</th><th>Actions</th>
+                                        <th>#</th>
+                                        <th>Coupon Title</th>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,7 +68,10 @@
                                 @foreach($coupon as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->coupon_title }}</td><td>{{ $item->code }}</td><td>{{ $item->description }}</td>
+                                        <td>{{ $item->coupon_title }}</td>
+                                        <td>{{ $item->code }}</td>
+                                        <td>{{ $item->description }}</td>
+                                        <td>{{ $item->quantity }}</td>                                    
                                         <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         <td>
                                             <a href="{{ route('coupon.show', $item->id) }}" title="View Coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
