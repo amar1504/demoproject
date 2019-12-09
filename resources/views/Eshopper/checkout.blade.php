@@ -91,7 +91,7 @@
 						<div class="shopper-info order ">
 							
 							<p>To Shipping</p>
-									<label><input type="checkbox" name="sameaddress" id="sameaddress" value="1" onclick="getsameAddress(this.id);"> Shipping to bill address</label>
+									<label class="mt-3 mb-5"><input type="checkbox" name="sameaddress" id="sameaddress" value="1" onclick="getsameAddress(this.id);"> Shipping to bill address</label>
 									<input type="text" name="shippingname" id="shippingcompnayname" placeholder="Company Name" required="">
 									<input type="text" name="shippingaddress1" placeholder="Address 1 *"  id="shippingaddress1" required="">
 									<input type="text" name="shippingaddress2" placeholder="Address 2" id="shippingaddress2">
