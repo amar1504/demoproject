@@ -95,14 +95,14 @@ class LoginController extends Controller
    
     public function handleGoogleCallback()
     {
-        dd('hii');
+        //dd('hii');
          try {
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('google')->stateless()->user();
         } catch (Exception $e) {
             //dd($e);
             return Redirect('auth/google');
          }
-    
+        // dd($user);
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
         return redirect()->route('eshopper');
@@ -110,16 +110,20 @@ class LoginController extends Controller
     }
     private function findOrCreateUser($googleUser)
     {
+        // dd($googleUser->name);
+        $name=explode(' ',$googleUser->name);
         if ($authUser = User::where('google_id', $googleUser->id)->first()) {
             return $authUser;
         }
         return User::create([
-            'first_name' => $googleUser->name,
+            'firstname' => $name[0],
+            'lastname' => $name[1],
             'email' => $googleUser->email,
             'google_id' => $googleUser->id,
             'roles'=>5
             
         ]);
+       
     }
 
 }

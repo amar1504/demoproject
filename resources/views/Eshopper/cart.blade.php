@@ -185,6 +185,12 @@ function additems(id, selector){
 				$('#carttotal').html(' Cart('+data.qty+')')
 			}
 		},
+		error: function(data){
+			console.log(data);
+			$(".alert").show();
+			errormsg='Something went wrong with the server please try again.';
+			$("#cartResponse").html(errormsg);
+		},
 		
 	});
 	
@@ -208,7 +214,6 @@ function removeitems(id, selector){
 		success:function(data) {
 			if(data.errormsg =="You Cannot minimize the quantity")
 			{
-				//alert(data.errormsg);
 				$(".alert").show();
 				$("#cartResponse").html(data.errormsg);
 				//console.log(data.error_msg);
@@ -233,8 +238,13 @@ function removeitems(id, selector){
 			$('#grandtotal').text('$'+data.total);
 			$('#carttotal').html(' Cart('+data.qty+')');
 
-
 			}
+		},
+		error: function(data){
+			//console.log(data);
+			$(".alert").show();
+			errormsg='Something went wrong with the server please try again.';
+			$("#cartResponse").html(errormsg);
 		},
 		
 	});
@@ -251,50 +261,59 @@ function applyCoupon(){
 	
 	
 	code=$("#coupon_code").val();
-	//alert(code);
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-    
-	$.ajax({
-		type:"POST",
-		url:"{{ route('cart.coupon') }}",
-		data:{code:code},
-		success:function(data) {
-			if(data!="")
-			{
-				$('.fa-spin').hide(1000);
+	if(code==""){
+		$('.fa-spin').hide(1000);
+		$("#coupon_msg").html(`<br/><font color="red">  Enter coupon code. </font>`);
+	}
+	else{;
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
-			// alert("hii");
-			console.log(data.discount);
-			if(data.error_msg)
-			{
-				$("#coupon_msg").html(`<br/><font color="red">`+data.error_msg+`</font>`);
-				//console.log(data.error_msg);
-			}
-			else{
-				$("#coupon_msg").html(`<br/><font color="red">  Coupon Applied. </font>`);
-				$("#discount").html('-$'+data.discount);
-				$("#coupondiscount").val(data.discount);
-				$("#couponid").val(data.couponid);
-				if(data.total >= 500){
-					grandtotal=data.total-data.discount;
-					//alert("1: "+grandtotal);
+		});
+		
+		$.ajax({
+			type:"POST",
+			url:"{{ route('cart.coupon') }}",
+			data:{code:code},
+			success:function(data) {
+				if(data!="")
+				{
+					$('.fa-spin').hide(1000);
+				}
+				//console.log(data.discount);
+				if(data.error_msg)
+				{
+					$("#coupon_msg").html(`<br/><font color="red">`+data.error_msg+`</font>`);
+					//console.log(data.error_msg);
 				}
 				else{
-					grandtotal=data.total-data.discount;
-					grandtotal=grandtotal+50;
-					//alert("2: "+grandtotal);
+					$("#coupon_msg").html(`<br/><font color="red">  Coupon Applied. </font>`);
+					$("#discount").html('-$'+data.discount);
+					$("#coupondiscount").val(data.discount);
+					$("#couponid").val(data.couponid);
+					if(data.total >= 500){
+						grandtotal=data.total-data.discount;
+						//alert("1: "+grandtotal);
+					}
+					else{
+						grandtotal=data.total-data.discount;
+						grandtotal=grandtotal+50;
+						//alert("2: "+grandtotal);
+					}
+					
+					$("#grandtotal").html('$'+grandtotal.toFixed(2));
 				}
 				
-				$("#grandtotal").html('$'+grandtotal.toFixed(2));
+			},
+			error: function(data){
+				//console.log(data);
+				$('.fa-spin').hide(1000);
+				$("#coupon_msg").html(`<br/><font color="red">Something went wrong with the server please try again.</font>`);
 			}
 			
-		},
-		
-	});
+		});
+	}
 }
 /**
  * function to remove coupon

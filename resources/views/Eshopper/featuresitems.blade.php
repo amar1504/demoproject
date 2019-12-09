@@ -124,9 +124,9 @@ function getproducts(id)
 			//console.log(data.product);
 			var apppendproduct;
 			for(i=0; i<data.product.length; i++){
-			console.log( data.product[i].product.product_name);
-			console.log( data.product[i].product_images.product_image);
-			console.log( data.product[i].id);
+			//console.log( data.product[i].product.product_name);
+			//console.log( data.product[i].product_images.product_image);
+			//console.log( data.product[i].id);
 
 			let col=`<div class="col-sm-3">
 				<div class="product-image-wrapper">
@@ -150,9 +150,12 @@ function getproducts(id)
 			</div>`;
 			$("#tshirt").append(col);
 
-
 			}
 			//$("#category_id").html(data);
+		},
+		error: function(data){
+			errormsg='Something went wrong with the server please try again.';
+			$("#tshirt").html(`<font color='red'>`+errormsg+`</font>`);
 		},
 		
 	});

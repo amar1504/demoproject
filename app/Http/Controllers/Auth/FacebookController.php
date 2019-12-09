@@ -20,7 +20,6 @@ class FacebookController extends Controller
         return Socialite::driver('facebook')->redirect();
     }
 
-
     /**
      * Create a new controller instance.
      *
@@ -30,25 +29,18 @@ class FacebookController extends Controller
     {
         try {
             $user = Socialite::driver('facebook')->user();
-            $create['name'] = $user->getName();
+            $create['firstname'] = $user->getName();
             $create['email'] = $user->getEmail();
-            $create['google_id'] = $user->getId();
-
+            $create['facebook_id'] = $user->getId();
 
             $userModel = new User;
             $createdUser =User::create($create);
            // Auth::loginUsingId($createdUser->id);
-
-
             return redirect()->route('eshopper');
 
 
         } catch (Exception $e) {
-
-
             return redirect('auth/facebook');
-
-
         }
     }
 }
