@@ -13,7 +13,7 @@
 						@endif
 						<!-- Display flash Message in alert End -->
 						<h2>Login to your account</h2>
-						<form method="POST" action="{{ route('login') }}">
+						<form method="POST" action="{{ route('login') }}" data-parsley-validate="">
 							{{csrf_field()}}
 							<label for="email" class="control-label">{{ 'Email' }} <font color="red">*</font></label>
 							<input id="email" type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
@@ -61,7 +61,7 @@
 						@endif
 						<!-- Display flash Message in alert End -->
 						<h2>New User Signup!</h2>
-						<form method="POST" action="{{ route('customer.store') }}" accept-charset="UTF-8"  enctype="multipart/form-data">
+						<form method="POST" action="{{ route('customer.store') }}" accept-charset="UTF-8" data-parsley-validate="" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
 
