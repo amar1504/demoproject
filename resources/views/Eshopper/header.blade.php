@@ -6,7 +6,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Home | E-Shopper</title>
+	<title>Home | E-Shopper</title>
+	
+	<!-- <link href="{{ asset('css/app.css')}}" rel="stylesheet"> -->
+	
     <link href="{{ asset('Eshopper/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset('Eshopper/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ asset('Eshopper/css/prettyPhoto.css')}}" rel="stylesheet">

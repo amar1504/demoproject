@@ -20,3 +20,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app'
 });
+
+// mix.js('resources/js/app.js', 'public/Eshopper/js')
+//     .sass('resources/sass/app.scss', 'public/Eshopper/css');

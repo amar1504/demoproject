@@ -47,7 +47,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Firstname</th><th>Lastname</th><th>Email</th><th>Role</th>
+                                        <th>id</th><th>Firstname</th><th>Lastname</th><th>Email</th><th>Role</th>
                                         <th>Status</th><th>Actions</th>
                                     </tr>
                                 </thead>
@@ -62,7 +62,7 @@
                                 <!-- fetch All users start-->
                                 @foreach($users as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->id }}</td>
                                         <td>{{ $item->firstname }}</td><td>{{ $item->lastname }}</td><td>{{ $item->email }}</td><td>{{ $item->userRole->role_name }}</td>
                                         <td>@if($item->status==1){{ 'Active' }} @else {{ 'Inactive' }} @endif</td>
                                         <td>

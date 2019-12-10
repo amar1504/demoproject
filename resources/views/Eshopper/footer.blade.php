@@ -186,6 +186,8 @@
 	<script src="{{ asset('Eshopper/js/jquery.scrollUp.min.js')}}"></script>
 	<script src="{{ asset('Eshopper/js/price-range.js')}}"></script>
     <script src="{{ asset('Eshopper/js/jquery.prettyPhoto.js')}}"></script>
-    <script src="{{ asset('Eshopper/js/main.js')}}"></script>
+	<script src="{{ asset('Eshopper/js/main.js')}}"></script>
+	
+    <!-- <script src="{{ asset('js/app.js')}}" type="text/javascript"></script> -->
 </body>
 </html>
