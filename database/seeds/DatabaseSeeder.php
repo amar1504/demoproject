@@ -34,5 +34,19 @@ class DatabaseSeeder extends Seeder
             'updated_at'=>date("Y-m-d H:i:s"),
         ]); 
 
+        DB::table('users')->insert([
+            
+            'firstname' =>'akash',
+            'lastname' =>'more',
+            'email' =>'customer@gmail.com',
+            'password' =>bcrypt('asdf1234'),
+            'roles'=>5,
+            'status'=>'1',
+            'image'=>'',
+            'created_at'=>date("Y-m-d H:i:s"),
+            'updated_at'=>date("Y-m-d H:i:s"),
+        ]); 
+
+
     }
 }
